@@ -87,7 +87,7 @@ Our technocrats are quick to take note of these results as our left wonders why 
 subtitle: -1 resources, our technocrats will appreciate this.
 choose-if: resources >= 1
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; technocrat_dissent -= 2;
+on-arrival: expense_apparatus += 1; technocrat_dissent -= 2;
 
 After a few weeks, the results of the survey are in...
 

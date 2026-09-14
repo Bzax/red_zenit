@@ -686,6 +686,18 @@ em, i {
   font-weight: 300;
 }
 
+.underlined {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.double-underline {
+  text-decoration: underline double;
+  text-decoration-thickness: 1px;
+  text-decoration-color: #876;
+  text-underline-offset: 0.2em;
+}
+
 .centered-note {
   text-align: center;
   margin: 0.5rem 0 1rem;

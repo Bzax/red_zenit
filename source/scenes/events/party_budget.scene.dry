@@ -1,0 +1,423 @@
+title: Budget Scene
+subtitle: A new year
+on-arrival:  resources_transfer = resources; {!
+// see post_event.scene.dry for changes.
+Q.economic_growth += 1;
+!}
+tags: event
+
+For the coming year, [+ year +], we expect to have a budget of <span class="double-underline">[+ total_income +] resouces</span>.
+
++[+ dues +] from our membership dues.
+
++[+ income_lo +] from LO due to our [+ lo_relations : lo_relations+]
+
++[+ income_state +] from the state, due to the results of the last election.
+
+- @what_expenses: How should we spend these?
+
+@what_expenses
+
+At the end of last year we had a total of [+ total_expenses +] resources of expenditure[? if income_other > 0 : , partly funded by extraordinary incomes?].:
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+This left us with [+ resources_transfer +] unused resources that we bring over to the new year.
+
+If we were to not change anything, we would be left with <span class="double-underline">[+ resources + resources_transfer +] resources in surplus</span>
+
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @dont_change_b: lets keep the budget unchanged.
+
+
+@more_newspaper
+on-arrival: {!
+Q.expense_newspaper += 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will allocate one additional resource to the party newspapers.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@more_administration
+on-arrival: {!
+Q.expense_apparatus += 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will allocate one additional resource to the party apparatus.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@more_youth_party
+on-arrival: {!
+Q.expense_dsu += 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will allocate one additional resource to the youth party.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@more_local_chapters
+on-arrival: {!
+Q.expense_local_chapters += 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will allocate one additional resource to the local chapters.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@less_newspaper
+on-arrival: {!
+Q.expense_newspaper -= 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will reduce funding for the party newspapers by one resource.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@less_administration
+on-arrival: {!
+Q.expense_apparatus -= 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will reduce funding for the party apparatus by one resource.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@less_youth_party
+on-arrival: {!
+Q.expense_dsu -= 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will reduce funding for the youth party by one resource.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the new budget.
+
+
+@less_local_chapters
+on-arrival: {!
+Q.expense_local_chapters -= 1;
+!}
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We will reduce funding for the local chapters by one resource.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: Confirm the final budget.
+
+
+@dont_change_b
+
+= **[+ year +] Budget**
+
+Dues: +[+ dues +]
+
+LO: +[+ income_lo +]
+
+State: +[+ income_state +]
+
+[? if income_other > 0 : Other: + [+ income_other +] ?]
+
+<span class="double-underline">Total income: [+ total_income +]</span>
+
+Apparatus: -[+ expense_apparatus +]
+
+Local chapters: -[+ expense_local_chapters +]
+
+Newspapers: -[+ expense_newspaper +]
+
+Youth party: -[+ expense_dsu +]
+
+<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+
+<span class="double-underline">Surplus resources: [+ resources +]</span>
+
+We decide to keep the existing budget unchanged.
+
+- @more_newspaper: Our press should have more funding.
+- @more_administration: Our apparatus should see more funding.
+- @more_youth_party: Our youth party should see more funding.
+- @more_local_chapters: Our local chapters could use more funding.
+- @less_newspaper: The press can survive a cut.
+- @less_administration: Our apparatus has grown too big.
+- @less_youth_party: Our youth party could survive a cut.
+- @less_local_chapters: Our local chapters has to survive on less.
+- @change_b: confirm the final budget.
+
+@change_b
+
+A light applause fills our central committee. Someone wipes their forehead. We have a new budget.

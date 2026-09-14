@@ -27,7 +27,7 @@ title: Propose a joint summer camp with our Nordic sister parties [? if month >=
 subtitle: -1 resources
 choose-if: resources >= 1
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; panscandinavianism += 1; right_worker_strength += 2; left_strength += 2; summercamp = 1
+on-arrival: expense_apparatus -= 1; panscandinavianism += 1; right_worker_strength += 2; left_strength += 2; summercamp = 1
 
 Though expensive, pan-scandinavian summer camps have previously been large successfull and have spread ideas of scandinavianism among our parties. Our younger members especially appreciates this.
 
@@ -37,7 +37,7 @@ view-if: vietnam_relations == 0
 subtitle: -1 resources
 choose-if: resources >= 1
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; vietnam_relations += 1; left_strength += 2;
+on-arrival: expense_apparatus -= 1; vietnam_relations += 1; left_strength += 2;
 
 It takes a few weeks, but through the North Vietnamese embassy in Stockholm we succeed in arranging a meeting representatives of the VCP. Though initially suspicious due to our membership of NATO, the meeting soon turns cordial as we assure them of our intentions. 
 
@@ -60,7 +60,7 @@ title: Fly out to meet with the British labour party, attempting to gain an edge
 subtitle: -1 resources
 choose-if: resources >= 1
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; UK_relations += 1; right_worker_strength += 2; technocrat_strength += 2; technocrat_dissent -= 7;
+on-arrival: expense_apparatus -= 1; UK_relations += 1; right_worker_strength += 2; technocrat_strength += 2; technocrat_dissent -= 7;
 
 Our delegates were able to identify a number of previously overlooked opportunities for cooperation. The meeting concludes successfully, with the groundwork being laid for more fruitful trade agreements in the future. [? if a_in_government == 0 : Being out of government there is little more we can do at the moment, but in the future, w ?][? if a_in_government == 1 : W ?]e should not let this opportunity go to waste. (you can settle actual trade agreements through the foreign ministry)
 
@@ -180,7 +180,7 @@ Do we accept?
 
 @yesyesyes
 title: Yes.
-on-arrival: resources += 1; 
+on-arrival: other_income += 1; 
 subtitle: We gain 1 ressource.
 
 The American president assures us that the arrangements will be made, and he looks forward to our election. The call ends.

@@ -21,6 +21,11 @@ if (Q.socialism < 0) {
 if (Q.socialism >= 100) {
     Q.socialism = 99;
 }
+//party budget
+Q.total_expenses = expense_apparatus + expense_local_chapters + expense_newspaper + expense_dsu;
+Q.total_income = dues + income_lo + income_state + income_other;
+Q.resources = total_income - total_expenses;
+
 // re-calculate party support
 // calculate normalized class voting for the achievements
 for (var c of Q.classes) {
@@ -205,10 +210,6 @@ if ((Q.month_actions >= 1 && !Q.valg) || (Q.month_actions >= 4 && Q.valg)) {
     if (Q.month >= 9) {
         Q.month = 1;
         Q.year += 1;
-        Q.resources += Q.dues;
-        if (Q.dissent_percent < 5) {
-            Q.resources += 1;
-        }
     }
 }
 if (Q.valg && Q.month_actions >= 1) {

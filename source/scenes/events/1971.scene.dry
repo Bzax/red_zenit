@@ -1,0 +1,14 @@
+title: 1971
+subtitle: A new year
+on-arrival: {!
+// see post_event.scene.dry for changes.
+Q.economic_growth += 1;
+!}
+tags: event
+view-if: year = 1972 and month = 1
+priority: 2
+max-visits: 1
+
+A new year begins. The new government seems to be settling in, the economy continues to be strong.
+
+- @party_budget: Time to set our budget!

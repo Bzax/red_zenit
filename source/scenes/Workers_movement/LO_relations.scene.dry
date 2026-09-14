@@ -16,15 +16,17 @@ go-to: unionrelations; unionrelations2 if lo_relations < 50
 
 We are institutionally {!<span class="tooltip-text" title="Our party and the trade union confederation was born as twins, originally united in a single organisation. For practical reasons this unity was dissolved, nonetheless we still appoint two members to their central comittee, and they still appoint two to ours.">welded with LO</span>!}, giving us many opportunities to coordinate our strategy.
 
-- @transfer_funds: Transfer funds.
+LO has provided us with [+ lo_income +] resources this year.
+
+- @transfer_funds: Tell them we wont be needing their entire donation this year.
 - @promise_reform: Promise reform.
 - @discuss_next_election: Plan for the next election.
 - @easy_discard
 
 
 @transfer_funds
-on-arrival: resources -= 1; lo_relations += 7
-subtitle: -1 resources
+on-arrival: income_lo -= 1; lo_relations += 7
+subtitle: -1 resource
 unavailable-subtitle: -1 resources
 
 The LO leadership appreciates this gesture, and promises to make it up to us.
@@ -32,7 +34,7 @@ The LO leadership appreciates this gesture, and promises to make it up to us.
 @promise_reform
 on-arrival: LO_reform_promised = 1; lo_relations += 7
 
-We promised some reforms to the labor market[? if a_in_government = 0 : once in power?]. The LO leadership is pleased
+We promised some reforms to the labor market[? if a_in_government = 0 : once in power?]. The LO leadership is pleased.
 
 @discuss_next_election
 

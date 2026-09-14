@@ -21,11 +21,11 @@ In addition to being a political party, the Social Democrats is a social world o
 - @easy_discard
 
 @newspapers
-choose-if: resources > 0
 unavailable-subtitle: Not enough resources.
 subtitle: -1 resources
-on-arrival: resources -= 1; media_timer = 0;
-go-to: media
+on-arrival: expense_newspaper += 1; media_timer = 0; mediahealth += 4;
+
+We allocate some funds for our media, hopefully they'll convert this well.
 
 # TODO: differing outcomes based on whether you've seen media, and what kind of media you've supported.
 
@@ -34,7 +34,7 @@ go-to: media
 choose-if: resources > 0
 unavailable-subtitle: Not enough resources.
 subtitle: -1 resources
-on-arrival: resources -= 1; workers_aid += 1; prole_a += 2*(efc); homeowner_a += 1.5*(etc); public_prole_a += 2*(etc); unemployed_a += 5*(efc); lo_relations += 5
+on-arrival: expense_apparatus += 1; workers_aid += 1; prole_a += 2*(efc); homeowner_a += 1.5*(etc); public_prole_a += 2*(etc); unemployed_a += 5*(efc); lo_relations += 5
 
 [? if dissent < 0.5 : The fundraising was a success, most of our members were happy to contribute. ?] [? if dissent > 0.5 : Due to many of our members feeling alienated, the fundraising was less effective than usual. ?] [? if dissent > 0.8 : In fact, only a tiny fraction donated. ?] [? if oilcrisis > 0 : In an age of economic crisis, this will be helpful for improving our standing among the unemployed. ?]
 
@@ -42,7 +42,7 @@ on-arrival: resources -= 1; workers_aid += 1; prole_a += 2*(efc); homeowner_a +=
 choose-if: resources > 0
 unavailable-subtitle: Not enough resources.
 subtitle: -1 resources
-on-arrival: resources -= 1; cultural_organizations += 1; left_dissent -= 6; right_worker_dissent -= 6; technocrat_dissent -= 6; right_worker_dissent -= 6; a_activity += 3
+on-arrival: expense_local_chapters += 1; cultural_organizations += 1; left_dissent -= 6; right_worker_dissent -= 6; technocrat_dissent -= 6; right_worker_dissent -= 6; a_activity += 3
 
 Our political party is little without its members, those who tirelessly work to keep our party-movement alive in song and action. However due to daily stresses and competition from the capitalist entertainment sector, only a small amount of our membership is active at any given point. By allocating more money to the budgets of local chapters, we may be able to do something to improve the situation.
 
@@ -52,7 +52,7 @@ Our political party is little without its members, those who tirelessly work to 
 choose-if: resources > 0
 unavailable-subtitle: Not enough resources.
 subtitle: -1 resources
-on-arrival: resources -= 1; memberrise += 2*efc; reichsbanner_timer = 0; funded_reichsbanner += 1
+on-arrival: expense_apparatus += 1; memberrise += 2*efc; reichsbanner_timer = 0; funded_reichsbanner += 1
 
 We have organized a recruitment drive among our traditional audiences. [? if dissent > 0.5 : Due to many of our members feeling alienated, this was met with mixed successes ?]
 
@@ -60,9 +60,9 @@ We have organized a recruitment drive among our traditional audiences. [? if dis
 choose-if: resources > 0
 unavailable-subtitle: Not enough resources.
 subtitle: -1 resources
-on-arrival: resources -= 1; memberrise += 1; a_activity += 6; young_socialists += 1; left_strength += 5; left_dissent -= 5; right_worker_dissent += 3
+on-arrival: expense_dsu += 1; memberrise += 1; a_activity += 6; young_socialists += 1; left_strength += 5; left_dissent -= 5; right_worker_dissent += 3
 
-DSU appreciates our funding and quickly puts most of it to use in a flashy campaign. Towns all over the country are painted red with posters, even if some of our more moderate comrades slightly squirm at their demands.
+DSU appreciates our increased funding and quickly puts most of it to use in a flashy campaign. Towns all over the country are painted red with posters, even if some of our more moderate comrades slightly squirm at their demands.
 
 @nothing
 

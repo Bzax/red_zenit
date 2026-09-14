@@ -42,7 +42,7 @@ The LO leadership is satisfied with our judgement.
 
 
 @really_support_them
-on-arrival: resources -= 1; a_activity -= 0.02; support_lo = 1; lo_relations += 8; worker_income += worker_income * 0.05; economic_growth -= 0.4;
+on-arrival: expense_apparatus += 1; a_activity -= 0.02; support_lo = 1; lo_relations += 8; worker_income += worker_income * 0.05; economic_growth -= 0.4;
 subtitle: - 1 Resource – This will please LO, but it may put pressure on the economy.
 go-to: @unionrelations2 if lo_relations <= 50
 

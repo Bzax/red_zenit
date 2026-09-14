@@ -7,14 +7,14 @@
             "type": "firefox",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}",
-            "runtimeArgs": ["-private-window"]
+            "firefoxArgs": ["-private-window"]
         },
         {
             "type": "firefox",
             "request": "launch",
              "name": "Open index.html",
-            "file": "/Users/henry/Desktop/social_democracy_alternate_history/out/html/index.html",
-            "runtimeArgs": ["-private-window"],
+            "file": "${workspaceFolder}/out/html/index.html",
+            "firefoxArgs": ["-private-window"],
             "preLaunchTask": "Build Dendry Project"
         }
     ]

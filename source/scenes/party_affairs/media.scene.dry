@@ -25,16 +25,19 @@ In spite of the best work of our journalists, our media empire has seen better d
 @commercial
 title: Make our newspapers more commercialized by broadening their appeal beyond politics.
 subtitle: This might upset some purists, but it may bring in funds and perhaps expose the middle class to socialist views.
-on-arrival: resources += 1; commercialized_media += 1; pettyb_a += 3; homeowner_a += 3*(1-globalization); public_homeowner_a += 3*(1-globalization); left_dissent += 10; left_worker_dissent += 5; mediahealth += 4
+on-arrival: expense_newspaper -= 1; commercialized_media += 1; pettyb_a += 3; homeowner_a += 3*(1-globalization); public_homeowner_a += 3*(1-globalization); left_dissent += 10; left_worker_dissent += 5; mediahealth += 6;
 
 *Current media health: [+ mediahealth : mediahealth +]*
 
-Our commercialized newspapers are able to bring in more funds. However, the left and some of the labor factions express their displeasure.
+Our commercialized newspapers are able to be more self-sufficient. However, the left and some of the labor factions express their displeasure.
+
 
 @investigative
-title: We will advance the class struggle by focusing on investigative journalism.
+title: We will advance the class struggle by hiring more investigative journalists.
+choose-if: resources >= 1
 subtitle: This may alienate moderates, but perhaps returning to our roots is the answer?
-on-arrival: investigative_media += 1; prole_a += 7*(globalization); homeowner_a += 4*(globalization); public_prole_a += 5; public_homeowner_a += 1; technocrat_dissent += 8; right_worker_dissent += 5; mediahealth += 10
+unavailable-subtitle: We do not have sufficient resources.
+on-arrival: expense_newspaper += 1; investigative_media += 1; prole_a += 7*(globalization); homeowner_a += 4*(globalization); public_prole_a += 5; public_homeowner_a += 1; technocrat_dissent += 8; right_worker_dissent += 5; mediahealth += 10
 
 *Current media health: [+ mediahealth : mediahealth +]*
 
@@ -65,7 +68,7 @@ subtitle: -2 resources
 choose-if: resources >= 2
 unavailable-subtitle: Not enough resources.
 view-if: radio == 1 and resources >=2
-on-arrival: radio += 1; resources -= 2
+on-arrival: radio += 1; expense_newspaper += 2
 
 After much deliberation we are now ready to launch our radio station! Together with a coalition of trade unions we have decided on the following name and schema...
 

@@ -121,11 +121,6 @@ Q.old_demographics = 0;
 // TODO: not yet implemented
 Q.use_decimals = 1;
 
-// party resources
-Q.resources = 2;
-// party dues
-Q.dues = 2;
-
 // media health is a measure of how succesfull our media is
 
 // the dissent of the party
@@ -140,9 +135,10 @@ Q.mediahealth = 50
 Q.membermonthly = 0.681
 Q.memberrise = 0
 
-
 //Homeownership
-Q.homeownership = 41.2
+Q.homeownership = 41.2;
+
+
 
 //GDP and macroeconomics, source: https://data.worldbank.org/country/denmark
 Q.gdp = 100
@@ -360,6 +356,27 @@ Q.coup_progress = 0;
 Q.capital_strike_progress = 0;
 
 Q.budget = 4;
+
+//party Budget
+
+Q.dues = 4;
+Q.income_lo = 7;
+Q.income_state = 3;
+Q.income_other = 0;
+
+// party expenses
+Q.expense_apparatus = 4;
+Q.expense_local_chapters = 4;
+Q.expense_newspaper = 3;
+Q.expense_dsu = 1;
+
+//surplus and totals
+Q.resources = 2;
+Q.total_expenses = 11;
+Q.total_income = 13;
+
+Q.resources_transfer = Q.resources;
+
 
 // Proportion of different families by socio-economic / class status of main incomeprovider
 // source: 'Vælgerundersøgelsen 1971', 'vælgerundersøgelsen 1975', 'statistisk årsbog 1970' (my calculations can be downloaded from the credits)

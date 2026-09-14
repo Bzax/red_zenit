@@ -26,7 +26,7 @@ on-arrival: socialism += 2; prole_a += 2*efc; homeowner_a -= 2/efc; public_prole
 Our sympathetic stance has led to a cautious opening towards us in the the youth movement. But for a handful of less culturally progressive workers, this coverage has been the final drop.
 
 @condemnation
-on-arrival: socialism -= 1; prole_a -= 1/efc*(0 + globalization); homeowner_a += 3*efc*(0 + globalization); public_prole_a += 0; public_homeowner_a += 3*efc; left_dissent += 4; left_strength -= 5; technocrat_dissent -= 2; right_worker_dissent -= 6; mediahealth += 6
+on-arrival: socialism -= 1; prole_a -= 1/efc*(0 + globalization); homeowner_a += 3*efc*(0 + globalization); public_prole_a += 0; public_homeowner_a += 3*efc; left_dissent += 4; left_strength -= 5; technocrat_dissent -= 2; right_worker_dissent -= 6; mediahealth += 6;
 
 Some worry we may have simply made the right wing talking points hegemonic, but they are probably nudists themselves.
 
