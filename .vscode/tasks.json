@@ -4,8 +4,8 @@
         {
             "label": "Build Dendry Project",
             "type": "shell",
-            "command": "{workspaceFolder}/.nvm/versions/node/v22.20.0/bin/dendrynexus",
-            "args": ["make-html", "--pretty"],
+            "command": "npx",
+            "args": ["dendrynexus", "make-html", "--pretty"],
             "group": {
                 "kind": "build",
                 "isDefault": true

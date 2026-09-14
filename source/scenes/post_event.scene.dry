@@ -22,9 +22,9 @@ if (Q.socialism >= 100) {
     Q.socialism = 99;
 }
 //party budget
-Q.total_expenses = expense_apparatus + expense_local_chapters + expense_newspaper + expense_dsu;
-Q.total_income = dues + income_lo + income_state + income_other;
-Q.resources = total_income - total_expenses;
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income   = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources      = Q.total_income - Q.total_expenses;
 
 // re-calculate party support
 // calculate normalized class voting for the achievements

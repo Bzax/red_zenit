@@ -79,6 +79,7 @@ Next election: No later than [+ next_election_month : month +] [+ next_election_
 @movement
 
 = **Movement**
+// Relations with {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">DKF</span>!}: [+ dkf_relations : dkf_relations +]
 
 **Suborganizations**
 
@@ -86,15 +87,11 @@ Health of {!<span class="tooltip-text" title="Our party runs and operates a plet
 
 Health of {!<span class="tooltip-text" title="DSU, Danish Socialdemocratic Youth.">our Youth Party</span>!}: 
 
-= **Sister Organizations**
+**Sister Organizations**
 
 Relations with {!<span class="tooltip-text" title="The Danish Union movement is highly centralized under the LO ('LandsOrganisationen', the national organization). The unions are the second pillar of the workers movement (we are the first). ">LO</span>!}: [+ lo_relations : lo_relations +]
 
-Union Density: [+ union_density +]%
-
-Relations with {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">DKF</span>!}: [+ dkf_relations : dkf_relations +]
-
-Health of cooperatives: [+ cooperativehealth : cooperativehealth +]
+Health of {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">cooperatives</span>!}: [+ cooperativehealth : cooperativehealth +]
 
 **The Worker-Movements Economic Council**
 
@@ -126,7 +123,7 @@ Newspapers: -[+ expense_newspaper +]
 
 Youth party: -[+ expense_dsu +]
 
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
+<span class="double-underline">Total expenses: -[+ total_expenses +]</span>
 
 <span class="double-underline">Surplus resources: [+ resources +]</span>
 

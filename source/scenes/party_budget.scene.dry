@@ -1,32 +1,36 @@
 title: Budget Scene
 subtitle: A new year
 on-arrival:  resources_transfer = resources; {!
-// see post_event.scene.dry for changes.
+var last_result = Number(Q.a_vote);
+if (!Number.isFinite(last_result)) last_result = Number(Q.a_r) || 0;
+Q.income_state = Math.floor(last_result / 10);
+
+// LO's contribution scales with the relationship to the unions.
+Q.income_lo = Math.max(0, Math.min(10, Math.floor(Q.lo_relations / 9)));
 Q.economic_growth += 1;
 !}
-tags: event
 
-For the coming year, [+ year +], we expect to have a budget of <span class="double-underline">[+ total_income +] resouces</span>.
+For the coming year, [+ year +], we expect to have an income of <span class="double-underline">[+ total_income +] resouces</span>.
 
-+[+ dues +] from our membership dues.
+*+[+ dues +] resources from our membership dues.*
 
-+[+ income_lo +] from LO due to our [+ lo_relations : lo_relations+]
+*+[+ income_lo +] resources from LO due to our [+ lo_relations : lo_relations+]*
 
-+[+ income_state +] from the state, due to the results of the last election.
+*+[+ income_state +] resources from the state, due to the results of the last election.*
 
-- @what_expenses: How should we spend these?
+- @what_expenses: Now to expenses...?
 
 @what_expenses
 
-At the end of last year we had a total of [+ total_expenses +] resources of expenditure[? if income_other > 0 : , partly funded by extraordinary incomes?].:
+At the end of last year we had a total of [+ total_expenses +] resources of expenditure[? if income_other > 0 : , partly funded by extraordinary incomes?]:
 
-Apparatus: -[+ expense_apparatus +]
+*-[+ expense_apparatus +] resources from cost of Apparatus*
 
-Local chapters: -[+ expense_local_chapters +]
+*[+ expense_local_chapters +] resources to our local chapters*
 
-Newspapers: -[+ expense_newspaper +]
+*[+ expense_newspaper +] resources in subsudies to our newspapers:*
 
-Youth party: -[+ expense_dsu +]
+*[+ expense_dsu +] resources to our youth party (DSU)*
 
 This left us with [+ resources_transfer +] unused resources that we bring over to the new year.
 
@@ -46,6 +50,9 @@ If we were to not change anything, we would be left with <span class="double-und
 
 @more_newspaper
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_newspaper += 1;
 !}
 
@@ -88,6 +95,9 @@ We will allocate one additional resource to the party newspapers.
 
 @more_administration
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_apparatus += 1;
 !}
 
@@ -130,6 +140,9 @@ We will allocate one additional resource to the party apparatus.
 
 @more_youth_party
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_dsu += 1;
 !}
 
@@ -172,6 +185,9 @@ We will allocate one additional resource to the youth party.
 
 @more_local_chapters
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_local_chapters += 1;
 !}
 
@@ -214,6 +230,9 @@ We will allocate one additional resource to the local chapters.
 
 @less_newspaper
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_newspaper -= 1;
 !}
 
@@ -256,6 +275,9 @@ We will reduce funding for the party newspapers by one resource.
 
 @less_administration
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_apparatus -= 1;
 !}
 
@@ -298,6 +320,9 @@ We will reduce funding for the party apparatus by one resource.
 
 @less_youth_party
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_dsu -= 1;
 !}
 
@@ -340,6 +365,9 @@ We will reduce funding for the youth party by one resource.
 
 @less_local_chapters
 on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+Q.resources = Q.total_income - Q.total_expenses;
 Q.expense_local_chapters -= 1;
 !}
 
