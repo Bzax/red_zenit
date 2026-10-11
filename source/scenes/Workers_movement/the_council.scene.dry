@@ -40,10 +40,10 @@ There are a few ways we could could do this.
 
 
 @economic_support_council
-on-arrival: resources -= 1; council_favours += 1; technocrat_dissent -= 3; lo_relations += 2
-subtitle: - 1 resources, + 1 council favour
-unavailable-subtitle: - 1 resources, + 1 council favour – we lack resources.
-choose-if: resources >= 1
+on-arrival: resources -= 10; council_favours += 1; technocrat_dissent -= 3; lo_relations += 2
+subtitle: - 10 resources, + 1 council favour
+unavailable-subtitle: - 10 resources, + 1 council favour – we lack resources.
+choose-if: resources >= 10
 
 We agree to cover some of the costs incurred by previous work requests. The technocrats in our party appreciates this gesture.
 
@@ -51,10 +51,10 @@ We agree to cover some of the costs incurred by previous work requests. The tech
 - @council_main: Let us cash in on this maneuvering.
 
 @economic_finance_council
-on-arrival: resources -= 3; council_favours += 4; technocrat_dissent -= 6; technocrat_strength += 2; lo_relations += 5
-subtitle: - 3 resources, + 4 council favour
-unavailable-subtitle: - 3 resources, + 4 council favours – we lack resources.
-choose-if: resources >= 3
+on-arrival: resources -= 30; council_favours += 4; technocrat_dissent -= 6; technocrat_strength += 2; lo_relations += 5
+subtitle: - 30 resources, + 4 council favour
+unavailable-subtitle: - 30 resources, + 4 council favours – we lack resources.
+choose-if: resources >= 30
 
 Employing academics is expensive, which is why it is usually left to the the unions and cooperatives. Nonetheless the council, and by extension LO and DKF, appreciates our extra funding. 
 

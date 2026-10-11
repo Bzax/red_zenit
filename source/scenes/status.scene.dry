@@ -16,8 +16,6 @@ if (Q.economic_growth) {
 
 = **Politics**
 
-Date: [? if valg != 1 and has_event = 0: [+ month : month +] [+ year +] ?] [? if valg = 1 and has_event = 0:[+ week : week +] week of the campaign ?] [? if valg != 1 and has_event = 1: Between [+ month - 1 : month +] and [+ month : month +] ?] [? if valg = 1 and has_event = 1 : End of [+ week - 1 : week +] week of the campaign ?]
-
 Prime Minister: [+ chancellor +] ([+ chancellor_party +])
 
 Current position: [? if spd_toleration : toleration ?][? if a_in_government : in government - ?][? if spd_toleration == 0 and a_in_government == 0 and spd_caretaker == 0 : opposition ?][? if spd_caretaker : caretaker government ?]
@@ -77,9 +75,9 @@ Next election: No later than [+ next_election_month : month +] [+ next_election_
 [? if os_formed > 0 : {!<span class="tooltip-text" title="Oprigtige Socialdemokrater \n(lit. 'Actual Socialdemocrats').\n\nIdeology: \nMarxism, New-Left, Enviromentalism, Anti-Atlanticism.">Oprigtige Socialdemokrater (OS)</span>!}: [+ os_relation : relationships +]?]
 
 @movement
+# [? if council_level = 0 : It does not currently conduct voter surveys. ?][? if council_level != 0 : The statistical uncertainty of it¨s polls is currently ±[+ 12-polling_efficiency +]%. ?]
 
 = **Movement**
-// Relations with {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">DKF</span>!}: [+ dkf_relations : dkf_relations +]
 
 **Suborganizations**
 
@@ -91,13 +89,11 @@ Health of {!<span class="tooltip-text" title="DSU, Danish Socialdemocratic Youth
 
 Relations with {!<span class="tooltip-text" title="The Danish Union movement is highly centralized under the LO ('LandsOrganisationen', the national organization). The unions are the second pillar of the workers movement (we are the first). ">LO</span>!}: [+ lo_relations : lo_relations +]
 
-Health of {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">cooperatives</span>!}: [+ cooperativehealth : cooperativehealth +]
-
-**The Worker-Movements Economic Council**
+Relations with {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">DKF</span>!}: [+ dkf_relations : dkf_relations +]
 
 {!<span class="tooltip-text" title=" 'Arbejderbevægelsens Erhvervsråd' (lit. 'The Worker-Movements Economic Council') is a council of academics in service to the workers movement. It was established in 1936 as a joint venture of the DKF and LO. Our party later joined in.">The Council</span>!} owes us: [+ council_favours +] favours
 
-[? if council_level = 0 : It does not currently conduct voter surveys. ?][? if council_level != 0 : The statistical uncertainty of it¨s polls is currently ±[+ 12-polling_efficiency +]%. ?]
+
 
 
 @budget
@@ -105,27 +101,33 @@ Health of {!<span class="tooltip-text" title="Det Kooperative Fællesforbund (li
 
 = **[+ year +] Budget**
 
-Dues: +[+ dues +]
+*The monthly balance is credited to our savings each month, as it's earned*
 
-LO: +[+ income_lo +]
+**Monthly Income**
 
-State: +[+ income_state +]
+Dues: <span class="money-income">+[+ dues +]</span> [? if dues - yearly_budget_dues > 0 : (<span class="money-income">+[+ dues - yearly_budget_dues +]</span> from events)?][? if dues - yearly_budget_dues < 0 : (<span class="money-income">[+ dues - yearly_budget_dues +]</span> from events)?]
 
-[? if income_other > 0 : Other: + [+ income_other +] ?]
+LO: <span class="money-income">+[+ income_lo +]</span> [? if income_lo - yearly_budget_income_lo > 0 : (<span class="money-income">+[+ income_lo - yearly_budget_income_lo +]</span> from events)?][? if income_lo - yearly_budget_income_lo < 0 : (<span class="money-income">[+ income_lo - yearly_budget_income_lo +]</span> from events)?]
 
-<span class="double-underline">Total income: [+ total_income +]</span>
+State: <span class="money-income">+[+ income_state +]</span> [? if income_state - yearly_budget_income_state > 0 : (<span class="money-income">+[+ income_state - yearly_budget_income_state +]</span> from events)?][? if income_state - yearly_budget_income_state < 0 : (<span class="money-income">[+ income_state - yearly_budget_income_state +]</span> from events)?]
 
-Apparatus: -[+ expense_apparatus +]
+[? if income_other > 0 : Other: <span class="money-income">+[+ income_other +]</span> [? if income_other - yearly_budget_income_other > 0 : (<span class="money-income">+[+ income_other - yearly_budget_income_other +]</span> from events)?][? if income_other - yearly_budget_income_other < 0 : (<span class="money-income">[+ income_other - yearly_budget_income_other +]</span> from events)?] ?]
 
-Local chapters: -[+ expense_local_chapters +]
+<span class="double-underline">Total monthly income: <span class="money-income">[+ total_income +]</span></span>
 
-Newspapers: -[+ expense_newspaper +]
+**Monthly Expenses**
 
-Youth party: -[+ expense_dsu +]
+Apparatus: <span class="money-expense">[+ expense_apparatus +]</span> [? if expense_apparatus - yearly_budget_expense_apparatus > 0 : (<span class="money-expense">+[+ expense_apparatus - yearly_budget_expense_apparatus +]</span> from events)?][? if expense_apparatus - yearly_budget_expense_apparatus < 0 : (<span class="money-expense">[+ expense_apparatus - yearly_budget_expense_apparatus +]</span> from events)?]
 
-<span class="double-underline">Total expenses: -[+ total_expenses +]</span>
+Local chapters: <span class="money-expense">[+ expense_local_chapters +]</span> [? if expense_local_chapters - yearly_budget_expense_local_chapters > 0 : (<span class="money-expense">+[+ expense_local_chapters - yearly_budget_expense_local_chapters +]</span> from events)?][? if expense_local_chapters - yearly_budget_expense_local_chapters < 0 : (<span class="money-expense">[+ expense_local_chapters - yearly_budget_expense_local_chapters +]</span> from events)?]
 
-<span class="double-underline">Surplus resources: [+ resources +]</span>
+Newspapers: <span class="money-expense">[+ expense_newspaper +]</span> [? if expense_newspaper - yearly_budget_expense_newspaper > 0 : (<span class="money-expense">+[+ expense_newspaper - yearly_budget_expense_newspaper +]</span> from events)?][? if expense_newspaper - yearly_budget_expense_newspaper < 0 : (<span class="money-expense">[+ expense_newspaper - yearly_budget_expense_newspaper +]</span> from events)?]
+
+Youth party: <span class="money-expense">[+ expense_dsu +]</span> [? if expense_dsu - yearly_budget_expense_dsu > 0 : (<span class="money-expense">+[+ expense_dsu - yearly_budget_expense_dsu +]</span> from events)?][? if expense_dsu - yearly_budget_expense_dsu < 0 : (<span class="money-expense">[+ expense_dsu - yearly_budget_expense_dsu +]</span> from events)?]
+
+<span class="double-underline">Total monthly expenses: <span class="money-expense">[+ total_expenses +]</span></span>
+
+<span class="double-underline">Monthly Balance: [+ total_income - total_expenses +] resources</span>
 
 
 @politics
@@ -264,3 +266,11 @@ Retsforbundet: *[+ rfb_votesdisp +]%*
 Others: *[+ others_votesdisp +]%*
 
 **Other Polling**<br>Support for ØD: *[+ socialism_disp +]%*
+
+@header_bar
+
+{!<span class="tooltip-text" title="The strength of our party-machine is our most important metric – it acts as a multiplier for many actions we take. \n\nFirst and foremost it is a product of the size and activity of our membership. However, a strong proffesional bureaucracy and an effective media apparatus can partially compensate for a weaker membership.">Efficiency</span>!}: [+ efc : efc +]
+
+Savings: [+ resources +]
+
+[? if valg != 1 and has_event = 0: [+ month : month +] [+ year +] ?][? if valg = 1 and has_event = 0: [+ week : week +] week of the campaign ?][? if valg != 1 and has_event = 1: Between [+ month - 1 : month +] and [+ month : month +] ?][? if valg = 1 and has_event = 1 : End of [+ week - 1 : week +] week of the campaign ?]

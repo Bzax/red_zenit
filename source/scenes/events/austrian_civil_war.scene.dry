@@ -46,9 +46,9 @@ Neither side is backing down, and the SDAPÖ have formed an alternative governme
 
 @support_sdapo_party
 title: As a party, the SPD will provide the SDAPÖ with support.
-subtitle: -2 resources
-choose-if: resources >= 2
-on-arrival: resources -= 2; sdapo_strength += 1
+subtitle: -20 resources
+choose-if: resources >= 20
+on-arrival: resources -= 20; sdapo_strength += 1
 go-to: sdapo_victory if sdapo_strength >= 6; long_war_2 if sdapo_strength < 6
 
 The SPD raises its resources to provide arms and volunteers for the SDAPÖ.

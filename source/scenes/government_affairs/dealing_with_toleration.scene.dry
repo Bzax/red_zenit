@@ -65,10 +65,10 @@ Our attempts to reach out to the center-right are met with disdain by leftists w
 @new_grand_coalition
 title: Can we join the government in a new grand coalition?
 view-if: neo_weimar_coalition >= 50
-choose-if: z_relation >= 50 and dvp_relation >= 30 and resources >= 2
-subtitle: We will need 2 resources to smooth out the process of forming the coalition.
-unavailable-subtitle: [? if z_relation < 50 : We do not have adequate relations with the Center Party. ?][? if dvp_relation < 30 : We do not have adequate relations with the DVP. ?] [? if resources < 2 : We do not have enough resources. ?]
-on-arrival: resources -= 2; a_in_government = 1; in_grand_coalition = 1; spd_toleration = 0; left_dissent += 6; right_worker_strength += 5; leverage = 20 if leverage >= 20
+choose-if: z_relation >= 50 and dvp_relation >= 30 and resources >= 20
+subtitle: We will need 20 resources to smooth out the process of forming the coalition.
+unavailable-subtitle: [? if z_relation < 50 : We do not have adequate relations with the Center Party. ?][? if dvp_relation < 30 : We do not have adequate relations with the DVP. ?] [? if resources < 20 : We do not have enough resources. ?]
+on-arrival: resources -= 20; a_in_government = 1; in_grand_coalition = 1; spd_toleration = 0; left_dissent += 6; right_worker_strength += 5; leverage = 20 if leverage >= 20
 achievement: constitutional_coalition
 
 Our negotiations have succeeded, and the Center Party and DVP have agreed to form a new coalition government with us!

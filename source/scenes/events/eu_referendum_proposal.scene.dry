@@ -17,6 +17,7 @@ How should we proceed?
 
 - @vote-through: Europe is the future and it can't wait!
 - @referendum: Our party is split, perhaps a referendum could relieve some pressure?
+- @scandinavia: Actually, Scandinavia is the future!
 
 @vote-through
 on-arrival: eu_membership += 1; left_dissent += 15; technocrat_dissent -= 10; right_worker_dissent_dissent -= 4; left_worker_dissent_dissent += 10; sf_relation -= 10; vs_relation -= 10; dkp_relation -= 10; b_relation += 6; v_relation += 6; c_relation += 6; public_homeowner_a -= 1; homeowner_a -= 4; public_prole_a -= 2; prole_a -= 7; prole_sf += 6; prole_vs += 1; prole_dkp += 1; homeowner_sf += 3; homeowner_dkp += 1; homeowner_sf += 3;
@@ -36,7 +37,7 @@ A hypothetical referendum would be held sometime in 1972, after {!<span class="t
 - @no_referendum: The time isn't right.
 
 @yes_referendum
-on-arrival: eu_referendum += 1; left_dissent += 7; technocrat_dissent -= 6; right_worker_dissent_dissent -= 2; left_worker_dissent_dissent += 3; sf_relation -= 3; vs_relation -= 3; dkp_relation -= 3; b_relation += 3; v_relation += 3; c_relation += 3;
+on-arrival: eu_referendum += 1; left_dissent += 7; technocrat_dissent -= 6; right_worker_dissent_dissent -= 2; left_worker_dissent_dissent += 3; sf_relation -= 3; vs_relation -= 3; dkp_relation -= 3; b_relation += 3; v_relation += 3; c_relation += 3; public_homeowner_a -= 1; homeowner_a -= 2; public_prole_a -= 2; prole_a -= 3; prole_sf += 3; prole_vs += 1; prole_dkp += 1; homeowner_sf += 3; homeowner_dkp += 1; homeowner_sf += 3;
 
 The left already starts to bicker, as if a referendum is the most undemocratic thing they could imagine. Let us hope this is the right decision...
 
@@ -44,4 +45,9 @@ The left already starts to bicker, as if a referendum is the most undemocratic t
 subtitle: We may still reconsider our position at a later point...
 on-arrival: technocrat_dissent += 3; b_relation -= 2;
 
-Whether it is because we seek to inhibit membership, or because we would rather vote it through parliament. A few Pro-market voices claim we are spoiling a historic opportunity.
+Whether it is because we seek to inhibit membership, or because we would rather vote it through parliament at alater point. A few Pro-market voices claim we are spoiling a historic opportunity.
+
+@scandinavia
+on-arrival: panscandinavianism += 3; technocrat_dissent += 5; b_relation -= 3; c_relation -= 2; v_relation -= 2; public_homeowner_a -= 2; homeowner_a -= 2; public_prole_a -= 2; prole_a -= 7; prole_sf += 6; prole_vs += 1; prole_dkp += 1; homeowner_sf += 3; homeowner_dkp += 1; homeowner_b += 3;
+
+We publish a few pamphlets, arguing for closer scandinavian cooperation. Though charming, many people see these overtures as a distraction: "Sweden wont fix our trade deficit" becomes an often repeated rebuttal.

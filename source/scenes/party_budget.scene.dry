@@ -1,451 +1,282 @@
 title: Budget Scene
 subtitle: A new year
-on-arrival:  resources_transfer = resources; {!
+face-image: img/budget.jpg
+on-arrival: {!
+Q.budget_net = Q.total_income - Q.total_expenses;
+
 var last_result = Number(Q.a_vote);
 if (!Number.isFinite(last_result)) last_result = Number(Q.a_r) || 0;
 Q.income_state = Math.floor(last_result / 10);
 
-// LO's contribution scales with the relationship to the unions.
-Q.income_lo = Math.max(0, Math.min(10, Math.floor(Q.lo_relations / 9)));
 Q.economic_growth += 1;
 !}
 
-For the coming year, [+ year +], we expect to have an income of <span class="double-underline">[+ total_income +] resouces</span>.
+= **[+ year +] Budget**
 
-*+[+ dues +] resources from our membership dues.*
+The treasurer spreads last year's ledgers across the table, and the central committee settles in to reckon with the books.
 
-*+[+ income_lo +] resources from LO due to our [+ lo_relations : lo_relations+]*
+Last year, we averaged a monthly income of [+ total_income +] against monthly expenses of [+ total_expenses +][? if income_other > 0 : (partly from extraordinary income)?].
 
-*+[+ income_state +] resources from the state, due to the results of the last election.*
+{!<table>!}
+{!<tr><th colspan="2">!}Last Year's Monthly Expenses{!</th></tr>!}
+{!<tr><td>!}Apparatus{!</td><td>!}-[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}Local chapters{!</td><td>!}-[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}Newspapers{!</td><td>!}-[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}Youth party{!</td><td>!}-[+ expense_dsu +]{!</td></tr>!}
+{!<tr><td><span class="double-underline">!}Total{!</span></td><td><span class="double-underline">!}[+ total_expenses +]{!</span></td></tr>!}
+{!</table>!}
 
-- @what_expenses: Now to expenses...?
+[? if budget_net >= 0 : We are currently running a monthly surplus of [+ budget_net +] resources. ?][? if budget_net < 0 : We are currently running a monthly deficit of [+ 0 - budget_net +] resources. ?]
+
+[? if dissent <= 0.15 : With spirits high across the party, we may be able to press our members - or our allies at LO - for greater contributions this year. ?][? if dissent > 0.6 : With dissent running this high, now is not the moment to ask more of our members. ?][? if dissent > 0.15 and dissent <= 0.6 and lo_relations >= 75 : Our strong standing with LO suggests they might be open to greater support this year. ?][? if dissent > 0.15 and dissent <= 0.6 and lo_relations <= 30 : Our poor standing with LO makes further requests for funding unlikely to succeed. ?]
+
+[? if mediahealth >= 80 : Our press has rarely been in ruder health, reaching more readers than ever. ?][? if mediahealth <= 20 : Our newspapers are struggling badly, and readers are drifting away. ?]
+
+[? if efc >= 1.2 : The party machine is running better than we could have hoped. ?][? if efc <= 0.6 : The party machine feels sluggish and understaffed. ?]
+
+[? if expense_dsu >= 3 : DSU has never been better funded, and it shows in their energy. ?][? if expense_dsu <= 0 : Our youth wing feels badly neglected. ?]
+
+Whatever we decide today will shape the coming year.
+
+- @what_expenses: Lets get to work.
+
 
 @what_expenses
 
-At the end of last year we had a total of [+ total_expenses +] resources of expenditure[? if income_other > 0 : , partly funded by extraordinary incomes?]:
+**[+ year +] Budget Proposal**
 
-*-[+ expense_apparatus +] resources from cost of Apparatus*
+The floor is open.
 
-*[+ expense_local_chapters +] resources to our local chapters*
+{!<table>!}
+{!<tr><th>!}Monthly Income{!</th><th>!}Monthly Expenses{!</th></tr>!}
+{!<tr><td>!}Dues: +[+ dues +]{!</td><td>!}Apparatus: -[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO: +[+ income_lo +]{!</td><td>!}Local chapters: -[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State: +[+ income_state +]{!</td><td>!}Newspapers: -[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other: +[+ income_other +] ?]{!</td><td>!}Youth party: -[+ expense_dsu +]{!</td></tr>!}
+{!<tr><td><span class="double-underline">!}Total monthly income: [+ total_income +]{!</span></td><td><span class="double-underline">!}Total monthly expenses: [+ total_expenses +]{!</span></td></tr>!}
+{!</table>!}
 
-*[+ expense_newspaper +] resources in subsudies to our newspapers:*
-
-*[+ expense_dsu +] resources to our youth party (DSU)*
-
-This left us with [+ resources_transfer +] unused resources that we bring over to the new year.
-
-If we were to not change anything, we would be left with <span class="double-underline">[+ resources + resources_transfer +] resources in surplus</span>
+- @fund_options: Invest more in our organizations.
+- @austerity_options: Look for savings.
+- @income_options: Look at boosting income.
+- @change_b: Keep this budget.
 
 
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @dont_change_b: lets keep the budget unchanged.
+@fund_options
+on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+!}
+
+= **[+ year +] Budget**
+
+Delegates from each wing of the party press their case for a larger share of next year's funding.
+
+{!<table>!}
+{!<tr><th colspan="2">!}Monthly Expenses{!</th></tr>!}
+{!<tr><td><span class="tooltip-text" title="A larger apparatus professionalizes our bureaucracy, helping compensate for a weaker membership - but the more bureaucratic we become, the more it discourages grassroots activity.">!}Apparatus{!</span></td><td>!}-[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="Well-funded local chapters organize our members and reduce dissent, and become more effective as our movement grows - though funding them matters little while our membership remains small.">!}Local chapters{!</span></td><td>!}-[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="A well-funded press reduces dissent and keeps our media's influence from fading.">!}Newspapers{!</span></td><td>!}-[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="A well-funded youth wing eases dissent on the left and helps draw in new members.">!}Youth party{!</span></td><td>!}-[+ expense_dsu +]{!</td></tr>!}
+{!<tr><td><span class="double-underline">!}Total monthly expenses{!</span></td><td><span class="double-underline">!}[+ total_expenses +]{!</span></td></tr>!}
+{!</table>!}
+
+<span class="double-underline">Total monthly income: [+ total_income +]</span>
+
+Where should we invest more?
+
+- @more_newspaper: Fund the press further.
+- @more_administration: Fund the apparatus further.
+- @more_youth_party: Fund the youth party further.
+- @more_local_chapters: Fund the local chapters further.
+- @austerity_options: Look for savings instead.
+- @income_options: Look at income instead.
+- @change_b: Confirm the new budget.
 
 
 @more_newspaper
-on-arrival: {!
-Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
-Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_newspaper += 1;
-!}
-
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will allocate one additional resource to the party newspapers.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: Confirm the new budget.
-
+subtitle: A well-funded press reduces dissent and keeps our media's influence from fading.
+choose-if: total_expenses + 1 <= total_income
+unavailable-subtitle: This would put us into deficit.
+on-arrival: expense_newspaper += 1; resources -= 1;
+go-to: fund_options
 
 @more_administration
-on-arrival: {!
-Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
-Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_apparatus += 1;
-!}
-
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will allocate one additional resource to the party apparatus.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: Confirm the new budget.
-
+subtitle: A larger apparatus professionalizes our bureaucracy, helping compensate for a weaker membership - but discourages grassroots activity.
+choose-if: total_expenses + 1 <= total_income
+unavailable-subtitle: This would put us into deficit.
+on-arrival: expense_apparatus += 1; resources -= 1;
+go-to: fund_options
 
 @more_youth_party
-on-arrival: {!
-Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
-Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_dsu += 1;
-!}
-
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will allocate one additional resource to the youth party.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: Confirm the new budget.
-
+subtitle: A well-funded youth wing eases dissent on the left and helps draw in new members.
+choose-if: total_expenses + 1 <= total_income
+unavailable-subtitle: This would put us into deficit.
+on-arrival: expense_dsu += 1; resources -= 1;
+go-to: fund_options
 
 @more_local_chapters
+subtitle: Well-funded local chapters organize our members and reduce dissent, and become more effective as our movement grows - though this matters little while our membership remains small.
+choose-if: total_expenses + 1 <= total_income
+unavailable-subtitle: This would put us into deficit.
+on-arrival: expense_local_chapters += 1; resources -= 1;
+go-to: fund_options
+
+
+@austerity_options
 on-arrival: {!
 Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
 Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_local_chapters += 1;
 !}
 
 = **[+ year +] Budget**
 
-Dues: +[+ dues +]
+A grim mood settles over the room as the treasurer suggests where the knife might fall.
 
-LO: +[+ income_lo +]
+{!<table>!}
+{!<tr><th colspan="2">!}Monthly Expenses{!</th></tr>!}
+{!<tr><td><span class="tooltip-text" title="Cutting the apparatus reduces bureaucratic efficiency, though it frees up members for more grassroots activity.">!}Apparatus{!</span></td><td>!}[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="Cutting local chapters raises dissent and leaves our branches less active - though this matters little while our movement remains small.">!}Local chapters{!</span></td><td>!}[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="Cutting the press raises dissent and lets our media's influence fade.">!}Newspapers{!</span></td><td>!}[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="Cutting the youth wing raises dissent on the left and slows the growth of our membership.">!}Youth party{!</span></td><td>!}[+ expense_dsu +]{!</td></tr>!}
+{!<tr><td><span class="double-underline">!}Total monthly expenses{!</span></td><td><span class="double-underline">!}[+ total_expenses +]{!</span></td></tr>!}
+{!</table>!}
 
-State: +[+ income_state +]
+<span class="double-underline">Total monthly income: [+ total_income +]</span>
 
-[? if income_other > 0 : Other: + [+ income_other +] ?]
+Where should we cut?
 
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will allocate one additional resource to the local chapters.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
+- @less_newspaper: Cut the press.
+- @less_administration: Cut the apparatus.
+- @less_youth_party: Cut the youth party.
+- @less_local_chapters: Cut the local chapters.
+- @fund_options: Invest more instead.
+- @income_options: Look at income instead.
 - @change_b: Confirm the new budget.
 
 
 @less_newspaper
-on-arrival: {!
-Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
-Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_newspaper -= 1;
-!}
-
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will reduce funding for the party newspapers by one resource.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: Confirm the new budget.
-
+subtitle: Cutting the press raises dissent and lets our media's influence fade.
+on-arrival: expense_newspaper -= 1; resources += 1;
+go-to: austerity_options
 
 @less_administration
-on-arrival: {!
-Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
-Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_apparatus -= 1;
-!}
-
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will reduce funding for the party apparatus by one resource.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: Confirm the new budget.
-
+subtitle: Cutting the apparatus reduces bureaucratic efficiency, though it frees up members for more grassroots activity.
+on-arrival: expense_apparatus -= 1; resources += 1;
+go-to: austerity_options
 
 @less_youth_party
+subtitle: Cutting the youth wing raises dissent on the left and slows the growth of our membership.
+on-arrival: expense_dsu -= 1; resources += 1;
+go-to: austerity_options
+
+@less_local_chapters
+subtitle: Cutting local chapters raises dissent and leaves our branches less active - though this matters little while our movement remains small.
+on-arrival: expense_local_chapters -= 1; resources += 1;
+go-to: austerity_options
+
+
+@income_options
 on-arrival: {!
 Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
 Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_dsu -= 1;
 !}
 
 = **[+ year +] Budget**
 
-Dues: +[+ dues +]
+Talk turns to where next year's money might come from.
 
-LO: +[+ income_lo +]
+{!<table>!}
+{!<tr><th colspan="2">!}Monthly Income{!</th></tr>!}
+{!<tr><td><span class="tooltip-text" title="Raising dues brings in more money each year, but alienates poorer and unemployed members - worse when unemployment is already high.">!}Dues{!</span></td><td>!}+[+ dues +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="LO only increases their support if we negotiate for it directly, and asking costs us some goodwill regardless of the outcome.">!}LO{!</span></td><td>!}+[+ income_lo +]{!</td></tr>!}
+{!<tr><td>!}State{!</td><td>!}+[+ income_state +]{!</td></tr>!}
+[? if income_other > 0 : {!<tr><td>!}Other{!</td><td>!}+[+ income_other +]{!</td></tr>!} ?]
+{!<tr><td><span class="double-underline">!}Total monthly income{!</span></td><td><span class="double-underline">!}[+ total_income +]{!</span></td></tr>!}
+{!</table>!}
 
-State: +[+ income_state +]
+How should we raise more income?
 
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will reduce funding for the youth party by one resource.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut
-- @less_local_chapters: Our local chapters has to survive on less.
+- @raise_dues: Raise membership dues.
+- @lower_dues: Lower membership dues.
+- @negotiate_lo: Negotiate with LO for more funding.
+- @state_funding_explainer: Why does the state fund us?
+- @fund_options: Look at spending instead.
 - @change_b: Confirm the new budget.
 
 
-@less_local_chapters
+@raise_dues
+subtitle: +1 resource now, +1 dues going forward - costs support among poorer and unemployed members.
+view-if: dues <= 4
+on-arrival: {!
+Q.dues += 1;
+Q.resources += 1;
+
+(Q.addsupport ? Q.addsupport : addsupport)('tenant_workers', 'a', -3);
+Q.unemployed_a -= 3;
+
+if (Q.unemployed >= 7) {
+  (Q.addsupport ? Q.addsupport : addsupport)('workers', 'a', -5);
+  Q.unemployed_a -= 10;
+}
+
+if (Q.dues >= 5) {
+  (Q.addsupport ? Q.addsupport : addsupport)('workers', 'a', -3 * Q.dues);
+  Q.unemployed_a -= 3 * Q.dues;
+}
+!}
+go-to: income_options
+
+@lower_dues
+subtitle: -1 dues going forward - eases dissent among our members.
+choose-if: dues > 1
+unavailable-subtitle: Dues are already as low as they can go.
+on-arrival: dues -= 1; left_dissent -= 8; left_worker_dissent -= 8; right_worker_dissent -= 8; technocrat_dissent -= 8;
+go-to: income_options
+
+@negotiate_lo
+subtitle: Ask LO for greater support - takes effect at once.
+choose-if: lo_relations >= 50
+unavailable-subtitle: LO's low opinion of us makes further funding requests pointless right now.
+on-arrival: income_lo += 1; lo_relations -= 6;
+
+LO agrees to increase their support for the coming year - though they grow visibly annoyed at how often we come asking. Relations with LO: [+ lo_relations : lo_relations +] ([+ lo_relations +]).
+
+<span class="double-underline">LO funding: +[+ income_lo +]</span>
+
+- @income_options: Continue.
+
+@state_funding_explainer
+
+Officially, this isn't public campaign financing - no such thing exists yet. On paper, the state subsidy is earmarked for hiring policy experts to advise our parliamentary group. In practice, nobody checks what the money is actually spent on.
+
+- @income_options: Continue.
+
+
+@change_b
 on-arrival: {!
 Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
 Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources = Q.total_income - Q.total_expenses;
-Q.expense_local_chapters -= 1;
+
+Q.yearly_budget_expense_apparatus = Q.expense_apparatus;
+Q.yearly_budget_expense_local_chapters = Q.expense_local_chapters;
+Q.yearly_budget_expense_newspaper = Q.expense_newspaper;
+Q.yearly_budget_expense_dsu = Q.expense_dsu;
+Q.yearly_budget_dues = Q.dues;
+Q.yearly_budget_income_lo = Q.income_lo;
+Q.yearly_budget_income_state = Q.income_state;
+Q.yearly_budget_income_other = Q.income_other;
 !}
 
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We will reduce funding for the local chapters by one resource.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: Confirm the final budget.
-
-
-@dont_change_b
-
-= **[+ year +] Budget**
-
-Dues: +[+ dues +]
-
-LO: +[+ income_lo +]
-
-State: +[+ income_state +]
-
-[? if income_other > 0 : Other: + [+ income_other +] ?]
-
-<span class="double-underline">Total income: [+ total_income +]</span>
-
-Apparatus: -[+ expense_apparatus +]
-
-Local chapters: -[+ expense_local_chapters +]
-
-Newspapers: -[+ expense_newspaper +]
-
-Youth party: -[+ expense_dsu +]
-
-<span class="double-underline">Total expenses: [+ total_expenses +]</span>
-
-<span class="double-underline">Surplus resources: [+ resources +]</span>
-
-We decide to keep the existing budget unchanged.
-
-- @more_newspaper: Our press should have more funding.
-- @more_administration: Our apparatus should see more funding.
-- @more_youth_party: Our youth party should see more funding.
-- @more_local_chapters: Our local chapters could use more funding.
-- @less_newspaper: The press can survive a cut.
-- @less_administration: Our apparatus has grown too big.
-- @less_youth_party: Our youth party could survive a cut.
-- @less_local_chapters: Our local chapters has to survive on less.
-- @change_b: confirm the final budget.
-
-@change_b
-
 A light applause fills our central committee. Someone wipes their forehead. We have a new budget.
+
+**[+ year +] Budget**
+
+{!<table>!}
+{!<tr><th>!}Monthly Income{!</th><th>!}Monthly Expenses{!</th></tr>!}
+{!<tr><td>!}Dues: +[+ dues +]{!</td><td>!}Apparatus: -[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO: +[+ income_lo +]{!</td><td>!}Local chapters: -[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State: +[+ income_state +]{!</td><td>!}Newspapers: -[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other: +[+ income_other +] ?]{!</td><td>!}Youth party: -[+ expense_dsu +]{!</td></tr>!}
+{!<tr><td><span class="double-underline">!}Total monthly income: [+ total_income +]{!</span></td><td><span class="double-underline">!}Total monthly expenses: [+ total_expenses +]{!</span></td></tr>!}
+{!</table>!}

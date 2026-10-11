@@ -34,10 +34,10 @@ Our commercialized newspapers are able to be more self-sufficient. However, the 
 
 @investigative
 title: We will advance the class struggle by hiring more investigative journalists.
-choose-if: resources >= 1
+choose-if: resources >= 10
 subtitle: This may alienate moderates, but perhaps returning to our roots is the answer?
 unavailable-subtitle: We do not have sufficient resources.
-on-arrival: expense_newspaper += 1; investigative_media += 1; prole_a += 7*(globalization); homeowner_a += 4*(globalization); public_prole_a += 5; public_homeowner_a += 1; technocrat_dissent += 8; right_worker_dissent += 5; mediahealth += 10
+on-arrival: resources -= 10; investigative_media += 1; prole_a += 7*(globalization); homeowner_a += 4*(globalization); public_prole_a += 5; public_homeowner_a += 1; technocrat_dissent += 8; right_worker_dissent += 5; mediahealth += 10
 
 *Current media health: [+ mediahealth : mediahealth +]*
 
@@ -64,11 +64,11 @@ Since the end of DR's media monopoly various trade unions have already experimen
 
 @radio_2
 title: Let us launch our radio station
-subtitle: -2 resources
-choose-if: resources >= 2
+subtitle: -20 resources
+choose-if: resources >= 20
 unavailable-subtitle: Not enough resources.
-view-if: radio == 1 and resources >=2
-on-arrival: radio += 1; expense_newspaper += 2
+view-if: radio == 1 and resources >=20
+on-arrival: radio += 1; resources -= 20
 
 After much deliberation we are now ready to launch our radio station! Together with a coalition of trade unions we have decided on the following name and schema...
 

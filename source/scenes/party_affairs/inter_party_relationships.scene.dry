@@ -21,10 +21,10 @@ Unlike our Swedish and Norwegian comrades, we've never enjoyed  electoral majori
 
 
 @sfrelation
-subtitle: -1 resources
-choose-if: resources >= 1
+subtitle: -10 resources
+choose-if: resources >= 10
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; SF_inter_party_seen += 1
+on-arrival: resources -= 10; SF_inter_party_seen += 1
 go-to: sf_rectification_of_history if ideology = "left"; sf_1 if ideology != "left" and (sf_relation < 60 or sf_rectifed_history = 1); sf_rectification_of_history if sf_relation >= 70 and dkp_rectifed_history = 0; dkp_2 if sf_coalition_success = 1 and sf_rectified_history = 1
 
 @sf_1
@@ -59,10 +59,10 @@ The SF leaders are dissapointed, but make sure to assure us that its an open off
 
 
 @dkp
-subtitle: -1 resources
-choose-if: resources >= 1
+subtitle: -10 resources
+choose-if: resources >= 10
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; dkp_inter_party_seen += 1
+on-arrival: resources -= 10; dkp_inter_party_seen += 1
 go-to: dkp_rectification_of_history if ideology = "left"; dkp_1 if ideology != "left" and (dkp_relation < 60 or dkp_rectifed_history = 1); dkp_rectification_of_history if dkp_relation >= 60 and dkp_rectifed_history = 0; dkp_2 if dkp_coalition_success = 1 and dkp_rectified_history = 1
 
 @dkp_1
@@ -107,10 +107,10 @@ on-arrival: dkp_relation += 3*efc; right_worker_dissent += 1
 After our rapproachment with America, reconciling with the Communists is difficult, nevertheless, we try our best.
 
 @bourgious
-subtitle: -1 resources
-choose-if: resources >= 1
+subtitle: -10 resources
+choose-if: resources >= 10
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; z_relation += 2 if z_party_leader == "Joos"
+on-arrival: resources -= 10; z_relation += 2 if z_party_leader == "Joos"
 go-to: center_op if b_in_government = 1 and a_in_government = 0 and chancellor != "Brüning"; center_coalition if a_in_government = 1 and b_in_government = 1; center_bruning if chancellor = "Brüning"
 
 @center_op
@@ -129,10 +129,10 @@ on-arrival: z_relation += 5*efc
 The Brüning semi-autocratic regime makes building friendly relations difficult, but not impossible.
 
 @liberals
-subtitle: -1 resources
-choose-if: resources >= 1
+subtitle: -10 resources
+choose-if: resources >= 10
 unavailable-subtitle: Not enough resources.
-on-arrival: resources -= 1; b_relation += 3*(globalization)
+on-arrival: resources -= 10; b_relation += 3*(globalization)
 go-to: liberal_op if b_in_government = 1 and a_in_government = 0 and chancellor != "Brüning"; liberal_coalition if a_in_government = 1 and b_in_government = 1
 
 The somewhat confusingly named 'radical left' party has historically represented the poor farmers as well as white collor workers in the cities, by extending a hand we will try to bridge the last few years' unfortunate developments.

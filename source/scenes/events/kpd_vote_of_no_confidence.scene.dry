@@ -40,10 +40,10 @@ In response to [+ chancellor +] being appointed Chancellor, the right-wing force
 
 
 @resources
-choose-if: resources >= 3 and kpd_ultimatum_seen = 0
-unavailable-subtitle: -3 resources - [? if resources < 3 : We do not have enough resources. ?][? if kpd_ultimatum_seen : This is beyond the point when resources could fix. ?]
-subtitle: -3 resources
-on-arrival: resources -= 3; kpd_coalition_dissent -= 1;
+choose-if: resources >= 30 and kpd_ultimatum_seen = 0
+unavailable-subtitle: -30 resources - [? if resources < 30 : We do not have enough resources. ?][? if kpd_ultimatum_seen : This is beyond the point when resources could fix. ?]
+subtitle: -30 resources
+on-arrival: resources -= 30; kpd_coalition_dissent -= 1;
 
 By transferring resources to our coalition partners, we can reduce their dissent against our policies. This is a crude, but effective solution.
 

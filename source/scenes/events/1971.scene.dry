@@ -5,7 +5,7 @@ on-arrival: {!
 Q.economic_growth += 1;
 !}
 tags: event
-view-if: year = 1972 and month = 1
+view-if: year = 1971 and month = 1
 priority: 2
 max-visits: 1
 

@@ -21,12 +21,12 @@ Criticism has now begun to rain down on the 67 year old minister. It has been re
 
 
 @campaing_public_safety
-on-arrival: resources -= 1; {!
+on-arrival: resources -= 10; {!
 Q.addsupport('homeowners','a',-0.5); Q.addsupport('tenant_workers','a',+3); left_dissent -= 5; right_worker_dissent -= 5
 !}
-subtitle: Resources -1
+subtitle: Resources -10
 choose-if: resources > 0
-unavailable-subtitle: Resources -1 – Not enough resources.
+unavailable-subtitle: Resources -10 – Not enough resources.
 
 For the most part we are able to come off as sympathetic, a few voices still point out our opportunism.
 

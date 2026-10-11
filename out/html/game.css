@@ -49,8 +49,10 @@ body {
   --tab-bg-color: #c6c6c6;
   --tab-color: #c6c6c6;
   --tab-hover-color: #ececec;
-  --card-border-color: #ffffff; 
-  --card-bg-color: #ddd; 
+  --card-border-color: #ffffff;
+  --card-bg-color: #ddd;
+  --expense-color: #a83232;
+  --income-color: #2f7d32;
   font-family: "Futura", Georgia, serif;
   font-weight: 500;
   background-color: var(--bg-color);
@@ -71,6 +73,8 @@ body.dark-mode {
   --tab-hover-color: #242424;
   --card-border-color: #4c4c4c;
   --card-bg-color: #3f3f3f;
+  --expense-color: #ff6b6b;
+  --income-color: #6fcf6f;
 }
 body.dark-mode #content {
   border-style: double;
@@ -94,6 +98,7 @@ header, #content, footer {
   font-size: 1.1em;
   padding: 1em 1.5em 1.5em 1.5em;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+  overflow: visible;
 }
 footer {
   margin-top: 1em;
@@ -104,7 +109,9 @@ footer a {
   padding-right: 1em;
 }
 header {
-  text-align: right
+  text-align: right;
+  overflow: visible;
+  padding-bottom: 1.5em;
 }
 #header-links {
   text-align: left;
@@ -117,6 +124,25 @@ header {
 }
 #header-links a {
   padding-right: 1em;
+}
+#header_bar {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5em 1em;
+  margin-top: 0.5em;
+  padding: 0.4em 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--content-bg-color);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+  font-size: 0.95em;
+  text-align: center;
+}
+#header_bar p {
+  margin: 0;
+  flex: 1 1 auto;
 }
 header h1, header h2 {
   display: inline-block;
@@ -577,6 +603,7 @@ img {
 
 table {
     border-spacing: 0.5em;
+    margin: 0.5em auto;
 }
 
 /* Styles for parties */
@@ -636,6 +663,7 @@ table {
   content: attr(data-tooltip);
   white-space: pre-line; /* \n becomes line breaks */
   display: none;
+  text-align: left;
 
   position: absolute;
   left: 0;
@@ -701,4 +729,12 @@ em, i {
 .centered-note {
   text-align: center;
   margin: 0.5rem 0 1rem;
+}
+
+.money-expense {
+  color: var(--expense-color);
+}
+
+.money-income {
+  color: var(--income-color);
 }

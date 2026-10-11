@@ -23,8 +23,34 @@ if (Q.socialism >= 100) {
 }
 //party budget
 Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
-Q.total_income   = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
-Q.resources      = Q.total_income - Q.total_expenses;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+
+// budget-category funding: ongoing effects of what the party invests in
+// (baselines match the starting expense_* values from root.scene.dry: apparatus 4, chapters 4, newspaper 3, dsu 1)
+var apparatus_over = Q.expense_apparatus - 4;
+Q.a_bureau = 25 + apparatus_over * 5;
+if (Q.a_bureau < 0) {
+    Q.a_bureau = 0;
+}
+Q.technocrat_dissent -= apparatus_over * 0.1;
+
+var membership_ratio = Q.members_total / 177.5;
+var chapters_effect = (Q.expense_local_chapters - 4) * 0.15 * membership_ratio;
+Q.left_dissent -= chapters_effect;
+Q.left_worker_dissent -= chapters_effect;
+Q.right_worker_dissent -= chapters_effect;
+Q.a_activity += chapters_effect * 2;
+
+var dsu_over = Q.expense_dsu - 1;
+Q.left_dissent -= dsu_over * 0.15;
+Q.memberrise += dsu_over * 0.1;
+
+var newspaper_over = Q.expense_newspaper - 3;
+Q.left_dissent -= newspaper_over * 0.08;
+Q.left_worker_dissent -= newspaper_over * 0.08;
+Q.technocrat_dissent -= newspaper_over * 0.08;
+Q.right_worker_dissent -= newspaper_over * 0.08;
+Q.mediahealth += newspaper_over * 0.5;
 
 // re-calculate party support
 // calculate normalized class voting for the achievements
@@ -101,20 +127,20 @@ for (var party of Q.parties) {
     Q[party+'_votes_display'] = Math.round(Q[party+'_normalized']*100);
 }
 
-Q.a_votesdisp = Number(addUncertainty(Q.a_votes).toFixed(0));
+Q.a_votesdisp = Number(addUncertainty(Q.a_votes).toFixed(1));
 console.log("Q.a_votes:", Q.a_votes);
-Q.z_votesdisp = Number(addUncertainty(Q.z_votes).toFixed(0));
-Q.cd_votesdisp = Number(addUncertainty(Q.cd_votes).toFixed(0));
-Q.os_votesdisp = Number(addUncertainty(Q.os_votes).toFixed(0));
-Q.v_votesdisp = Number(addUncertainty(Q.v_votes).toFixed(0));
-Q.c_votesdisp = Number(addUncertainty(Q.c_votes).toFixed(0));
-Q.kf_votesdisp = Number(addUncertainty(Q.kf_votes).toFixed(0));
-Q.dkp_votesdisp = Number(addUncertainty(Q.dkp_votes).toFixed(0));
-Q.b_votesdisp = Number(addUncertainty(Q.b_votes).toFixed(0));
-Q.sf_votesdisp = Number(addUncertainty(Q.sf_votes).toFixed(0));
-Q.vs_votesdisp = Number(addUncertainty(Q.vs_votes).toFixed(0));
-Q.rfb_votesdisp = Number(addUncertainty(Q.rfb_votes).toFixed(0));
-Q.others_votesdisp = Number(addUncertainty(Q.others_votes).toFixed(0));
+Q.z_votesdisp = Number(addUncertainty(Q.z_votes).toFixed(1));
+Q.cd_votesdisp = Number(addUncertainty(Q.cd_votes).toFixed(1));
+Q.os_votesdisp = Number(addUncertainty(Q.os_votes).toFixed(1));
+Q.v_votesdisp = Number(addUncertainty(Q.v_votes).toFixed(1));
+Q.c_votesdisp = Number(addUncertainty(Q.c_votes).toFixed(1));
+Q.kf_votesdisp = Number(addUncertainty(Q.kf_votes).toFixed(1));
+Q.dkp_votesdisp = Number(addUncertainty(Q.dkp_votes).toFixed(1));
+Q.b_votesdisp = Number(addUncertainty(Q.b_votes).toFixed(1));
+Q.sf_votesdisp = Number(addUncertainty(Q.sf_votes).toFixed(1));
+Q.vs_votesdisp = Number(addUncertainty(Q.vs_votes).toFixed(1));
+Q.rfb_votesdisp = Number(addUncertainty(Q.rfb_votes).toFixed(1));
+Q.others_votesdisp = Number(addUncertainty(Q.others_votes).toFixed(1));
 
 // coalitions (use Q.* names)
 Q.poll_arbejderflertal = Q.a_votesdisp + Q.sf_votesdisp + Q.os_votesdisp;
@@ -186,6 +212,9 @@ if (Q.dissent < 0) {
 //store last months members
 Q.previous_members = Q.members_total
 
+// party effectiveness gives a small passive pull on membership growth
+Q.memberrise += Q.efc * 0.15;
+
 // decline membership  each month
 Q.a_memberdecline = 0.3+(4*Q.dissent) - Q.memberrise
 Q.members_total -= Q.a_memberdecline; // adjust the increment as needed
@@ -207,6 +236,9 @@ if ((Q.month_actions >= 1 && !Q.valg) || (Q.month_actions >= 4 && Q.valg)) {
     Q.time += 1;
     Q.month_actions = 0;
     Q.month += 1;
+    // income_lo, income_state, dues, and expense_* are monthly values, so the
+    // monthly balance is credited to savings once per month, as it's earned
+    Q.resources += Q.total_income - Q.total_expenses;
     if (Q.month >= 9) {
         Q.month = 1;
         Q.year += 1;
@@ -219,8 +251,13 @@ if (Q.valg && Q.month_actions >= 1) {
 }
 
 //activity
-Q.a_activityprevious = Q.a_activity + Q.a_bureau;
-Q.a_activity = Q.a_activityprevious - Q.a_bureau;
+var bureau_activity_penalty = Math.max(0, Q.a_bureau - 25) * 0.03;
+Q.a_activity -= bureau_activity_penalty;
+if (Q.a_activity < 0) {
+    Q.a_activity = 0;
+} else if (Q.a_activity > 100) {
+    Q.a_activity = 100;
+}
 
 // decrement timers
 for (timer of Q.timers) {

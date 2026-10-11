@@ -61,10 +61,10 @@ Kurt Schumacher is an ambitious rising star in the party, and would be all too w
 - @cultural_figure: Support a nonpartisan cultural figure?
 
 @eckener_r1
-subtitle: -1 resource - After nominating him, we still have to convince the other parties to support him.
-unavailable-subtitle: [? if resources < 1 : -1 resource - Not enough resources. ?]
-choose-if: resources >= 1
-on-arrival: spd_candidate = "Eckener"; is_unity_candidate = 1
+subtitle: -10 resources - After nominating him, we still have to convince the other parties to support him.
+unavailable-subtitle: [? if resources < 10 : -10 resources - Not enough resources. ?]
+choose-if: resources >= 10
+on-arrival: resources -= 10; spd_candidate = "Eckener"; is_unity_candidate = 1
 go-to: r1_menu
 
 We have convinced Hugo Eckener to run on behalf of the SPD, and hopefully the rest of the Weimar Coalition as well.
@@ -115,31 +115,31 @@ We have endorsed Willi Münzenberg of the KPD.
 
 
 @braun_r1
-subtitle: -2 resources.
-unavailable-subtitle: [? if resources < 2 : -2 resources - Not enough resources. ?][? if braun_campaign != 0 or not spd_prussia : Braun no longer wants to run. ?]
-choose-if: braun_campaign = 0 and spd_prussia and resources >= 2
-on-arrival: spd_candidate = "Braun"; resources -= 2; is_unity_candidate = 0
+subtitle: -20 resources.
+unavailable-subtitle: [? if resources < 20 : -20 resources - Not enough resources. ?][? if braun_campaign != 0 or not spd_prussia : Braun no longer wants to run. ?]
+choose-if: braun_campaign = 0 and spd_prussia and resources >= 20
+on-arrival: spd_candidate = "Braun"; resources -= 20; is_unity_candidate = 0
 go-to: r1_menu
 
 We have convinced Otto Braun to run for president once more.
 
 
 @schumacher_r1
-subtitle: -2 resources.
-unavailable-subtitle: [? if resources < 2 : -2 resources - Not enough resources. ?]
-choose-if: resources >= 2
-on-arrival: spd_candidate = "Schumacher"; resources -= 2; is_unity_candidate = 0
+subtitle: -20 resources.
+unavailable-subtitle: [? if resources < 20 : -20 resources - Not enough resources. ?]
+choose-if: resources >= 20
+on-arrival: spd_candidate = "Schumacher"; resources -= 20; is_unity_candidate = 0
 go-to: r1_menu
 
 We have nominated Kurt Schumacher to be our presidential candidate.
 
 
 @juchacz_r1
-subtitle: -2 resources.
-unavailable-subtitle: [? if resources < 2 : -2 resources - Not enough resources. ?]
+subtitle: -20 resources.
+unavailable-subtitle: [? if resources < 20 : -20 resources - Not enough resources. ?]
 view-if: womens_rights >= 6 and family_law >= 2 and womens_work >= 2 and welfare > 0
-choose-if: resources >= 2
-on-arrival: spd_candidate = "Juchacz"; resources -= 2; is_unity_candidate = 0
+choose-if: resources >= 20
+on-arrival: spd_candidate = "Juchacz"; resources -= 20; is_unity_candidate = 0
 go-to: r1_menu
 
 We have nominated Marie Juchacz as our presidential candidate, the first woman ever to be nominated for this position!
@@ -156,10 +156,10 @@ Since the presidency has been made a largely ceremonial figure by our reforms, w
 - @candidate_menu: Actually, we should nominate someone else.
 
 @einstein_r1
-subtitle: -2 resources
+subtitle: -20 resources
 view-if: science >= 2 and kwg_research >= 1 and (major_curriculum = "scientific" or minor_curriculum = "scientific")
-choose-if: resources >= 2
-on-arrival: spd_candidate = "Einstein"; ddp_candidate = "Einstein"; resources -= 2; is_unity_candidate = 0; is_cultural_candidate = 1;
+choose-if: resources >= 20
+on-arrival: spd_candidate = "Einstein"; ddp_candidate = "Einstein"; resources -= 20; is_unity_candidate = 0; is_cultural_candidate = 1;
 go-to: r1_menu
 
 Albert Einstein is a Nobel Prize-winning scientist, director of the Kaiser Wilhelm Institute for Physics, and international advocate for peace. He was a founding member of the German Democratic Party (whose successor would support him in the election), but has also expressed sympathy towards socialism.
@@ -169,10 +169,10 @@ He did not wish to run for president, disliking the public nature of campaigning
 The [+ ddp_name +] will endorse Einstein's candidacy.
 
 @mann_r1
-subtitle: -2 resources - He might be too far left for the bourgeois parties.
+subtitle: -20 resources - He might be too far left for the bourgeois parties.
 view-if: kpd_relation >= 50
-choose-if: resources >= 2
-on-arrival: spd_candidate = "Mann"; resources -= 2; is_unity_candidate = 0; is_cultural_candidate = 1;
+choose-if: resources >= 20
+on-arrival: spd_candidate = "Mann"; resources -= 20; is_unity_candidate = 0; is_cultural_candidate = 1;
 go-to: r1_menu
 
 Heinrich Mann is a world-renowned novelist and poet who is also known to be a left-wing activist. His political sympathy lies with the far left, and he supported the revolutions in 1918 and 1919. He has long lived in the shadow of his better-known brother, Thomas Mann.
@@ -182,9 +182,9 @@ Mann is willing to accept the nomination for president.
 
 @ossietzky_r1
 view-if: weltbuhne_dropped = 1
-subtitle: -2 resources - He might be too far left for the bourgeois parties.
-choose-if: resources >= 2
-on-arrival: spd_candidate = "Ossietzky"; resources -= 2; is_unity_candidate = 0; is_cultural_candidate = 1;
+subtitle: -20 resources - He might be too far left for the bourgeois parties.
+choose-if: resources >= 20
+on-arrival: spd_candidate = "Ossietzky"; resources -= 20; is_unity_candidate = 0; is_cultural_candidate = 1;
 go-to: r1_menu
 
 Carl von Ossietzky is a left-wing journalist who is the publisher of the Weltbühne, a news magazine. He is most known for exposing the secret German rearmament program in 1929, which brought him international renown. In the 1932 presidential election, he endorsed the Communist Thälmann.
@@ -279,9 +279,9 @@ The Center are not satisfied with our arguments, but they are open to being conv
 - @r2_campaigning: Forget about the Center.
 
 @pay_z
-choose-if: resources >= 2
-subtitle: -2 resources
-on-arrival: resources -= 2; z_candidate = spd_candidate; Seldte_bonus += 2.5 if z_relation < 40 and dnvp_candidate = "Seldte"
+choose-if: resources >= 20
+subtitle: -20 resources
+on-arrival: resources -= 20; z_candidate = spd_candidate; Seldte_bonus += 2.5 if z_relation < 40 and dnvp_candidate = "Seldte"
 go-to: r1_menu if round = 0; r2_campaigning if round > 0
 
 With our resources, the Center are convinced to support [+ spd_candidate +]. Konrad Adenauer will drop out of the race.
@@ -326,10 +326,10 @@ The KPD is supporting their own candidate, [+ kpd_candidate +]. [? if kpd_relati
 
 @kpd_resources
 view-if: kpd_relation >= 50 and not historical_mode
-choose-if: resources >= 3
-subtitle: -3 resources
-unavailable-subtitle: Not enough resources (need 3).
-on-arrival: resources -= 3; kpd_candidate = spd_candidate; sapd_candidate = spd_candidate;
+choose-if: resources >= 30
+subtitle: -30 resources
+unavailable-subtitle: Not enough resources (need 30).
+on-arrival: resources -= 30; kpd_candidate = spd_candidate; sapd_candidate = spd_candidate;
 go-to: r1_menu if round = 0; r2_campaigning if round > 0
 
 The KPD now endorses [+ spd_candidate +] in the presidential election! We ask them to keep their support low-key, so as to not alienate the bourgeois voters.
@@ -594,11 +594,11 @@ We have endorsed Otto Gessler, independent formerly of the DDP.
 
 @r2_endorse_eckener
 title: Convince the Weimar Coalition parties to unite behind Hugo Eckener.
-subtitle: -2 resources
-unavailable-subtitle: [? if resources < 2 : -2 resources - Not enough resources. ?]
-choose-if: resources >= 2 and ((z_relation >= 50 and z_leader = "Kaas") or (z_relation >= 30 and z_leader = "Joos")) and ddp_relation >= 40
+subtitle: -20 resources
+unavailable-subtitle: [? if resources < 20 : -20 resources - Not enough resources. ?]
+choose-if: resources >= 20 and ((z_relation >= 50 and z_leader = "Kaas") or (z_relation >= 30 and z_leader = "Joos")) and ddp_relation >= 40
 view-if: z_candidate = "Adenauer" and ddp_candidate = "Gessler" and spd_candidate != "Eckener"
-on-arrival: kpd_candidate = "Thälmann" if kpd_candidate == spd_candidate and kpd_party_leader != "Conciliators"; kpd_candidate = "Münzenberg" if kpd_candidate == spd_candidate and kpd_party_leader == "Conciliators"; sapd_candidate = kpd_candidate; spd_candidate = "Eckener"; z_candidate = "Eckener"; ddp_candidate = "Eckener"; resources -= 2; is_unity_candidate = 1
+on-arrival: kpd_candidate = "Thälmann" if kpd_candidate == spd_candidate and kpd_party_leader != "Conciliators"; kpd_candidate = "Münzenberg" if kpd_candidate == spd_candidate and kpd_party_leader == "Conciliators"; sapd_candidate = kpd_candidate; spd_candidate = "Eckener"; z_candidate = "Eckener"; ddp_candidate = "Eckener"; resources -= 20; is_unity_candidate = 1
 go-to: r2_campaigning
 
 We have successfully united all of the parties of the Weimar Coalition behind Hugo Eckener!

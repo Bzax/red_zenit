@@ -1,6 +1,6 @@
 title: Campaign Funds
 new-page: true
-view-if: resources < 2
+view-if: resources < 20
 on-arrival: month_actions += 1;
 max-visits: 36
 is-card: true
@@ -21,20 +21,20 @@ Neither of these options are ideal.
 - @easy_discard
 
 @emergency_campaign
-subtitle: +2 resources – This will cause dissent.
-on-arrival: income_other += 2; memberrise -= 0.6/efc; homeowner_a -= 2/efc; public_homeowner_a -= 2/efc; rural_a -= 2/efc; pettyb_a -= 2/efc; right_worker_dissent += 6; left_worker_dissent += 4; technocrat_dissent += 3; left_dissent += 5
+subtitle: +20 resources – This will cause dissent.
+on-arrival: resources += 20; memberrise -= 0.6/efc; homeowner_a -= 2/efc; public_homeowner_a -= 2/efc; rural_a -= 2/efc; pettyb_a -= 2/efc; right_worker_dissent += 6; left_worker_dissent += 4; technocrat_dissent += 3; left_dissent += 5
 
 We run an intensive fundraising campaign inside our party, unfortunately the conservative press takes notice. 'If the socialdemocrats can't even plan their own economy, how do they think they...' we can only hope they laugh themselves to death.
 
 
 @unions_beg
-subtitle: +2 resources – This will worsen our relations with LO.
-on-arrival: income_lo += 2; lo_relations -= 7
+subtitle: +20 resources – This will worsen our relations with LO.
+on-arrival: resources += 20; lo_relations -= 7
 
 LO is not amused, but they dont refuse either. Funds are added, they advice us to be more cautious with our finances in the future.
 
 @dkf_beg
-subtitle: +1 resources – This will worsen our relations with DKF.
-on-arrival: income_other += 1; DKF_relations -= 7; cooperativehealth -= 0.05
+subtitle: +10 resources – This will worsen our relations with DKF.
+on-arrival: resources += 10; DKF_relations -= 7; cooperativehealth -= 0.05
 
 Given their already dire economic situation, the cooperatives are somewhat reluctant to assist us. They emphasize that such last minute measures, should be avoided going forwards.

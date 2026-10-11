@@ -204,8 +204,20 @@
       window.updateSidebar();
   };
 
+  window.updateHeaderBar = function() {
+      var el = document.getElementById('header_bar');
+      var scene = dendryUI.game.scenes['status.header_bar'];
+      if (!el || !scene) {
+          return;
+      }
+      dendryUI.dendryEngine._runActions(scene.onArrival);
+      var displayContent = dendryUI.dendryEngine._makeDisplayContent(scene.content, true);
+      el.innerHTML = dendryUI.contentToHTML.convert(displayContent);
+  };
+
   window.onDisplayContent = function() {
       window.updateSidebar();
+      window.updateHeaderBar();
   };
 
   /*

@@ -1,0 +1,38 @@
+title: Wildcat strikes
+subtitle: Bourgious politicians approach us...
+new-page: true
+on-arrival: prole_vs += 2; public_prole_vs += 2; prole_sf += 2; public_prole_sf += 2; left_dissent += 5
+face-image: img/strejke.jpg
+tags: event
+view-if: year = 1970 and month >= 5
+max-visits: 1
+
+# TODO: this should happen regardless of the current state of the government...
+
+= Wildcat strikes
+
+Frustrated by austerity and intensification of workplace discipline, the new generation of workers have spited their trade union confederation LO and organized a series of {!<span class="tooltip-text" title="Strikes unautherized by union leadership.">wildcat strikes</span>!}. 
+
+LO inform us these actions are jeopardizing next years negotiations and have been encouraging us to join their calls for them to cease. The leader of the conservatives, Poul Sørensen, have approached us with a similar request.
+
+- @let_strikes_happen: The workers have a right to strike damnit!
+- @end_strikes: Encourage workers to respect LO's judgement.
+- @wait_strikes: Wait it out...
+
+@let_strikes_happen
+on-arrival: worker_income += worker_income * 0.02; economic_growth -= 0.2; left_strength += 2; left_worker_strength +=2; left_dissent -= 10; left_worker_dissent -= 4; right_worker_dissent += 2; technocrat_dissent += 5; lo_relations -= 10; prole_a += 5; prole_sf -= 3; prole_dkp -= 1; prole_vs -= 1; homeowner_a -= 2; public_homeowner_a -= 3; public_homeowner_c += 2; public_homeowner_b += 4; memberrise += 0.4; dkp_relation += 3; sf_relation += 6; vs_relation += 6; socialism += 5;
+
+We encourage the strikes and allow local chapters to assist in the picket lines. LO are very dissapointed in us, as are the governing parties. 
+
+The striking workers are encouraged by our support and over the next few weeks the strikes expand significantly before eventually dying down. A few of them end with some not-insignificant gains. The left is emboldened.
+
+@end_strikes
+on-arrival: economic_growth += 0.3; left_dissent += 6; left_worker_dissent += 3; technocrat_dissent -= 4; b_relation += 8; c_relation += 8; v_relation += 5; lo_relations += 7; right_worker_dissent -= 2; prole_a -= 2; prole_sf += 2; prole_dkp += 0.5; prole_vs += 2; homeowner_a += 2; public_homeowner_c -= 2; dkp_relations -= 2; sf_relations -= 2; vs_relations -= 3; socialism -= 1; public_homeowner_a += 1; pettyb_b += 2; pettyb_v += 1; pettyb_c += 4; homeowner_b += 2; rural_v += 2;
+
+We join the LO in their calls to end the strikes, and though this doesnt win us many friends in the left. Much of established society commend our attitude, the economy comes through mostly unscathed and the few remaining strikes quickly fall out of the news cycle.
+
+@wait_strikes
+on-arrival: lo_relations -= 3; c_relation -= 3;
+
+We dont offend anyone, but we also dont satisdy anyone either. LO are not very pleased with us and a few press conferences turn awkward.
+

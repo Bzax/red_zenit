@@ -26,11 +26,11 @@ on-arrival: workers_spd -= 5; unemployed_a -= 6; workers_kpd += 5; unemployed_kp
 Fine. By cutting welfare, we have reduced dissent within the coalition.
 
 @resources
-subtitle: -2 resources
+subtitle: -20 resources
 view-if: historical_mode = 0
-unavailable-subtitle: Not enough resources (need 2).
-choose-if: resources >= 2
-on-arrival: resources -= 2; coalition_dissent -= 1
+unavailable-subtitle: Not enough resources (need 20).
+choose-if: resources >= 20
+on-arrival: resources -= 20; coalition_dissent -= 1
 
 By transferring campaign funds to our coalition partners, we can make our policies more acceptable to them. Some would call this corruption, but perhaps it is necessary to save democracy.
 

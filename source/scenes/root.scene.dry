@@ -370,8 +370,19 @@ Q.expense_local_chapters = 4;
 Q.expense_newspaper = 3;
 Q.expense_dsu = 1;
 
+// yearly-budget baseline, locked in whenever the party_budget scene is confirmed;
+// the gap between this and the live expense_*/income_* value is what shows as "from events"
+Q.yearly_budget_expense_apparatus = 4;
+Q.yearly_budget_expense_local_chapters = 4;
+Q.yearly_budget_expense_newspaper = 3;
+Q.yearly_budget_expense_dsu = 1;
+Q.yearly_budget_dues = 4;
+Q.yearly_budget_income_lo = 7;
+Q.yearly_budget_income_state = 3;
+Q.yearly_budget_income_other = 0;
+
 //surplus and totals
-Q.resources = 2;
+Q.resources = 20;
 Q.total_expenses = 11;
 Q.total_income = 13;
 
@@ -390,7 +401,8 @@ Q.capitalist = 4;
 // source: '60 år i tal – Danmark siden 2. verdenskrig', by 'Danmarks Statistik'
 Q.unemployed = 1.8;
 
-
+// Laws
+Q. work_enviroment = 0
 
 // unemployment: 1929 - 13.3, 1930 - 22.7, 1931 - 34.3, 1932 - 43.8 (same source as above)
 
@@ -970,11 +982,11 @@ For more information on the politics and government of Denmark during the period
 - @1928_historical: Begin (historical mode) (doesnt work yet)
 
 @1928_easy
-on-arrival: difficulty = -1; resources = 4; dues = 3; members_total = 2500; kpd_relation = 29; z_relation = 54; dvp_relation = 49; budget = 5;
+on-arrival: difficulty = -1; resources = 4; dues = 3; yearly_budget_dues = 3; members_total = 2500; kpd_relation = 29; z_relation = 54; dvp_relation = 49; budget = 5;
 go-to: 1928_main
 
 @1928_hard
-on-arrival: difficulty = 1; resources = 0; dues = 1; members_total = 1000; right_worker_dissent = 25; left_dissent = 30; technocrat_dissent = 25; left_worker_dissent = 25; z_relation = 41; kpd_relation = 16; dvp_relation = 31; budget = 3;
+on-arrival: difficulty = 1; resources = 0; dues = 1; yearly_budget_dues = 1; members_total = 1000; right_worker_dissent = 25; left_dissent = 30; technocrat_dissent = 25; left_worker_dissent = 25; z_relation = 41; kpd_relation = 16; dvp_relation = 31; budget = 3;
 go-to: 1928_main
 
 @1928_historical
@@ -984,6 +996,7 @@ Q.difficulty = 2;
 Q.historical_mode = 1;
 Q.resources = 2;
 Q.dues = 1;
+Q.yearly_budget_dues = 1;
 Q.members_total = 2000;
 Q.right_worker_dissent = 25;
 Q.left_dissent = 30;
@@ -1007,7 +1020,7 @@ go-to: main if difficulty >= 0; main.main_easy if difficulty < 0
 
 = **1. May 1970**
 
-It is a bright time for Danish democracy. Since the downfall of German nazism, our economy has entered a golden age as our workers movement is the strongest its ever been. Our party nears its {!<span class="tooltip-text" title="The International Labour Association of Denmark was founded in 1871.">centenary</span>!}, with high hopes for the future.
+It is a bright time for Danish democracy. Since the downfall of German nazism, our economy has entered a golden age. The workers-movement is the strongest its ever been. Our party nears its {!<span class="tooltip-text" title="The International Labour Association of Denmark was founded in 1871.">centenary</span>!}, with high hopes for the future.
 
 Now, the task of Social Democracy is to prepare for the next election. The bourgeois government of Hilmar Baunsgaard is unpopular, and we stand to gain. 
 Perhaps the next folketing will have a workers majority?

@@ -19,12 +19,12 @@ title: Emergency Fundraising
 subtitle: An emergency infusion of resources.
 choose-if: advisor_action_timer = 0
 unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
-on-arrival: advisor_action_timer = 6; resources += dues
+on-arrival: {! Q.advisor_action_timer = 6; Q.dues_windfall = Q.dues * 10; Q.resources += Q.dues_windfall; !}
 #view-if: difficulty < 1
 
 # Schumacher's emergency fundraising is available on all difficulties.
 
-We have gained +[+ dues +] resources.
+We have gained +[+ dues_windfall +] resources.
 
 @build_reichsbanner
 title: Reichsbanner
