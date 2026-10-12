@@ -17,6 +17,7 @@ audio: shuffle music/1970_1973/byen_vagner.mp3 music/1970_1973/byen_vagner.mp3 m
 - @start: Start game
 - @Context: Premise
 - @election_simulation: Election simulation
+- @sources: Sources
 - @credits: Credits
 - @game_over.achievements
 
@@ -104,6 +105,7 @@ audio: music/1970_1973/byen_vagner.mp3
 new-page: true
 on-arrival: {!
 Q.started = 1;
+Q.game_entered = 0; // set once a difficulty is chosen
 // time elapsed (in months)
 Q.time = 1;
 Q.year = 1970;
@@ -128,15 +130,56 @@ Q.dissent = 0.05;
 Q.dissent_percent = 5;
 
 // Party indicators
-Q.efc = 0.8
+// matches the first post_event result: (177.5/177.5)*(100/100)*(1-0.05) + 25/200 + 50/400
+Q.efc = 1.2
 Q.a_activity = 100
 Q.a_bureau = 25
 Q.mediahealth = 50
+Q.dsu_health = 50
 Q.membermonthly = 0.681
 Q.memberrise = 0
 
+// Centenary (1971) preparations, read by the centenary event
+Q.centenary = 0
+Q.tv_centenary = 0
+Q.professional_film_centenary = 0
+Q.activist_film_centenary = 0
+Q.march_centenary = 0
+Q.youth_centenary = 0
+Q.local_centenary = 0
+Q.apparatus_centenary = 0
+Q.lottery_centenary = 0
+Q.lottery_centenary_won = 0
+Q.foreign_centenary = 0
+Q.palme_centenary = 0
+Q.brandt_centenary = 0
+Q.history_centenary = 0
+Q.struggle_centenary = 0
+Q.welfare_centenary = 0
+// which centenary cards have been played
+Q.programme_centenary = 0
+Q.ideas_centenary = 0
+Q.financing_centenary = 0
+// the debate book "Instead of the Class Society"
+Q.book_centenary = 0
+Q.radical_book_centenary = 0
+Q.pragmatic_book_centenary = 0
+// LO's role in the celebrations
+Q.lo_centenary = 0
+Q.lo_joint_centenary = 0
+Q.lo_funded_centenary = 0
+Q.lo_alone_centenary = 0
+
+// Scandinavian vs. European sentiment
+Q.panscandinavianism = 0
+Q.europeanism = 0
+
 //Homeownership
 Q.homeownership = 41.2;
+Q.homeownership_disp = "41.2";
+Q.housing_policy_drift = 0; // monthly change in homeownership from policy choices
+Q.public_worker_share = 30.3; // % of the labour force employed in the public sector
+Q.public_sector_drift = 0; // monthly change in public_worker_share from policy choices
 
 
 
@@ -382,7 +425,7 @@ Q.yearly_budget_income_state = 3;
 Q.yearly_budget_income_other = 0;
 
 //surplus and totals
-Q.resources = 20;
+Q.resources = 30;
 Q.total_expenses = 11;
 Q.total_income = 13;
 
@@ -435,108 +478,111 @@ Q.sapd_formed = 0;
 // Support for party by social group (source:  'Vælgerundersøgelsen 1971', 'vælgerundersøgelsen 1975', 'statistisk årsbog 1970' (calculations can be downloaded from the credits), 'Socialdemokratiets vælgertilslutning', s.181-82)
 // they don't have to sum to 100 since the electoral calculations will be normalized.
 // i added some extra points for the social democrats in order to align their results better with the IRL polling for september 1971 that i found. ( i should maybe find the earlier one)
-Q.prole_a = 51.7 * 1.106; // 51.7
-Q.prole_v = 10.0 * 0.965; // 10.0
-Q.prole_c = 10.7 * 1.082; // 10.7
-Q.prole_b = 7.2 * 0.718; // 7.2
+// Each party has one flat multiplier across all classes, fitted so that the national result at game start
+// matches the initial poll below (Q.a_votesdisp etc., rescaled to 100). The proportions between classes
+// within each party are the survey figures in the comments.
+Q.prole_a = 51.7 * 0.909; // 51.7
+Q.prole_v = 10.0 * 0.896; // 10.0
+Q.prole_c = 10.7 * 0.944; // 10.7
+Q.prole_b = 7.2 * 1.037; // 7.2
 Q.prole_z = 0;
-Q.prole_dkp = 1.7;
-Q.prole_sf = 10.3 * 1.000; // 10.3
-Q.prole_vs = 2.4 * 4.000; // 2.4
-Q.prole_rfb = 1.4;
-Q.prole_kf = 1.2;
-Q.prole_others = 0.1;
+Q.prole_dkp = 1.7 * 1.141; // 1.7
+Q.prole_sf = 10.3 * 0.952; // 10.3
+Q.prole_vs = 2.4 * 1.385; // 2.4
+Q.prole_rfb = 1.4 * 0.886; // 1.4
+Q.prole_kf = 1.2 * 1.070; // 1.2
+Q.prole_others = 0.1 * 1.000; // 0.1
 Q.prole_northatlantic = 0;
 
-Q.homeowner_a = 46.2 * 1.106; // 46.2
-Q.homeowner_v = 13.8 * 0.965; // 13.8
-Q.homeowner_c = 17.1 * 1.082; // 17.1
-Q.homeowner_b = 15.8 * 0.718; // 15.8
+Q.homeowner_a = 46.2 * 0.909; // 46.2
+Q.homeowner_v = 13.8 * 0.896; // 13.8
+Q.homeowner_c = 17.1 * 0.944; // 17.1
+Q.homeowner_b = 15.8 * 1.037; // 15.8
 Q.homeowner_z = 0;
-Q.homeowner_dkp = 1.3;
-Q.homeowner_sf = 9.3 * 1.000; // 9.3
-Q.homeowner_vs = 1.8 * 4.000; // 1.8
-Q.homeowner_rfb = 1.8;
-Q.homeowner_kf = 1.3;
-Q.homeowner_others = 0.5;
+Q.homeowner_dkp = 1.3 * 1.141; // 1.3
+Q.homeowner_sf = 9.3 * 0.952; // 9.3
+Q.homeowner_vs = 1.8 * 1.385; // 1.8
+Q.homeowner_rfb = 1.8 * 0.886; // 1.8
+Q.homeowner_kf = 1.3 * 1.070; // 1.3
+Q.homeowner_others = 0.5 * 1.000; // 0.5
 Q.homeowner_northatlantic = 0;
 
-Q.public_prole_a = 44.3 * 1.106; // 44.3
-Q.public_prole_v = 7.3 * 0.965; // 7.3
-Q.public_prole_c = 18 * 1.082; // 18
-Q.public_prole_b = 15 * 0.718; // 15
+Q.public_prole_a = 44.3 * 0.909; // 44.3
+Q.public_prole_v = 7.3 * 0.896; // 7.3
+Q.public_prole_c = 18 * 0.944; // 18
+Q.public_prole_b = 15 * 1.037; // 15
 Q.public_prole_z = 0;
-Q.public_prole_dkp = 1.7;
-Q.public_prole_sf = 10.9 * 1.000; // 10.9
-Q.public_prole_vs = 0.9 * 4.000; // 0.9
-Q.public_prole_rfb = 1.4;
-Q.public_prole_kf = 1.3;
-Q.public_prole_others = 0.5;
+Q.public_prole_dkp = 1.7 * 1.141; // 1.7
+Q.public_prole_sf = 10.9 * 0.952; // 10.9
+Q.public_prole_vs = 0.9 * 1.385; // 0.9
+Q.public_prole_rfb = 1.4 * 0.886; // 1.4
+Q.public_prole_kf = 1.3 * 1.070; // 1.3
+Q.public_prole_others = 0.5 * 1.000; // 0.5
 Q.public_prole_northatlantic = 0;
 
-Q.public_homeowner_a = 29.1 * 1.106; // 29.1
-Q.public_homeowner_v = 13.7 * 0.965; // 13.7
-Q.public_homeowner_c = 20.3 * 1.082; // 20.3
-Q.public_homeowner_b = 23.9 * 0.718; // 23.9
+Q.public_homeowner_a = 29.1 * 0.909; // 29.1
+Q.public_homeowner_v = 13.7 * 0.896; // 13.7
+Q.public_homeowner_c = 20.3 * 0.944; // 20.3
+Q.public_homeowner_b = 23.9 * 1.037; // 23.9
 Q.public_homeowner_z = 0;
-Q.public_homeowner_dkp = 0.9;
-Q.public_homeowner_sf = 8.1 * 1.000; // 8.1
-Q.public_homeowner_vs = 0.9 * 4.000; // 0.9
-Q.public_homeowner_rfb = 2.4;
-Q.public_homeowner_kf = 5.4;
-Q.public_homeowner_others = 0.0;
+Q.public_homeowner_dkp = 0.9 * 1.141; // 0.9
+Q.public_homeowner_sf = 8.1 * 0.952; // 8.1
+Q.public_homeowner_vs = 0.9 * 1.385; // 0.9
+Q.public_homeowner_rfb = 2.4 * 0.886; // 2.4
+Q.public_homeowner_kf = 5.4 * 1.070; // 5.4
+Q.public_homeowner_others = 0.0 * 1.000; // 0.0
 Q.public_homeowner_northatlantic = 0;
 
-Q.rural_a = 9.5 * 1.106; // 9.5
-Q.rural_v = 45.4 * 0.965; // 45.4
-Q.rural_c = 6 * 1.082; // 6
-Q.rural_b= 24.1 * 0.718; // 24.1
+Q.rural_a = 9.5 * 0.909; // 9.5
+Q.rural_v = 45.4 * 0.896; // 45.4
+Q.rural_c = 6 * 0.944; // 6
+Q.rural_b = 24.1 * 1.037; // 24.1
 Q.rural_z = 0;
-Q.rural_dkp = 0;
-Q.rural_sf = 4.3 * 1.000; // 4.3
-Q.rural_vs = 0 * 4.000; // 0
-Q.rural_rfb = 0;
-Q.rural_kf = 2.9;
-Q.rural_others = 7.7;
+Q.rural_dkp = 0 * 1.141; // 0
+Q.rural_sf = 4.3 * 0.952; // 4.3
+Q.rural_vs = 0 * 1.385; // 0
+Q.rural_rfb = 0 * 0.886; // 0
+Q.rural_kf = 2.9 * 1.070; // 2.9
+Q.rural_others = 7.7 * 1.000; // 7.7
 Q.rural_northatlantic = 0;
 
-Q.pettyb_a = 9.5 * 1.106; // 9.5
-Q.pettyb_v = 23.3 * 0.965; // 23.3
-Q.pettyb_c = 34.9 * 1.082; // 34.9
-Q.pettyb_b = 24.1 * 0.718; // 24.1
+Q.pettyb_a = 9.5 * 0.909; // 9.5
+Q.pettyb_v = 23.3 * 0.896; // 23.3
+Q.pettyb_c = 34.9 * 0.944; // 34.9
+Q.pettyb_b = 24.1 * 1.037; // 24.1
 Q.pettyb_z = 0;
-Q.pettyb_dkp = 0;
-Q.pettyb_sf = 4.3 * 1.000; // 4.3
-Q.pettyb_vs = 0 * 4.000; // 0
-Q.pettyb_rfb = 0;
-Q.pettyb_kf = 4.3;
-Q.pettyb_others = 0;
+Q.pettyb_dkp = 0 * 1.141; // 0
+Q.pettyb_sf = 4.3 * 0.952; // 4.3
+Q.pettyb_vs = 0 * 1.385; // 0
+Q.pettyb_rfb = 0 * 0.886; // 0
+Q.pettyb_kf = 4.3 * 1.070; // 4.3
+Q.pettyb_others = 0 * 1.000; // 0
 Q.pettyb_northatlantic = 0;
 
-Q.unemployed_a = 40 * 1.106; // 40
-Q.unemployed_v = 20 * 0.965; // 20
-Q.unemployed_c = 0 * 1.082; // 0
-Q.unemployed_b = 40 * 0.718; // 40
+Q.unemployed_a = 40 * 0.909; // 40
+Q.unemployed_v = 20 * 0.896; // 20
+Q.unemployed_c = 0 * 0.944; // 0
+Q.unemployed_b = 40 * 1.037; // 40
 Q.unemployed_z = 0;
-Q.unemployed_dkp = 0;
-Q.unemployed_sf = 0 * 1.000; // 0
-Q.unemployed_vs = 0 * 4.000; // 0
-Q.unemployed_rfb = 0;
-Q.unemployed_kf = 0;
-Q.unemployed_others = 0;
+Q.unemployed_dkp = 0 * 1.141; // 0
+Q.unemployed_sf = 0 * 0.952; // 0
+Q.unemployed_vs = 0 * 1.385; // 0
+Q.unemployed_rfb = 0 * 0.886; // 0
+Q.unemployed_kf = 0 * 1.070; // 0
+Q.unemployed_others = 0 * 1.000; // 0
 Q.unemployed_northatlantic = 0;
 
-Q.capitalist_a = 3.8 * 1.106; // 3.8
-Q.capitalist_v = 7.5 * 0.965; // 7.5
-Q.capitalist_c = 39.6 * 1.082; // 39.6
-Q.capitalist_b = 30.2 * 0.718; // 30.2
+Q.capitalist_a = 3.8 * 0.909; // 3.8
+Q.capitalist_v = 7.5 * 0.896; // 7.5
+Q.capitalist_c = 39.6 * 0.944; // 39.6
+Q.capitalist_b = 30.2 * 1.037; // 30.2
 Q.capitalist_z = 0;
-Q.capitalist_dkp = 0;
-Q.capitalist_sf = 0 * 1.000; // 0
-Q.capitalist_vs = 0 * 4.000; // 0
-Q.capitalist_rfb = 15.1;
-Q.capitalist_kf = 0;
-Q.capitalist_others = 0;
+Q.capitalist_dkp = 0 * 1.141; // 0
+Q.capitalist_sf = 0 * 0.952; // 0
+Q.capitalist_vs = 0 * 1.385; // 0
+Q.capitalist_rfb = 15.1 * 0.886; // 15.1
+Q.capitalist_kf = 0 * 1.070; // 0
+Q.capitalist_others = 0 * 1.000; // 0
 Q.capitalist_northatlantic = 0;
 
 /**
@@ -573,6 +619,24 @@ Q.addsupport = function(groupKey, party, delta) {
  * Convenience: add support to multiple parties at once.
  * Example: addsupportMany('homeowners', {a:+2, v:-1})
  */
+// Frustration: voters' sense that the established parties all govern alike.
+// Left frustration grows with our moderate and technocratic choices and feeds SF, VS,
+// DKP (and OS); right frustration starts high and feeds Fremskridtspartiet and CD once
+// they exist, and KF a little. Compromises with V, C or B raise both. See post_event.
+Q.left_frustration = 10;
+Q.right_frustration = 28;
+Q.trust_folketing = 77; // 100 - 0.6 * (10 + 28)
+Q.addFrustration = function(left, right) {
+    Q.left_frustration = Math.max(0, Math.min(100, (Q.left_frustration || 0) + (left || 0)));
+    Q.right_frustration = Math.max(0, Math.min(100, (Q.right_frustration || 0) + (right || 0)));
+};
+// Major crises make voters rally behind the established parties. strength 0-1 (0.3 = big crisis)
+Q.rallyRoundFlag = function(strength) {
+    var keep = 1 - Math.max(0, Math.min(1, strength));
+    Q.left_frustration = (Q.left_frustration || 0) * keep;
+    Q.right_frustration = (Q.right_frustration || 0) * keep;
+};
+
 Q.addsupportMany = function(groupKey, deltasByParty) {
   for (var p in deltasByParty) {
     Q.addsupport(groupKey, p, deltasByParty[p]);
@@ -676,6 +740,134 @@ Q.capitalist_support_records = [];
 
 // inflation and unemployment records
 Q.economic_records = [];
+// Party membership in thousands for the four old parties, 1945-1970.
+// 1960, 1965 and 1970: Folketingets Oplysning, 'Partiernes medlemstal fra 1960' (from
+// L. Bille, 'Partiet i forandring', 1997). Socialdemokratiet 1945-1957: P. Delwit, 'The
+// socialist family' (Table 1). Venstre 1950: Lex. Other pre-1960 anchors are estimates.
+// The game starts in 1970 at the last anchor of each series. See the Sources page.
+// Between the anchors we draw a smooth curve (monotone cubic interpolation, so it never
+// overshoots the figures) and add invented month-to-month variation on top.
+var membership_anchor_sets = {
+  members: [[1945, 243.5], [1947, 287.7], [1950, 283.9], [1953, 283.5],
+            [1957, 265.2], [1960, 259.459], [1965, 223.977], [1970, 177.507]],
+  v: [[1945, 180], [1950, 200], [1955, 197], [1960, 192.629], [1965, 177.611], [1970, 136.207]],
+  c: [[1945, 120], [1950, 125], [1955, 115], [1960, 108.751], [1965, 132.102], [1970, 129.195]],
+  b: [[1945, 45], [1950, 40], [1955, 37], [1960, 35], [1965, 30], [1970, 25.6]]
+};
+// how large each party's invented variation is, relative to Socialdemokratiet's
+var membership_noise_scale = { members: 1, v: 0.75, c: 0.55, b: 0.15 };
+
+var rand = function(lo, hi) { return lo + Math.random() * (hi - lo); };
+var membership_months = (1970 - 1945) * 12;
+
+// Monotone cubic (Fritsch-Carlson) curve through [year, members] anchors, by month since 1945
+var smoothMembershipCurve = function(anchors) {
+    var n = anchors.length, ax = [], ay = [], slopes = [], tangents = [];
+    for (var i = 0; i < n; i++) {
+        ax.push((anchors[i][0] - 1945) * 12);
+        ay.push(anchors[i][1]);
+    }
+    for (var i = 0; i < n - 1; i++) slopes.push((ay[i + 1] - ay[i]) / (ax[i + 1] - ax[i]));
+    tangents.push(slopes[0]);
+    for (var i = 1; i < n - 1; i++) {
+        tangents.push(slopes[i - 1] * slopes[i] <= 0 ? 0 : (slopes[i - 1] + slopes[i]) / 2);
+    }
+    tangents.push(slopes[n - 2]);
+    for (var i = 0; i < n - 1; i++) {
+        if (slopes[i] == 0) {
+            tangents[i] = 0;
+            tangents[i + 1] = 0;
+            continue;
+        }
+        var alpha = tangents[i] / slopes[i], beta = tangents[i + 1] / slopes[i];
+        var s = alpha * alpha + beta * beta;
+        if (s > 9) {
+            var tau = 3 / Math.sqrt(s);
+            tangents[i] = tau * alpha * slopes[i];
+            tangents[i + 1] = tau * beta * slopes[i];
+        }
+    }
+    return function(x) {
+        var seg = 0;
+        while (seg < n - 2 && x > ax[seg + 1]) seg++;
+        var h = ax[seg + 1] - ax[seg];
+        var u = (x - ax[seg]) / h;
+        var h00 = 2 * u * u * u - 3 * u * u + 1, h10 = u * u * u - 2 * u * u + u;
+        var h01 = -2 * u * u * u + 3 * u * u, h11 = u * u * u - u * u;
+        return h00 * ay[seg] + h10 * h * tangents[seg] + h01 * ay[seg + 1] + h11 * h * tangents[seg + 1];
+    };
+};
+
+// Election campaigns are shared by all parties: members join in the months before
+// polling day, and many let their membership lapse over the following year.
+var membership_election_months = [];
+for (var i = 0; i < Q.election_records.length; i++) {
+    var ed = new Date(Q.election_records[i].date);
+    if (ed.getFullYear() < 1970) membership_election_months.push((ed.getFullYear() - 1945) * 12 + ed.getMonth());
+}
+
+// Hypothetical variation (thousands of members, before scaling). None of this is
+// historical data. It fades out over the last year so each series joins its 1970 value.
+var buildMembershipSeries = function(anchors, scale) {
+    var curve = smoothMembershipCurve(anchors);
+    var campaigns = membership_election_months.map(function(m) {
+        return { month: m, size: rand(1.5, 3.5), lapse: rand(4, 9) };
+    });
+    // a few unexplained swings: a recruitment drive that works, a scandal, a quarrel in a big branch
+    var shocks = [];
+    var n_shocks = 4 + Math.floor(Math.random() * 3);
+    for (var i = 0; i < n_shocks; i++) {
+        shocks.push({ month: Math.floor(rand(6, membership_months - 18)), size: rand(-3.5, 2.5), decay: rand(6, 18) });
+    }
+    // each year has its own timing for the dues purge and the autumn recruitment push
+    var season_phase = [];
+    for (var y = 0; y <= 25; y++) season_phase.push(rand(-0.6, 0.6));
+
+    var values = [], drift = 0, noise = 0;
+    for (var x = 0; x < membership_months; x++) {
+        var fade = Math.min(1, (membership_months - x) / 12);
+        drift = 0.95 * drift + rand(-0.5, 0.5);
+        noise = 0.5 * noise + rand(-0.35, 0.35);
+        var season = 0.7 * Math.sin(2 * Math.PI * ((x % 12) - 4) / 12 + season_phase[Math.floor(x / 12)]);
+        var campaign = 0;
+        for (var c = 0; c < campaigns.length; c++) {
+            var dm = x - campaigns[c].month;
+            if (dm >= -3 && dm <= 0) {
+                campaign += campaigns[c].size * (dm + 4) / 4;
+            } else if (dm > 0) {
+                campaign += campaigns[c].size * Math.exp(-dm / campaigns[c].lapse);
+            }
+        }
+        var shock = 0;
+        for (var s = 0; s < shocks.length; s++) {
+            var ds = x - shocks[s].month;
+            if (ds >= 0) shock += shocks[s].size * Math.exp(-ds / shocks[s].decay);
+        }
+        var variation = (drift + noise + season + campaign + shock) * scale;
+        values.push(Number((curve(x) + variation * fade).toFixed(2)));
+    }
+    return values;
+};
+
+var membership_series = {};
+for (var key in membership_anchor_sets) {
+    membership_series[key] = buildMembershipSeries(membership_anchor_sets[key], membership_noise_scale[key]);
+}
+Q.membership_records = [];
+for (var x = 0; x < membership_months; x++) {
+    Q.membership_records.push({
+        date: new Date(1945, x),
+        members: membership_series.members[x],
+        v: membership_series.v[x],
+        c: membership_series.c[x],
+        b: membership_series.b[x]
+    });
+}
+// the other old parties' membership during the game (thousands), from their 1970 anchors
+Q.v_members = 136.207;
+Q.c_members = 129.195;
+Q.b_members = 25.6;
+Q.society_records = [];
 
 
 // State of the government
@@ -753,6 +945,8 @@ Q.blutmai = 0;
 Q.ODsupport = 0; 
 Q.Thy_seen = 0;
 Q.council_seen = 0;
+Q.LO_reform_promised = 0;
+Q.oed_report = 0;
 
 // have we reformed these institutions to be more democratic?
 Q.judicial_reform = 0;
@@ -818,7 +1012,7 @@ Q.timers = ['advisor_action', 'confronting_nazis', 'crisis_program',
             'iron_front', 'media', 'enemies',
             'party_organizations', 'rally', 'reichsbanner',
             'shuffle_leadership', 'streetfighting', 'peoples_party',
-            'party_disunity', 'council', 'lo_relations',
+            'party_disunity', 'council', 'lo_relations', 'dkf',
             // govt
             'agricultural_policy', 'domestic_enemies', 'fiscal_policy',
             'foreign_policy', 'judiciary', 'labor_affairs', 'military_policy',
@@ -851,12 +1045,17 @@ Q.party_organizations_timer =  0;
 Q.rally_timer = 0;
 Q.lo_relations_timer = 0;
 Q.council_timer = 7;
+Q.dkf_timer = 3;
 Q.reichsbanner_timer = 0;
 Q.shuffle_leadership_timer = 0;
 Q.streetfighting_timer = 0;
 Q.peoples_party_timer = 0;
 // n_elections is the number of elections that have happened since the start of the game.
 Q.n_elections = 0;
+// election cards record the campaign they were played in, so they appear once per campaign
+Q.ele_funds_campaign = 0;
+Q.last_push_campaign = 0;
+Q.negotiations_campaign = 0;
 // number of elections without a clear majority.
 Q.no_majority_elections = 0;
 // elections are not on a timer, but rather there is an indicator for whether you're in an electoral cycle.
@@ -917,8 +1116,6 @@ Q.rfb_votesdisp = 1.5
 
 // Pinned cards – Party bereaucracy?
 Q.statistics_card = 1;
-Q.council_level = 0;
-Q.polling_efficiency = 0; 
 
 //linegraph start year
 Q.linegraph_start_year = 1970;
@@ -1014,6 +1211,8 @@ go-to: 1928_main
 
 @1928_main
 new-page: true
+# every difficulty passes through here: the sidebar and status bar appear from now on
+on-arrival: game_entered = 1
 set-bg: img/Background-train.jpg
 audio: shuffle music/1970_1973/Naar_jeg_ser_et_roedt_flag_smaelde.mp3 music/1970_1973/Der-Er-Noget-Galt-I-Danmark.mp3 music/1970_1973/Lil_Johnnys_Mund.mp3 music/1970_1973/Victor_og_socialdemokratiet.mp3 music/1970_1973/trille-ham-gud.mp3 music/1970_1973/hejsoster.mp3 music/1970_1973/hejsoster.mp3
 go-to: main if difficulty >= 0; main.main_easy if difficulty < 0

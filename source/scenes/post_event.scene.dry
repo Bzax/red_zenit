@@ -12,6 +12,45 @@ for (var c of Q.classes) {
     }
 }
 
+//// FRUSTRATION: read the player's choices since the last post_event
+// The helpers live on Q (see root), which saves don't keep, so define them again if missing.
+if (!Q.addFrustration) {
+    Q.addFrustration = function(left, right) {
+        Q.left_frustration = Math.max(0, Math.min(100, (Q.left_frustration || 0) + (left || 0)));
+        Q.right_frustration = Math.max(0, Math.min(100, (Q.right_frustration || 0) + (right || 0)));
+    };
+}
+if (!Q.rallyRoundFlag) {
+    Q.rallyRoundFlag = function(strength) {
+        var keep = 1 - Math.max(0, Math.min(1, strength));
+        Q.left_frustration = (Q.left_frustration || 0) * keep;
+        Q.right_frustration = (Q.right_frustration || 0) * keep;
+    };
+}
+if (Q.left_frustration == null) { Q.left_frustration = 10; Q.right_frustration = 28; }
+// Compare with the snapshot taken at the end of the previous post_event, so only the
+// effects of this turn's choices count (not the drift post_event itself applies).
+if (Q.frustration_snapshot && Q.addFrustration) {
+    var snap = Q.frustration_snapshot;
+    var d_left = Q.left_dissent - snap.left_dissent;
+    var d_tech = Q.technocrat_dissent - snap.technocrat_dissent;
+    var d_apparatus = Q.expense_apparatus - snap.expense_apparatus;
+    var d_bourgeois = Math.max(0, Q.v_relation - snap.v_relation) +
+                      Math.max(0, Q.c_relation - snap.c_relation) +
+                      Math.max(0, Q.b_relation - snap.b_relation);
+    var left_gain = 0, right_gain = 0;
+    // moderate choices anger the left
+    if (d_left > 0) left_gain += 0.4 * d_left;
+    // technocratic choices please the technocrats
+    if (d_tech < 0) left_gain += 0.3 * -d_tech;
+    // professionalising the party organisation
+    if (d_apparatus > 0) left_gain += 2 * d_apparatus;
+    // compromises with the bourgeois parties frustrate both wings
+    left_gain += 0.15 * d_bourgeois;
+    right_gain += 0.10 * d_bourgeois;
+    Q.addFrustration(left_gain, right_gain);
+}
+
 Q.socialism = Math.round(Q.socialism);
 Q.nationalism = Math.round(Q.nationalism);
 
@@ -94,13 +133,8 @@ function addSegmentUncertainty(baseValue) {
 
     if (Q.debug_no_poll_uncertainty) return Math.max(0, Math.min(100, v));
 
-    var pe = Number(Q.polling_efficiency);
-    if (!Number.isFinite(pe)) pe = 0;
-    pe = Math.max(0, Math.min(100, pe));
-
-    var startRel = 0.12;
-    var minRel = 0.02;
-    var rel = startRel - (startRel - minRel) * (pe / 100);
+    // internal polling carries a fixed relative uncertainty
+    var rel = 0.04;
 
     var deviation = (Math.random() * 2 - 1) * rel;
     return Math.max(0, Math.min(100, v * (1 + deviation)));
@@ -217,6 +251,8 @@ Q.memberrise += Q.efc * 0.15;
 
 // decline membership  each month
 Q.a_memberdecline = 0.3+(4*Q.dissent) - Q.memberrise
+// frustrated members leave: the left wing much more than the right
+Q.a_memberdecline += 0.01 * (Q.left_frustration || 0) + 0.002 * (Q.right_frustration || 0);
 Q.members_total -= Q.a_memberdecline; // adjust the increment as needed
 
 //get the monthly change
@@ -338,7 +374,8 @@ for (var c of Q.classes) {
 
 Q.economic_records.push({'date': new Date(Q.year, Q.month - 1),
                             'inflation': Q.inflation,
-                            'unemployment': Q.unemployed});
+                            'unemployment': Q.unemployed,
+                            'gdp': Q.gdp});
 // change economic stats...
 // we're basically implicity drawing a Philips curve
 // budget deficits lead to some inflation
@@ -359,10 +396,64 @@ if (Q.budget <= -5 && Q.inflation < 10) {
 }
 
 
-//// ADD SPECIAL CLASSES FOR POLLING ////
-// NOTE: tenant_class_support_records is appended later, after Q.public_private_worker_t is computed,
-// so that (a) the blend factor is correct and (b) party_disp uses addSegmentUncertainty properly.
-// (removed earlier duplicate append block)
+//// SOCIO ECONOMICS: class sizes
+// All class sizes are recalculated every month. Rural, small business owners and
+// capitalists drift with the economy, the unemployed follow the unemployment rate,
+// and everyone else is a wage earner, split by sector (public_worker_share) and by
+// housing tenure (homeownership).
+var growth = Number(Q.economic_growth);
+if (!Number.isFinite(growth)) growth = 0;
+var clamp = function(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); };
+
+// An economic downturn is growth below 1%
+var downturn = growth < 1;
+
+// Urbanization: mechanization keeps pushing people off the land, faster in good times.
+// A downturn accelerates it a little, as struggling farmers give up and move to the cities.
+var rural_decline = 0.02 + 0.005 * Math.max(0, growth);
+if (downturn) rural_decline += Math.min(0.02, 0.005 * (1 - growth));
+Q.rural = clamp(Q.rural - rural_decline, 3, 100);
+
+// Small business owners lose out to larger firms in a boom, and grow when jobs are scarce
+if (growth >= 2) Q.pettyb -= 0.01;
+if (Q.unemployed >= 8) Q.pettyb += 0.01;
+Q.pettyb = clamp(Q.pettyb, 5, 15);
+
+// Capitalists grow slowly in strong economies
+if (growth >= 3) Q.capitalist += 0.003;
+Q.capitalist = clamp(Q.capitalist, 3, 6);
+
+// Homeownership rises with economic growth. A downturn never makes it fall by itself,
+// but slows it sharply, and the faster people move to the cities (where they rent),
+// the more it stalls. Policies push it either way through housing_policy_drift
+// (percentage points a month).
+var housing_growth;
+if (downturn) {
+    housing_growth = Math.max(0, 0.03 - rural_decline);
+} else {
+    housing_growth = 0.005 + 0.025 * (growth - 1);
+}
+Q.homeownership += housing_growth + (Q.housing_policy_drift || 0);
+Q.homeownership = clamp(Q.homeownership, 20, 80);
+Q.homeownership_disp = Q.homeownership.toFixed(1);
+
+// Public sector: grows steadily with the welfare state regardless of the economy.
+// Only policies can shrink it, through public_sector_drift (percentage points of the
+// labour force a month).
+if (Q.public_worker_share == null) Q.public_worker_share = 30.3;
+Q.public_worker_share = clamp(Q.public_worker_share + 0.08 + (Q.public_sector_drift || 0), 15, 60);
+
+// Labour force: everyone who is not a farmer, small business owner or capitalist.
+// Public jobs are a fixed share of it, so unemployment comes out of the private sector.
+var labour_force = Math.max(0, 100 - Q.rural - Q.pettyb - Q.capitalist);
+var public_workers = labour_force * Q.public_worker_share / 100;
+var private_workers = Math.max(0, labour_force - public_workers - Q.unemployed);
+// 41.2% national homeownership corresponds to 46.6% among wage earners in 1970
+var owner_share = clamp(0.466 * Q.homeownership / 41.2, 0.05, 0.95);
+Q.prole = private_workers * (1 - owner_share);
+Q.homeowner = private_workers * owner_share;
+Q.public_prole = public_workers * (1 - owner_share);
+Q.public_homeowner = public_workers * owner_share;
 
 // public sector size
 Q.sizeofpublicsector = (Q.public_prole + Q.public_homeowner) / (Q.public_prole + Q.public_homeowner + Q.homeowner + Q.prole + Q.rural + Q.pettyb) * 100;
@@ -372,92 +463,25 @@ Q.sizeofpublicsectordisp = Q.sizeofpublicsector.toFixed(1);
 Q.urbanization_rate = 100 - Q.rural;
 Q.urbanization_ratedisp = Q.urbanization_rate.toFixed(1);
 
-// Calculating the values of the abstracted "tenant class" (public prole + private prole)
-function clamp01(x) { return Math.max(0, Math.min(1, x)); }
-var denom = Number(Q.sizeofpublicsector);
-var numer = Number(Q.urbanization_rate);
-var t = (denom > 0 && Number.isFinite(denom) && Number.isFinite(numer)) ? clamp01(numer / denom) : 0;
-
-Q.public_private_worker_t = t;
-Q.public_private_worker_t_disp = (t * 100).toFixed(0) + "%";
-
-// append to historical party support records (overall) ONCE
-if (!Q.party_support_records) Q.party_support_records = [];
-var party_support_results = { date: new Date(Q.year, Q.month - 1), _t: t };
-for (var party of Q.parties) {
-  party_support_results[party] = Q[party + '_votesdisp'];
-}
-Q.party_support_records.push(party_support_results);
-
-// append to historical party support records from each class ONCE
-for (var c of Q.classes) {
-  var key = c + "_support_records";
-  if (!Q[key]) Q[key] = [];
-
-  var class_result = { date: new Date(Q.year, Q.month - 1), _t: t };
-
-  for (var party of Q.parties) {
-    if (Q.old_demographics) {
-        class_result[party] = Number(Q[c + '_' + party]);
-    } else {
-        class_result[party] = Number(Q[c + '_' + party + '_normalized']);
-    }
-  }
-
-  Q[key].push(class_result);
-}
-
-// NEW: blended working-class (private prole + public prole) series, preserves originals
-if (!Q.tenant_class_support_records) Q.tenant_class_support_records = [];
-
-var proleRec = Q.prole_support_records && Q.prole_support_records.length
-    ? Q.prole_support_records[Q.prole_support_records.length - 1]
-    : null;
-
-var publicProleRec = Q.public_prole_support_records && Q.public_prole_support_records.length
-    ? Q.public_prole_support_records[Q.public_prole_support_records.length - 1]
-    : null;
-
-// Only append if both exist for this month
-if (proleRec && publicProleRec) {
-    // Store both underlying value (party) and a noisy polling estimate (party_disp)
-    var wc = { date: new Date(Q.year, Q.month - 1), _t: t };
-
-    for (var party of Q.parties) {
-        var va = Number(proleRec[party]);
-        var vb = Number(publicProleRec[party]);
-        if (!Number.isFinite(va)) va = 0;
-        if (!Number.isFinite(vb)) vb = 0;
-
-        var baseBlend = (1 - t) * va + t * vb;
-        wc[party] = baseBlend;
-        wc[party + "_disp"] = Number(addSegmentUncertainty(baseBlend).toFixed(1));
-    }
-
-    Q.tenant_class_support_records.push(wc);
-}
-
-
-
-//// SOCIO ECONOMICS
-
-//Urbanization rural
-if (Q.economic_growth >= 1.5 && Q.economic_growth < 4) {
-    Q.rural -= 0.04;
-    Q.unemployed + 0.02;
-}
-if (Q.economic_growth >= 1.5 && Q.economic_growth < 4) {
-    Q.rural -= 0.02;
-    Q.unemployed + 0.01;
-}
-if (Q.economic_growth > -1 && Q.economic_growth < 0) {
-    Q.rural -= 0.02;
-    Q.unemployed + 0.01;
-}
-if (Q.economic_growth <= -1) {
-    Q.rural -= 0.04;
-    Q.unemployed + 0.02;
-}
+// monthly records for the statistics cards
+if (!Q.membership_records) Q.membership_records = [];
+// The other old parties lose members too: Venstre with the farms, the Conservatives
+// and Radikale more slowly. Right frustration drains all three, twice as fast once
+// Fremskridtspartiet or CD gives frustrated members somewhere to go.
+// (Historically, 1970-1975: V 136 -> 113, C 129 -> 75, B 25.6 -> 20.1 thousand.)
+if (Q.v_members == null) { Q.v_members = 136.207; Q.c_members = 129.195; Q.b_members = 25.6; }
+var rf_drain = 0.004 * (Q.right_frustration || 0) * ((Q.z_formed || Q.cd_formed) ? 2 : 1);
+Q.v_members = Math.max(0, Q.v_members - 0.45 - rf_drain * Q.v_members / 100 + (Math.random() * 2 - 1) * 0.4);
+Q.c_members = Math.max(0, Q.c_members - 0.55 - rf_drain * Q.c_members / 100 + (Math.random() * 2 - 1) * 0.3);
+Q.b_members = Math.max(0, Q.b_members - 0.10 - rf_drain * Q.b_members / 100 + (Math.random() * 2 - 1) * 0.08);
+Q.membership_records.push({'date': new Date(Q.year, Q.month - 1), 'members': Q.members_total,
+                           'v': Number(Q.v_members.toFixed(2)), 'c': Number(Q.c_members.toFixed(2)),
+                           'b': Number(Q.b_members.toFixed(2))});
+if (!Q.society_records) Q.society_records = [];
+Q.society_records.push({'date': new Date(Q.year, Q.month - 1),
+                        'urbanization': Q.urbanization_rate,
+                        'public_sector': Q.sizeofpublicsector,
+                        'homeownership': Number(Q.homeownership.toFixed(1))});
 
 // deflation is bad
 if (Q.inflation < -0.5 && Q.inflation > -5 && Q.unemployed < 15) {
@@ -581,8 +605,71 @@ if (Q.valg){
     Q.addsupport('everyone','v', +0.8*Q.capitalist_angst);
     Q.addsupport('everyone','c', +1*Q.capitalist_angst);
     Q.addsupport('everyone','b', +0.5*Q.capitalist_angst);
+
+    // Party apparatus: members knock on doors and hand out leaflets, so parties with
+    // many members gain a little support every week of the campaign.
+    // (members are in thousands; 177,500 members = about +0.5% of the party's own support a week)
+    var campaign_members = { a: Q.members_total, v: Q.v_members, c: Q.c_members, b: Q.b_members };
+    for (var cp in campaign_members) {
+        var apparatus_boost = 0.00003 * (campaign_members[cp] || 0);
+        for (var cc of Q.classes) {
+            Q[cc + '_' + cp] = (Q[cc + '_' + cp] || 0) * (1 + apparatus_boost);
+        }
+    }
 }
     
+//// FRUSTRATION: effects on voters
+if (Q.left_frustration != null) {
+    // frustration fades slowly when nothing feeds it
+    Q.left_frustration = Math.max(0, Math.min(100, Q.left_frustration * 0.98));
+    Q.right_frustration = Math.max(0, Math.min(100, Q.right_frustration * 0.99));
+    // Governing wears on the side that is in power: in government our own left grows
+    // slowly frustrated with compromise; under a bourgeois government, the right does.
+    if (Q.a_in_government) {
+        Q.left_frustration = Math.min(100, Q.left_frustration + 0.2);
+    } else {
+        Q.right_frustration = Math.min(100, Q.right_frustration + 0.15);
+    }
+
+    // Close ties with LO feed the period's narrative that the big organisations run politics
+    // behind the Folketing's back: good relations raise frustration on both wings equally.
+    var lo_effect = Math.max(0, (Q.lo_relations || 0) - 50);
+    Q.left_frustration = Math.max(0, Math.min(100, Q.left_frustration + 0.007 * lo_effect));
+    Q.right_frustration = Math.max(0, Math.min(100, Q.right_frustration + 0.007 * lo_effect));
+    var lf = Q.left_frustration, rf = Q.right_frustration;
+
+    // Left frustration: workers and the unemployed drift from us to the left fringe
+    // Retsforbundet also picks up disillusioned voters looking for something outside the old parties
+    var left_targets = Q.os_formed ? { os: 0.35, sf: 0.27, vs: 0.15, dkp: 0.1, rfb: 0.13 } : { sf: 0.45, vs: 0.25, dkp: 0.15, rfb: 0.15 };
+    var left_classes = ['prole', 'homeowner', 'public_prole', 'public_homeowner', 'unemployed'];
+    for (var lc of left_classes) {
+        var moved = (Q[lc + '_a'] || 0) * 0.00007 * lf;
+        Q[lc + '_a'] -= moved;
+        for (var lp in left_targets) Q[lc + '_' + lp] = (Q[lc + '_' + lp] || 0) + moved * left_targets[lp];
+    }
+
+    // Right frustration: voters leave the four old parties. Kristeligt Folkeparti takes a
+    // small share (a tenth) all along; Fremskridtspartiet and CD only once they exist.
+    var right_targets = {};
+    if (Q.z_formed && Q.cd_formed) { right_targets = { z: 0.6, cd: 0.4 }; }
+    else if (Q.z_formed) { right_targets = { z: 1 }; }
+    else if (Q.cd_formed) { right_targets = { cd: 1 }; }
+    var new_right = Q.z_formed || Q.cd_formed;
+    for (var rc of Q.classes) {
+        for (var op of ['a', 'v', 'c', 'b']) {
+            var base_rate = (Q[rc + '_' + op] || 0) * 0.00015 * rf;
+            var to_kf = base_rate * 0.1;
+            var to_new = new_right ? base_rate : 0;
+            Q[rc + '_' + op] -= to_kf + to_new;
+            Q[rc + '_kf'] = (Q[rc + '_kf'] || 0) + to_kf;
+            for (var rp in right_targets) Q[rc + '_' + rp] = (Q[rc + '_' + rp] || 0) + to_new * right_targets[rp];
+        }
+    }
+
+    // what the player sees: trust in the Folketing falls as frustration rises
+    Q.trust_folketing = Math.max(0, Math.min(100, 100 - 0.6 * (lf + rf)));
+}
+
 ///////////////////////////// change party support based on popularity of socialism
 // if socialism is loosing the ideological fight, and is less popular than the support of the workers coalition, reduce left support...
 if (Q.socialism > (Q.a_votes + Q.sf_votes + Q.vs_votes + Q.dkp_votes)) {
@@ -628,7 +715,6 @@ if (Q.year == 1971) {
     // increase NSDAP vote share
     Q.homeowner_a += 10/12;
     Q.prole_a += 10/12;
-    Q.public_homeowner -= 5/12;
     Q.new_middle_dvp -= 5/12;
     Q.workers_kpd += 5/12;
     Q.sa_strength += 50/12;
@@ -797,6 +883,13 @@ if (choices && choices[0].title != "Continue...") {
 } else {
     has_event = 0;
 }
+// snapshot for next turn's frustration detection
+Q.frustration_snapshot = {
+    left_dissent: Q.left_dissent, technocrat_dissent: Q.technocrat_dissent,
+    expense_apparatus: Q.expense_apparatus,
+    v_relation: Q.v_relation, c_relation: Q.c_relation, b_relation: Q.b_relation
+};
+
 // pre-load all of the event images
 if (this.ui && this.ui.show_portraits) {
     for (var choice of choices) {

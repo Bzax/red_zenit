@@ -2,18 +2,17 @@ title: Recruitment Campaign
 new-page: true
 is-card: true
 tags: party_affairs
-view-if: year >= 1970
+view-if: year >= 1971
 card-image: img/aof2.jpg
 on-arrival: month_actions += 1; reichsbanner_timer += 8; rb_militarization_cost = 20 if rb_militancy > 0.1 else rb_militarization_cost = 10; rb_militarization_cost = 30 if rb_militancy > 0.25
 max-visits: 5
 #subtitle: Paramilitary organizing in defense of the republic.
 
-= Recruiting
+= Recruitment Campaign
 
 Our party membership is the life-force of our politics. But as the trade union memberships soared following the liberation from Germany, the membership of our party has seen steady decline.
 
 - @militant: Let us initiate a large scale recruiting effort.
-- @militant_2: Use our existing resources to support more training for the Reichsbanner.
 - @small_campaign: Run a small campaign.
 - @cut_rb: Cut funding for the recruitment offices.
 - @easy_discard
@@ -33,7 +32,7 @@ We introduce a big flashy campaign, and execute it with the help of our local ac
 
 
 @militant_2
-view-if: funded_reichsbanner >= 1
+view-if: weimar_content = 1 and funded_reichsbanner >= 1
 on-arrival: rb_militancy += 0.02; funded_reichsbanner -= 1
 
 As we have already funded resources towards the Reichsbanner, we can invest in building up their militancy.

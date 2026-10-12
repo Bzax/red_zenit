@@ -306,19 +306,30 @@
                 </div>
 
                 <div id="header_bar"></div>
+                <div id="budget_popup" class="budget-popup" hidden></div>
             </header>
             <div id="tools_wrapper">
                 <div id='stats_sidebar' class='tools left'>
                     <div class="tab_container">
-                        <button class="tab_button" id="politics_tab" onclick="window.changeTab('status.politics', 'politics_tab');">Party</button>
-                        <button class="tab_button" id="budget_tab" onclick="window.changeTab('status.budget', 'budget_tab');">Budget</button>
+                        <button class="tab_button active" id="politics_tab" onclick="window.changeTab('status.politics', 'politics_tab');">Party</button>
+                        <button class="tab_button" id="factions_tab" onclick="window.changeTab('status.factions', 'factions_tab');">Factions</button>
                         <button class="tab_button" id="movement_tab" onclick="window.changeTab('status.movement', 'movement_tab');">Movement</button>
-                        <button class="tab_button active" id="main_tab" onclick="window.changeTab('status', 'main_tab');">Politics</button>
-                        <button class="tab_button" id="poll_tab" onclick="window.changeTab('status.polls', 'poll_tab');">Polls</button>
-                        <button class="tab_button" id="paramilitary_tab" onclick="window.changeTab('status.paramilitaries', 'paramilitary_tab');">Socio-Economics</button>
+                        <!-- on narrow screens these tabs live here; on wide screens they move to the right sidebar -->
+                        <button class="tab_button narrow_only" id="main_tab" onclick="window.changeTab('status', 'main_tab');">Politics</button>
+                        <button class="tab_button narrow_only" id="poll_tab" onclick="window.changeTab('status.polls', 'poll_tab');">Polls</button>
+                        <button class="tab_button narrow_only" id="paramilitary_tab" onclick="window.changeTab('status.paramilitaries', 'paramilitary_tab');">Socio-Economics</button>
 
                     </div>
                     <div id="qualities">
+                    </div>
+                </div>
+                <div id='stats_sidebar_right' class='tools right wide_only'>
+                    <div class="tab_container">
+                        <button class="tab_button active" id="main_tab_right" onclick="window.changeTab('status', 'main_tab_right', 'right');">Politics</button>
+                        <button class="tab_button" id="poll_tab_right" onclick="window.changeTab('status.polls', 'poll_tab_right', 'right');">Polls</button>
+                        <button class="tab_button" id="paramilitary_tab_right" onclick="window.changeTab('status.paramilitaries', 'paramilitary_tab_right', 'right');">Socio-Economics</button>
+                    </div>
+                    <div id="qualities_right">
                     </div>
                 </div>
             </div>

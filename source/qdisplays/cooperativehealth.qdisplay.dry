@@ -1,12 +1,12 @@
 
-(..0.73)     <span style="color:#8C2F1E;"><span class="pips">○○○○○</span> kaput! <span class="pips">☠&#xFE0E;</span></span>
-(0.73..0.79) <span style="color:#97331F;"><span class="pips">◐○○○○</span> kaput!</span>
-(0.79..0.85) <span style="color:#AA5A2A;"><span class="pips">●○○○○</span> broken</span>
-(0.85..0.91) <span style="color:#8A6A2F;"><span class="pips">●◐○○○</span> sputtering</span>
-(0.91..0.97) <span style="color:#8A6A2F;"><span class="pips">●●○○○</span> sputtering</span>
-(0.97..1.03) <span style="color:#6B7355;"><span class="pips">●●◐○○</span> running</span>
-(1.03..1.09) <span style="color:#6B7355;"><span class="pips">●●●○○</span> running</span>
-(1.09..1.15) <span style="color:#4A6B4A;"><span class="pips">●●●◐○</span> well-oiled</span>
-(1.15..1.21) <span style="color:#4A6B4A;"><span class="pips">●●●●○</span> well-oiled</span>
-(1.21..1.27) <span style="color:#2F5D4A;"><span class="pips">●●●●◐</span> profitable!</span>
-(1.27..)     <span style="color:#2F5D4A;"><span class="pips">●●●●●</span> profitable!</span>
+(..0.73)     <span style="color:#8C2F1E;"><span class="tooltip-text pip-tip" title="○○○○○">kaput!</span> <span class="pips">☠&#xFE0E;</span></span>
+(0.73..0.79) <span style="color:#97331F;"><span class="tooltip-text pip-tip" title="◐○○○○">kaput!</span></span>
+(0.79..0.85) <span style="color:#AA5A2A;"><span class="tooltip-text pip-tip" title="●○○○○">broken</span></span>
+(0.85..0.91) <span style="color:#8A6A2F;"><span class="tooltip-text pip-tip" title="●◐○○○">sputtering</span></span>
+(0.91..0.97) <span style="color:#8A6A2F;"><span class="tooltip-text pip-tip" title="●●○○○">sputtering</span></span>
+(0.97..1.03) <span style="color:#6B7355;"><span class="tooltip-text pip-tip" title="●●◐○○">running</span></span>
+(1.03..1.09) <span style="color:#6B7355;"><span class="tooltip-text pip-tip" title="●●●○○">running</span></span>
+(1.09..1.15) <span style="color:#4A6B4A;"><span class="tooltip-text pip-tip" title="●●●◐○">well-oiled</span></span>
+(1.15..1.21) <span style="color:#4A6B4A;"><span class="tooltip-text pip-tip" title="●●●●○">well-oiled</span></span>
+(1.21..1.27) <span style="color:#2F5D4A;"><span class="tooltip-text pip-tip" title="●●●●◐">profitable!</span></span>
+(1.27..)     <span style="color:#2F5D4A;"><span class="tooltip-text pip-tip" title="●●●●●">profitable!</span></span>

@@ -1,0 +1,40 @@
+title: DKF
+new-page: true
+is-card: true
+view-if: dkf_timer <= 0
+max-visits: 36
+frequency: 300
+on-arrival: month_actions += 1; dkf_timer += 7;
+card-image: img/union3.jpg
+tags: workers_movement
+
+= **DKF**
+
+{!<span class="tooltip-text" title="Det Kooperative Fællesforbund (lit. 'The Cooperative Common Union') is a confederation of Danish workers cooperatives, it has traditionally been considered a third pillar of the workers movement.">DKF</span>!} brings together the movement's cooperatives: Arbejdernes Landsbank, the cooperative builders, bakeries, breweries and printing presses. Our relations with them are [+ dkf_relations : dkf_relations +].
+
+- @dkf_loan: Ask Arbejdernes Landsbank for a loan.
+- @dkf_print: Have our papers printed at the cooperative presses.
+- @dkf_housing: Champion cooperative housing.
+- @easy_discard
+
+@dkf_loan
+subtitle: +15 resources, but DKF will be less willing next time.
+choose-if: dkf_relations >= 50
+unavailable-subtitle: Our relations with DKF are too poor for the bank to lend to us.
+on-arrival: resources += 15; dkf_relations -= 6
+
+{!<span class="tooltip-text" title="Arbejdernes Landsbank (lit. 'The Workers Bank of Denmark') was founded in 1919 by the labour movement.">Arbejdernes Landsbank</span>!} agrees to the loan on generous terms. The board makes it clear that they expect this to be the exception.
+
+@dkf_print
+subtitle: -5 resources, improves our newspapers and our relations with DKF.
+choose-if: resources >= 5
+unavailable-subtitle: We don't have the 5 resources required.
+on-arrival: resources -= 5; mediahealth += 5; dkf_relations += 3
+
+We move more of our printing to the cooperative presses. The papers come out on time and look better, and DKF is glad of the business.
+
+@dkf_housing
+subtitle: Popular among tenants and the left, but our technocrats would rather leave housing to the market. Slows the spread of homeownership.
+on-arrival: prole_a += 1.5*efc; public_prole_a += 1.5*efc; socialism += 1; dkf_relations += 5; technocrat_dissent += 2; housing_policy_drift -= 0.01
+
+We speak up for the cooperative housing associations and promise them our support in parliament and the city councils. Tenants in the big housing estates take notice.

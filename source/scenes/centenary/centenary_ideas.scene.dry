@@ -1,0 +1,68 @@
+title: History and Ideas
+new-page: true
+is-card: true
+tags: centenary
+view-if: ideas_centenary = 0 and (year == 1970 or (year == 1971 and month <= 3))
+on-arrival: month_actions += 1; ideas_centenary = 1
+card-image: img/aktuelt3.jpg
+
+= History and Ideas
+
+The {!<span class="tooltip-text" title="Arbejderbevægelsens Bibliotek og Arkiv (lit. 'The Labour Movement's Library and Archive') was founded in 1909 to preserve the records of the Danish workers' movement.">Labour Movement's Library and Archive</span>!} has offered to put together an exhibition for the centenary. They can't fit a hundred years into one hall, so they want to know what to focus on.
+
+- @struggle_history: The struggle: from the Battle of Fælleden to the Great Lockout.
+- @welfare_history: The achievement: from Stauning to the welfare state.
+- @no_exhibition_centenary: We can do without an exhibition.
+
+@struggle_history
+subtitle: -10 resources. The left will welcome a reminder of our roots, the technocrats less so.
+choose-if: resources >= 10
+unavailable-subtitle: We don't have the 10 resources required.
+on-arrival: history_centenary += 1; struggle_centenary += 1; resources -= 10; left_dissent -= 5; left_worker_dissent -= 3; technocrat_dissent += 3
+
+The exhibition will open with the {!<span class="tooltip-text" title="On 5 May 1872, police and soldiers broke up a banned workers' meeting on Nørrefælled in Copenhagen. Louis Pio and the other leaders of the International were arrested and imprisoned.">Battle of Fælleden</span>!}, and close with the Great Lockout of 1899 and the September Compromise that followed. The left wing likes the idea. Some of the technocrats ask whether a party of government should be celebrating street fights.
+
+- @book_centenary_step: Continue.
+
+@welfare_history
+subtitle: -10 resources. The moderates will welcome a celebration of what we have built, the left less so.
+choose-if: resources >= 10
+unavailable-subtitle: We don't have the 10 resources required.
+on-arrival: history_centenary += 1; welfare_centenary += 1; resources -= 10; technocrat_dissent -= 5; right_worker_dissent -= 3; left_dissent += 3
+
+The exhibition will follow the long road from Stauning's first government through the {!<span class="tooltip-text" title="The Kanslergade Agreement of January 1933 secured a broad parliamentary majority for crisis measures and the sweeping social reforms of K.K. Steincke.">Kanslergade Agreement</span>!} to the modern welfare state. The moderates are happy with it. The left complains that the exhibition is mostly a list of laws.
+
+- @book_centenary_step: Continue.
+
+@no_exhibition_centenary
+subtitle: Saves the money, but the movement's veterans will notice.
+go-to: book_centenary_step
+
+
+@book_centenary_step
+
+The party secretariat proposes a debate book for the centenary, *Instead of the Class Society*, to be sent to every chapter for discussion. What should it argue?
+
+- @radical_book_centenary: That economic democracy is the next step - industry should be owned in part by those who work in it.
+- @pragmatic_book_centenary: That our task is to complete and secure the welfare state.
+- @no_book_centenary: No debate book this time.
+
+@radical_book_centenary
+subtitle: -5 resources. The left and the chapters will love it. The technocrats will not.
+choose-if: resources >= 5
+unavailable-subtitle: We don't have the 5 resources required.
+on-arrival: book_centenary += 1; radical_book_centenary += 1; resources -= 5; socialism += 3; left_dissent -= 5; left_worker_dissent -= 3; technocrat_dissent += 5; a_activity += 4
+
+Copies go out to every chapter, and the meetings run late. The left wing is delighted. Several of our future ministers tell journalists that the book is "a basis for discussion, not a programme".
+
+@pragmatic_book_centenary
+subtitle: -5 resources. Reassures the moderates, but the left finds it timid.
+choose-if: resources >= 5
+unavailable-subtitle: We don't have the 5 resources required.
+on-arrival: book_centenary += 1; pragmatic_book_centenary += 1; resources -= 5; technocrat_dissent -= 5; right_worker_dissent -= 3; left_dissent += 4; a_activity += 2
+
+The book argues that we should protect and improve the reforms we have already won. The moderates approve. Many of the younger members find it dull and say so at the chapter meetings.
+
+@no_book_centenary
+
+The chapters will have to make do with the anniversary speeches.

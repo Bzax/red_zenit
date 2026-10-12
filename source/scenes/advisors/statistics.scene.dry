@@ -17,7 +17,6 @@ Among other important tasks, {!<span class="tooltip-text" title=" 'Arbejderbevæ
 
 @polling_results
 new-page: true
-subtitle: - 0 council favours
 on-display: {!
 Q.linegraph_start_year = 1970;
 if (d3 && window) {
@@ -51,6 +50,17 @@ if (d3 && window) {
         lines_2.width(width).height(400);
         d3.select("#party_support_history").datum(Q.party_support_records).call(lines_2);
     }
+
+    // membership (members_total is in thousands), including the post-war history
+    if (Q.membership_records && Q.membership_records.length > 0) {
+        Q.linegraph_start_year = 1945;
+        var lines_m = d3.linegraph(true, true, ['members', 'v', 'c', 'b'],
+                {'members': '#E3000F', 'v': '#73b0f6', 'c': '#0d9340', 'b': '#865fac'},
+                {'members': 'Socialdemokratiet', 'v': 'Venstre', 'c': 'Konservative', 'b': 'Radikale Venstre'});
+        lines_m.width(width).height(300);
+        d3.select("#membership_history").datum(Q.membership_records).call(lines_m);
+        Q.linegraph_start_year = 1970;
+    }
 }
 !}
 
@@ -60,11 +70,16 @@ The Monthly newspaper polls only tell us so much, but long term trends are still
 
 {!<svg id="party_support_history" style="width: 500px; height: 400px;"> </svg>!}
 
+= **Party membership**
+
+Members of the four old parties, in thousands. At its post-war peak our party had almost 290,000 members; since the 1960s, all of the old parties have been losing members.
+
+{!<svg id="membership_history" style="width: 500px; height: 300px;"> </svg>!}
+
 - @election_historystat: [? if statistics2_seen != 1 : Make the intern also graph all election results since 1945. ?][? if statistics2_seen = 1 : Show previous Election results. ?]
 - @root: Back.
 
 @election_historystat
-subtitle: - 0 council favours
 on arrival: statistics2_seen = 1
 on-display: {!
 Q.linegraph_start_year = 1945;
@@ -185,16 +200,6 @@ if (d3 && window) {
         lines_2.width(width).height(400);
         d3.select("#party_support_history").datum(Q.party_support_records).call(lines_2);
     }
-
-    // economic stats
-    var minInflation = d3.min(Q.economic_records, d => d.inflation);
-    var maxUnemployment = d3.max(Q.economic_records, d => d.unemployment);
-    var lines_3 = d3.linegraph(true, true, ['inflation', 'unemployment'],
-            {'inflation': '#0000FF', 'unemployment': '#FF0000'},
-            {'inflation': 'Inflation', 'unemployment': 'Unemployment'},
-            maxUnemployment + 5, minInflation - 5, 21);
-    lines_3.width(width).height(300);
-    d3.select("#economic_history").datum(Q.economic_records).call(lines_3);
 }
 !}
 
@@ -203,8 +208,4 @@ if (d3 && window) {
 [? if year >= 1971 and month < 5 : No new elections yet. ?]
 
 {!<svg id="election_history" style="width: 500px; height: 400px;"> </svg>!}
-
-= **Economic history**
-
-{!<svg id="economic_history" style="width: 500px; height: 300px;"> </svg>!}
 # TODO: maybe add textual histories too? some accessibility stuff as well...

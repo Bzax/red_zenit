@@ -1,0 +1,116 @@
+title: One Hundred Years of Social Democracy
+subtitle: The centenary celebrations
+view-if: year = 1971 and month = 4
+max-visits: 1
+priority: 2
+tags: event
+new-page: true
+face-image: img/jubilæum.jpeg
+audio: music/intro_music/centenarysong.mp3
+on-arrival: {!
+var add = function(k, v) { Q[k] = (Q[k] || 0) + v; };
+Q.centenary = 1;
+
+// the day itself
+add('a_activity', 5);
+add('memberrise', 3 * Q.efc);
+
+// the broadcast
+if (Q.tv_centenary > 0) {
+  if (Q.professional_film_centenary > 0) {
+    add('homeowner_a', 5 * Q.efc);
+    add('public_homeowner_a', 5 * Q.efc);
+  } else if (Q.activist_film_centenary > 0) {
+    // the film is ruined: the guest's speech and the broadcast are redone the next day
+    add('resources', -20);
+    add('v_relation', -3);
+    add('c_relation', -3);
+    add('b_relation', -2);
+  }
+}
+
+// the march
+if (Q.youth_centenary > 0) {
+  add('dsu_health', 8); add('left_dissent', -5); add('right_worker_dissent', 3); add('memberrise', 2);
+} else if (Q.local_centenary > 0) {
+  add('a_activity', 8); add('memberrise', 3);
+} else if (Q.apparatus_centenary > 0) {
+  add('technocrat_dissent', -4);
+} else {
+  // no march: the rank and file have nothing to rally behind
+  add('a_activity', -5); add('memberrise', -1); add('left_worker_dissent', 3);
+}
+
+// the guest of honour
+if (Q.palme_centenary > 0) {
+  add('panscandinavianism', 3); add('left_dissent', -4);
+} else if (Q.brandt_centenary > 0) {
+  add('europeanism', 3); add('technocrat_dissent', -4);
+} else {
+  // no guest: without a star speaker, the press barely covers the day
+  add('mediahealth', -4); add('technocrat_dissent', 2);
+}
+
+// the exhibition opens
+if (Q.struggle_centenary > 0) {
+  add('memberrise', 2.5 * Q.efc); add('prole_a', 4 * Q.efc);
+} else if (Q.welfare_centenary > 0) {
+  add('memberrise', 1.5 * Q.efc); add('homeowner_a', 4 * Q.efc);
+} else {
+  // no exhibition: the old guard feel their history has been forgotten
+  add('left_worker_dissent', 3); add('memberrise', -1);
+}
+
+// LO's role
+if (Q.lo_joint_centenary > 0) {
+  add('a_activity', 4); add('prole_a', 3 * Q.efc); add('lo_relations', 3);
+} else if (Q.lo_funded_centenary > 0) {
+  add('lo_relations', -2);
+} else if (Q.lo_alone_centenary > 0) {
+  add('mediahealth', 4);
+}
+
+// the debate book
+if (Q.radical_book_centenary > 0) {
+  add('socialism', 2); add('left_dissent', -3);
+} else if (Q.pragmatic_book_centenary > 0) {
+  add('technocrat_dissent', -3);
+}
+!}
+
+= One Hundred Years
+
+A century ago, a handful of typographers and craftsmen gathered around Louis Pio to found the Danish section of the International. Today, the movement they started fills the streets of Copenhagen.
+
+[? if lottery_centenary_won > 0 : Thanks to the jubilee lottery, no expense has been spared - the evening ends with fireworks over the harbour. ?][? if lottery_centenary > 0 and lottery_centenary_won = 0 : After the disappointing jubilee lottery, the treasurer has cut every corner he could find, and it shows. ?]
+
+[? if youth_centenary > 0 : DSU leads the march, banners high and singing loudly. The young comrades bring an energy the party has not seen in years - though a few of their slogans make the older members wince. ?][? if local_centenary > 0 : The Copenhagen chapters turn out in force. Branch after branch marches past, each trying to outdo the last, and the procession takes most of the afternoon. ?][? if apparatus_centenary > 0 : The march runs exactly to schedule. Every banner is in place and every speaker on time - if it all feels a little like a well-run committee meeting. ?][? if march_centenary = 0 : Without an organised march, the day feels more like a reception than a celebration. Many members simply stay at home, and on the shop floors there is grumbling that the party has forgotten how to take to the streets. ?]
+
+[? if palme_centenary > 0 : Olof Palme takes the podium to thunderous applause. He speaks of the Nordic labour movements as one family, and for an afternoon the failure of NORDEK seems a long way off. ?][? if brandt_centenary > 0 : Willy Brandt addresses the crowd partly in Norwegian, drawing laughter and applause. He speaks of a Europe built by working people, and more than a few in the audience leave wondering whether our future lies in the Common Market after all. ?][? if foreign_centenary = 0 : Telegrams of congratulation from sister parties across Europe are read aloud, one after another. Without a famous face on the podium, the newspapers give the day a few columns on page six. ?]
+
+[? if struggle_centenary > 0 : At the Labour Movement's Library and Archive, crowds queue to see Louis Pio's letters and the banners carried at Fælleden. Several young visitors leave with membership forms. ?][? if welfare_centenary > 0 : At the Labour Movement's Library and Archive, families wander through a century of reforms, from the first old-age pensions to the welfare state of today. ?][? if history_centenary = 0 : There is no exhibition to mark the occasion. Some of the movement's veterans, who remember the hungry years, wonder aloud whether the party still cares where it came from. ?]
+
+[? if tv_centenary = 0 : Outside Copenhagen, few will hear of the day beyond a short notice in the newspapers. ?][? if professional_film_centenary > 0 : That evening, the whole country watches a polished broadcast of the celebrations. Even our opponents concede it was a dignified affair. ?][? if tv_centenary > 0 and activist_film_centenary > 0 : Then disaster strikes - the volunteer crew's film burns out, and almost nothing of the day survives. With the broadcast already promised to the nation, everything has to be staged again the following day. [? if palme_centenary > 0 : {!<span class="tooltip-text" title="This really happened: the recording of the 1971 centenary failed, and Olof Palme had to return to Denmark to give his speech a second time.">Olof Palme</span>!} graciously agrees to return and give his speech a second time. ?][? if brandt_centenary > 0 : Willy Brandt's office reluctantly rearranges his schedule so that he can fly back and give his speech again. ?] The bill is considerable, and the other parties are not amused to see us handed a second evening of airtime by the Radio Council. ?]
+
+[? if lo_joint_centenary > 0 : Union contingents swell the crowds, and Thomas Nielsen of LO speaks of a hundred years of shared struggle. It is a celebration of the whole labour movement - though the newspapers are not always sure whose anniversary it is. ?][? if lo_funded_centenary > 0 : LO's money has paid for much of the day, but its banners are kept to the back of the march. More than one union official notices. ?][? if lo_alone_centenary > 0 : The day belongs to the party alone, and the headlines are ours. LO's delegation watches politely from the stands. ?]
+
+[? if radical_book_centenary > 0 : All day, copies of *Instead of the Class Society* pass from hand to hand, and its call for economic democracy is on everyone's lips. ?][? if pragmatic_book_centenary > 0 : *Instead of the Class Society* has given the chapters plenty to discuss, and its sober vision of a secure welfare state is quoted approvingly in the evening papers. ?]
+
+As the evening draws to a close, [+ chairman +] rises to give the closing address. What should be its message for the next hundred years?
+
+- @centenary_speech_people: We are the party of the whole people.
+- @centenary_speech_democracy: Economic democracy is the task of our next century.
+
+@centenary_speech_people
+audio: clear shuffle music/1970_1973/Naar_jeg_ser_et_roedt_flag_smaelde.mp3 music/1970_1973/Der-Er-Noget-Galt-I-Danmark.mp3 music/1970_1973/Lil_Johnnys_Mund.mp3 music/1970_1973/Victor_og_socialdemokratiet.mp3 music/1970_1973/trille-ham-gud.mp3 music/1970_1973/hejsoster.mp3
+subtitle: Reassures the middle classes and the moderates, but the left will grumble.
+on-arrival: homeowner_a += 3*efc; public_homeowner_a += 3*efc; technocrat_dissent -= 5; left_dissent += 5; left_frustration += 3
+
+[+ chairman +] speaks of a party that no longer belongs to the workers alone, but to the whole Danish people. The speech is well received in the press, if less so among the younger delegates.
+
+@centenary_speech_democracy
+audio: clear shuffle music/1970_1973/Naar_jeg_ser_et_roedt_flag_smaelde.mp3 music/1970_1973/Der-Er-Noget-Galt-I-Danmark.mp3 music/1970_1973/Lil_Johnnys_Mund.mp3 music/1970_1973/Victor_og_socialdemokratiet.mp3 music/1970_1973/trille-ham-gud.mp3 music/1970_1973/hejsoster.mp3
+subtitle: Inspires the left and the unions, but unsettles the moderates.
+on-arrival: socialism += 3; left_dissent -= 5; left_worker_dissent -= 3; technocrat_dissent += 5
+
+[+ chairman +] declares that political democracy was the task of our first century, and that economic democracy must be the task of the next. The hall rises to its feet - though more than one minister is seen studying the ceiling.

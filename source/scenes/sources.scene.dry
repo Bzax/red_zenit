@@ -1,0 +1,66 @@
+title: Sources
+new-page: true
+
+= **Sources**
+
+The statistics in the game are based on the following sources.
+
+- @sources_membership: Party membership
+- @sources_society: Society and voters
+- @sources_economy: Economy
+- @root: Back
+
+@sources_membership
+new-page: true
+
+= **Party membership**
+
+Membership figures for 1945-1970 shown in the statistics card. Only the yearly figures are historical: the monthly ups and downs between them (election campaigns, seasonal changes and other swings) are invented to make the chart readable.
+
+1960, 1965 and 1970, all four parties: Folketingets Oplysning, 'Partiernes medlemstal fra 1960' (updated December 2025), based on Bille, Lars. 'Partiet i forandring'. Odense Universitetsforlag, 1997.
+
+Socialdemokratiet 1945-1957: Delwit (below).
+
+Venstre 1950: about 200,000 members, from 'Venstre', Lex. https://lex.dk/Venstre
+
+The other pre-1960 values for Venstre, the Conservatives and Radikale Venstre are the author's estimates.
+
+Delwit, Pascal. 'The Socialist Family'. Université libre de Bruxelles. Table 1: Number of members of social democrat parties in Sweden, Denmark and Norway. https://dipot.ulb.ac.be/dspace/bitstream/2013/286131/3/DELWITSocialistfamily.pdf
+
+Bille, Lars. 'Den danske partimodels forfald?'. Chapter 1, figure 1.1: Medlemsudviklingen 1935-2000. https://unipress.dk/media/12040/9788779340596_excerpt.pdf
+
+'Socialdemokratiet, 1871-'. Danmarkshistorien, Lex. https://danmarkshistorien.lex.dk/Socialdemokratiet,_1871-
+
+'Socialdemokratiets historie (1871 - ca. 1990), Del 3'. Fynhistorie. https://fynhistorie.dis-danmark.dk/node/5697
+
+- @sources: Back to sources
+
+@sources_society
+new-page: true
+
+= **Society and voters**
+
+The sizes of the social classes and their voting patterns in 1970 are based on:
+
+Vælgerundersøgelsen 1971.
+
+Vælgerundersøgelsen 1975.
+
+Statistisk Årsbog 1970. Danmarks Statistik.
+
+- @sources: Back to sources
+
+@sources_economy
+new-page: true
+
+= **Economy**
+
+GDP, exports and other macroeconomic figures: The World Bank, Denmark. https://data.worldbank.org/country/denmark
+
+Exports as a share of GDP: The World Bank. https://data.worldbank.org/indicator/NE.EXP.GNFS.ZS?locations=DK
+
+Savings, consumption and imports: Statistikbanken, Danmarks Statistik. https://www.statistikbanken.dk
+
+Income shares: World Inequality Database, Denmark. https://wid.world
+
+- @sources: Back to sources

@@ -18,10 +18,13 @@ if (Q.economic_growth) {
 
 Prime Minister: [+ chancellor +] ([+ chancellor_party +])
 
-Current position: [? if spd_toleration : toleration ?][? if a_in_government : in government - ?][? if spd_toleration == 0 and a_in_government == 0 and spd_caretaker == 0 : opposition ?][? if spd_caretaker : caretaker government ?]
-[? if in_weimar_coalition and a_in_government: Weimar Coalition ?][? if in_grand_coalition and a_in_government: Grand Coalition ?][? if in_popular_front and a_in_government: Popular Front ?][? if in_left_front and a_in_government: Left Front ?][? if in_spd_majority and a_in_government: SPD majority ?][? if in_minority_government and a_in_government: minority government ?][? if in_emergency_government and a_in_government: emergency government ?]
-
 Next election: No later than [+ next_election_month : month +] [+ next_election_year +]
+
+Trust in the Folketing: [+ trust_folketing : trust +]
+
+**Folketing**
+
+{!<svg class="sidebar-parliament"></svg><div class="party-detail">Click a party to learn more.</div>!}
 
 [? if a_in_government and not in_spd_majority and not in_left_front : Coalition dissent: [+ coalition_dissent : coalition_dissent +] ?]
 
@@ -49,33 +52,32 @@ Next election: No later than [+ next_election_month : month +] [+ next_election_
 # 1928: 9, 1930: 10
 # Others: [+ other_r +]%
 
-**Inter-party Relations**<br>{!<span class="tooltip-text" title="Socialdemokratiet \n(lit. 'The Socialdemocracy'). \n\nIdeology: \nSee factions, under the 'Party' tab.">Socialdemokratiet (A)</span>!}: This is you!
+{!<span class="party-row" data-party="a">!}{!<span class="tooltip-text" title="Socialdemokratiet \n(lit. 'The Socialdemocracy'). \n\nIdeology: \nSee the 'Factions' tab.">Socialdemokratiet (A)</span>!}: This is you!{!</span>!}
 
-{!<span class="tooltip-text" title="Venstre \n(lit.'Left')\n\nIdeology: \nLiberalism, Agrarianism, Business Interests, Social-Liberalism (factions).">Venstre (V)</span>!}: [+ v_relation : relationships +]
+{!<span class="party-row" data-party="v">!}{!<span class="tooltip-text" title="Venstre \n(lit.'Left')\n\nIdeology: \nLiberalism, Agrarianism, Business Interests, Social-Liberalism (factions).">Venstre (V)</span>!}: [+ v_relation : relationships +]{!</span>!}
 
-{!<span class="tooltip-text" title="Konservativt Folkeparti \n(lit. 'Conservative Peoples Party').\n\nIdeology: \nConservatism, Business Interests, National Conservatism (factions), Social Conservatism (factions).">Konservative (C)</span>!}: [+ c_relation : relationships +]
+{!<span class="party-row" data-party="c">!}{!<span class="tooltip-text" title="Konservativt Folkeparti \n(lit. 'Conservative Peoples Party').\n\nIdeology: \nConservatism, Business Interests, National Conservatism (factions), Social Conservatism (factions).">Konservative (C)</span>!}: [+ c_relation : relationships +]{!</span>!}
 
 #based on the program from 1977 https://digitalesamlinger.kb.dk/pamphlets/dasmaa/2008/feb/partiprogrammer/object18197/da/#kbOSD-0=page:2
-{!<span class="tooltip-text" title="Radikale Venstre \n(lit.'The Radical Left').\n\nIdeology: \nSocial-liberalism, Anti-Militarism, Liberal Socialism (factions), Georgism (factions).">Radikale Venstre (B)</span>!}: [+ b_relation : relationships +]
+{!<span class="party-row" data-party="b">!}{!<span class="tooltip-text" title="Radikale Venstre \n(lit.'The Radical Left').\n\nIdeology: \nSocial-liberalism, Anti-Militarism, Liberal Socialism (factions), Georgism (factions).">Radikale Venstre (B)</span>!}: [+ b_relation : relationships +]{!</span>!}
 
-{!<span class="tooltip-text" title="Socialistisk Folkeparti \n(lit. 'Socialist Peoples Party').\n\nIdeology: \nMarxism, Revolutionary Reformism, Catalyst-Theory, Anti-Imperialism, Anti-Atlanticism, New Left (factions).">SF (F)</span>!}: [+ sf_relation : relationships +]
+{!<span class="party-row" data-party="sf">!}{!<span class="tooltip-text" title="Socialistisk Folkeparti \n(lit. 'Socialist Peoples Party').\n\nIdeology: \nMarxism, Revolutionary Reformism, Catalyst-Theory, Anti-Imperialism, Anti-Atlanticism, New Left (factions).">SF (F)</span>!}: [+ sf_relation : relationships +]{!</span>!}
 
-{!<span class="tooltip-text" title="Danmarks Kommunistiske Parti \n(lit. 'Communist Party of Denmark')..\n\nIdeology: \nMarxism-Leninism, Communism, Anti-Imperialism, Anti-Atlanticism, Revolutionary Reformism (factions).">DKP (     K)</span>!}: [+ dkp_relation : relationships +]
+{!<span class="party-row" data-party="dkp">!}{!<span class="tooltip-text" title="Danmarks Kommunistiske Parti \n(lit. 'Communist Party of Denmark')..\n\nIdeology: \nMarxism-Leninism, Communism, Anti-Imperialism, Anti-Atlanticism, Revolutionary Reformism (factions).">DKP (     K)</span>!}: [+ dkp_relation : relationships +]{!</span>!}
 
-{!<span class="tooltip-text" title="Venstre-Socialisterne \n(lit. 'the Left-Socialists').\n\nIdeology: \nMarxism, New-Left, Left-Communism, Revolutionary Socialism, Abstentionist (factions), Situationist (factions).">VS (Y)</span>!}: [+ vs_relation : relationships +]
+{!<span class="party-row" data-party="vs">!}{!<span class="tooltip-text" title="Venstre-Socialisterne \n(lit. 'the Left-Socialists').\n\nIdeology: \nMarxism, New-Left, Left-Communism, Revolutionary Socialism, Abstentionist (factions), Situationist (factions).">VS (Y)</span>!}: [+ vs_relation : relationships +]{!</span>!}
 
-{!<span class="tooltip-text" title="Retsforbundet \n(lit. 'the Justice League').\n\nIdeology: \nGeorgism, Social-Liberalism, Liberal Socialism (factions).">Retsforbundet (E)</span>!}: [+ rfb_relation : relationships +]
+{!<span class="party-row" data-party="rfb">!}{!<span class="tooltip-text" title="Retsforbundet \n(lit. 'the Justice League').\n\nIdeology: \nGeorgism, Social-Liberalism, Liberal Socialism (factions).">Retsforbundet (E)</span>!}: [+ rfb_relation : relationships +]{!</span>!}
 
-{!<span class="tooltip-text" title="Kristeligt Folkeparti \n(lit. 'Christian Peoples Party').\n\nIdeology: \nChristian Democracy, Opposition to Abortion, Cultural Conservatism.">KF (Q)</span>!}: [+ KF_relation : relationships +]
+{!<span class="party-row" data-party="kf">!}{!<span class="tooltip-text" title="Kristeligt Folkeparti \n(lit. 'Christian Peoples Party').\n\nIdeology: \nChristian Democracy, Opposition to Abortion, Cultural Conservatism.">KF (Q)</span>!}: [+ KF_relation : relationships +]{!</span>!}
 
-[? if z_formed > 0 : {!<span class="tooltip-text" title="Fremskridtspartiet \n(lit. 'The Progress Party').\n\nIdeology: \nLibertarianism, Right-Wing Populism.">Fremskridtspartiet (Z)</span>!}: [+ z_relation : relationships +]?]
+[? if z_formed > 0 : {!<span class="party-row" data-party="z">!}{!<span class="tooltip-text" title="Fremskridtspartiet \n(lit. 'The Progress Party').\n\nIdeology: \nLibertarianism, Right-Wing Populism.">Fremskridtspartiet (Z)</span>!}: [+ z_relation : relationships +]{!</span>!}?]
 
-[? if cd_formed > 0 : {!<span class="tooltip-text" title="Centrum-Demokraterne \n(lit. 'The Center Democrats').\n\nIdeology: \nWorkerism, Homeowner Interests, Car Owner Interests, Rindallism.">Centrum-Demokraterne (CD)</span>!}: [+ cd_relation : relationships +]?]
+[? if cd_formed > 0 : {!<span class="party-row" data-party="cd">!}{!<span class="tooltip-text" title="Centrum-Demokraterne \n(lit. 'The Center Democrats').\n\nIdeology: \nWorkerism, Homeowner Interests, Car Owner Interests, Rindallism.">Centrum-Demokraterne (CD)</span>!}: [+ cd_relation : relationships +]{!</span>!}?]
 
-[? if os_formed > 0 : {!<span class="tooltip-text" title="Oprigtige Socialdemokrater \n(lit. 'Actual Socialdemocrats').\n\nIdeology: \nMarxism, New-Left, Enviromentalism, Anti-Atlanticism.">Oprigtige Socialdemokrater (OS)</span>!}: [+ os_relation : relationships +]?]
+[? if os_formed > 0 : {!<span class="party-row" data-party="os">!}{!<span class="tooltip-text" title="Oprigtige Socialdemokrater \n(lit. 'Actual Socialdemocrats').\n\nIdeology: \nMarxism, New-Left, Enviromentalism, Anti-Atlanticism.">Oprigtige Socialdemokrater (OS)</span>!}: [+ os_relation : relationships +]{!</span>!}?]
 
 @movement
-# [? if council_level = 0 : It does not currently conduct voter surveys. ?][? if council_level != 0 : The statistical uncertainty of it¨s polls is currently ±[+ 12-polling_efficiency +]%. ?]
 
 = **Movement**
 
@@ -97,38 +99,22 @@ Relations with {!<span class="tooltip-text" title="Det Kooperative Fællesforbun
 
 
 @budget
-
+on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+!}
 
 = **[+ year +] Budget**
 
-*The monthly balance is credited to our savings each month, as it's earned*
-
-**Monthly Income**
-
-Dues: <span class="money-income">+[+ dues +]</span> [? if dues - yearly_budget_dues > 0 : (<span class="money-income">+[+ dues - yearly_budget_dues +]</span> from events)?][? if dues - yearly_budget_dues < 0 : (<span class="money-income">[+ dues - yearly_budget_dues +]</span> from events)?]
-
-LO: <span class="money-income">+[+ income_lo +]</span> [? if income_lo - yearly_budget_income_lo > 0 : (<span class="money-income">+[+ income_lo - yearly_budget_income_lo +]</span> from events)?][? if income_lo - yearly_budget_income_lo < 0 : (<span class="money-income">[+ income_lo - yearly_budget_income_lo +]</span> from events)?]
-
-State: <span class="money-income">+[+ income_state +]</span> [? if income_state - yearly_budget_income_state > 0 : (<span class="money-income">+[+ income_state - yearly_budget_income_state +]</span> from events)?][? if income_state - yearly_budget_income_state < 0 : (<span class="money-income">[+ income_state - yearly_budget_income_state +]</span> from events)?]
-
-[? if income_other > 0 : Other: <span class="money-income">+[+ income_other +]</span> [? if income_other - yearly_budget_income_other > 0 : (<span class="money-income">+[+ income_other - yearly_budget_income_other +]</span> from events)?][? if income_other - yearly_budget_income_other < 0 : (<span class="money-income">[+ income_other - yearly_budget_income_other +]</span> from events)?] ?]
-
-<span class="double-underline">Total monthly income: <span class="money-income">[+ total_income +]</span></span>
-
-**Monthly Expenses**
-
-Apparatus: <span class="money-expense">[+ expense_apparatus +]</span> [? if expense_apparatus - yearly_budget_expense_apparatus > 0 : (<span class="money-expense">+[+ expense_apparatus - yearly_budget_expense_apparatus +]</span> from events)?][? if expense_apparatus - yearly_budget_expense_apparatus < 0 : (<span class="money-expense">[+ expense_apparatus - yearly_budget_expense_apparatus +]</span> from events)?]
-
-Local chapters: <span class="money-expense">[+ expense_local_chapters +]</span> [? if expense_local_chapters - yearly_budget_expense_local_chapters > 0 : (<span class="money-expense">+[+ expense_local_chapters - yearly_budget_expense_local_chapters +]</span> from events)?][? if expense_local_chapters - yearly_budget_expense_local_chapters < 0 : (<span class="money-expense">[+ expense_local_chapters - yearly_budget_expense_local_chapters +]</span> from events)?]
-
-Newspapers: <span class="money-expense">[+ expense_newspaper +]</span> [? if expense_newspaper - yearly_budget_expense_newspaper > 0 : (<span class="money-expense">+[+ expense_newspaper - yearly_budget_expense_newspaper +]</span> from events)?][? if expense_newspaper - yearly_budget_expense_newspaper < 0 : (<span class="money-expense">[+ expense_newspaper - yearly_budget_expense_newspaper +]</span> from events)?]
-
-Youth party: <span class="money-expense">[+ expense_dsu +]</span> [? if expense_dsu - yearly_budget_expense_dsu > 0 : (<span class="money-expense">+[+ expense_dsu - yearly_budget_expense_dsu +]</span> from events)?][? if expense_dsu - yearly_budget_expense_dsu < 0 : (<span class="money-expense">[+ expense_dsu - yearly_budget_expense_dsu +]</span> from events)?]
-
-<span class="double-underline">Total monthly expenses: <span class="money-expense">[+ total_expenses +]</span></span>
-
-<span class="double-underline">Monthly Balance: [+ total_income - total_expenses +] resources</span>
-
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Income, per month{!</th><th colspan="2">!}Expenses, per month{!</th></tr>!}
+{!<tr><td>!}Dues{!</td><td class="num">!}+[+ dues +]{!</td><td>!}Apparatus{!</td><td class="num">!}−[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO{!</td><td class="num">!}+[+ income_lo +]{!</td><td>!}Local chapters{!</td><td class="num">!}−[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State{!</td><td class="num">!}+[+ income_state +]{!</td><td>!}Newspapers{!</td><td class="num">!}−[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other ?]{!</td><td class="num">!}[? if income_other > 0 : +[+ income_other +] ?]{!</td><td>!}Youth party{!</td><td class="num">!}−[+ expense_dsu +]{!</td></tr>!}
+{!<tr class="total"><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}+[+ total_income +]{!</span></td><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}−[+ total_expenses +]{!</span></td></tr>!}
+{!<tr class="balance"><td colspan="3">!}Monthly balance{!</td><td class="num">!}[? if total_income >= total_expenses : +[+ total_income - total_expenses +] ?][? if total_income < total_expenses : −[+ total_expenses - total_income +] ?]{!</td></tr>!}
+{!</table>!}
 
 @politics
 on-arrival: {!
@@ -142,7 +128,8 @@ Q.right_worker_strength_disp = Q.right_worker_strength.toFixed(0)
 
 = **The Party**
 
-{!<span class="tooltip-text" title="The strength of our party-machine is our most important metric – it acts as a multiplier for many actions we take. \n\nFirst and foremost it is a product of the size and activity of our membership. However, a strong proffesional bureaucracy and an effective media apparatus can partially compensate for a weaker membership.">Party-machine</span>!}: [+ efc : efc +]
+Current position: [? if spd_toleration : toleration ?][? if a_in_government : in government - ?][? if spd_toleration == 0 and a_in_government == 0 and spd_caretaker == 0 : opposition ?][? if spd_caretaker : caretaker government ?]
+[? if in_weimar_coalition and a_in_government: Weimar Coalition ?][? if in_grand_coalition and a_in_government: Grand Coalition ?][? if in_popular_front and a_in_government: Popular Front ?][? if in_left_front and a_in_government: Left Front ?][? if in_spd_majority and a_in_government: SPD majority ?][? if in_minority_government and a_in_government: minority government ?][? if in_emergency_government and a_in_government: emergency government ?]
 
 {!<span class="tooltip-text" title="A proffesional bureaucracy can help compensate for a weaker membership, however the professionalisation of our bureaucracy also discourages party activity.">Apparatus</span>!}: [+ a_bureau : a_bureau +]
 
@@ -154,7 +141,18 @@ Last six weeks: [+ a_memberdecline_disp +]
 
 {!<span class="tooltip-text" title="The level of activity among our members is negatively affected by the proffesionalization of our bureaucracy and trends downwards over time. \nIt is positively affected by elections, party congresses as well as investment and reliance on from leadership. Our youth movement is especially active. ">Level of activity</span>!}: [+ a_activity : a_activity +]
 
-**Factions**<br>Overall Sentiment: [+ dissent_percent : dissent +]
+
+@factions
+on-arrival: {!
+Q.left_strength_disp = Q.left_strength.toFixed(0)
+Q.left_worker_strength_disp = Q.left_worker_strength.toFixed(0)
+Q.technocrat_strength_disp = Q.technocrat_strength.toFixed(0)
+Q.right_worker_strength_disp = Q.right_worker_strength.toFixed(0)
+!}
+
+= **Internal Factions**
+
+Overall sentiment: [+ dissent_percent : dissent +]
 
 {!<span class="tooltip-text" title="The SDS (Social Democratic Society) constitutes our parties most radical left, members of SDS are interested in radical anticapitalist policies both inside and outside our borders.\n\nIdeology: Democratic Socialism, Marxism, Anti-Atlanticism, New-Left, Modernism.">SDS</span>!} strength: [+ left_strength_disp +]%, <br>sentiment: [+ left_dissent : dissent +]
 
@@ -166,7 +164,6 @@ Last six weeks: [+ a_memberdecline_disp +]
 [? if cd_formed > 0 : {!<span class="tooltip-text" title="Pragmatists are see the left, SDS and some parts of the youth movement as obstacles to our progress. They seek to expand the welfare state, strengthen our unions and protect the interests of the modern worker.\n\nIdeology: Trade-Unionism, Pragmatism, Rindallism, Car Owner Interests, Homeowner Interests."">Pragmatists</span>!} strength: [+ right_worker_strength_disp +]%, <br>sentiment: [+ right_worker_dissent : dissent +]?]
 
 
-
 @paramilitaries
 on-arrival: {!
 globalizationdisp = Q.globalization.toFixed(1);
@@ -174,7 +171,7 @@ globalizationdisp = Q.globalization.toFixed(1);
 
 = **Socio-Economics**
 
-Homeownership Rate:<br> [+ homeownership +]%
+Homeownership Rate:<br> [+ homeownership_disp +]%
 
 Size of Public Sector:<br> [+ sizeofpublicsectordisp +]% of our workforce.
 
@@ -239,38 +236,14 @@ Q.rigidity_disp = Math.round(Q.rigidity);
 
 **Most Recent Poll**<br>Published by: [+ newspaper : newspaper +]<br>*"If the election were to be held tomorrow who would you vote for?"*
 
-Socialdemokratiet: *[+ a_votesdisp +]%*
-
-Venstre: *[+ v_votesdisp +]%*
-
-Konservative Folkeparti: *[+ c_votesdisp +]%*
-
-Radikale Venstre: *[+ b_votesdisp +]%*
-
-[? if z_formed: Z: ?]*[? if z_formed:[+ z_votesdisp +]% ?]*
-
-Kristeligt Folkeparti: *[+ kf_votesdisp +]%*
-
-[? if cd_formed: CD:?] *[? if cd_formed:[+ cd_votesdisp +]% ?]*
-
-DKP: *[+ dkp_votesdisp +]%*
-
-SF: *[+ sf_votesdisp +]%*
-
-[? if os_formed: OS:?] *[? if os_formed:[+ os_votesdisp +]% ?]*
-
-VS: *[+ vs_votesdisp +]%*
-
-Retsforbundet: *[+ rfb_votesdisp +]%*
-
-Others: *[+ others_votesdisp +]%*
+{!<svg class="sidebar-poll"></svg>!}
 
 **Other Polling**<br>Support for ØD: *[+ socialism_disp +]%*
 
 @header_bar
 
-{!<span class="tooltip-text" title="The strength of our party-machine is our most important metric – it acts as a multiplier for many actions we take. \n\nFirst and foremost it is a product of the size and activity of our membership. However, a strong proffesional bureaucracy and an effective media apparatus can partially compensate for a weaker membership.">Efficiency</span>!}: [+ efc : efc +]
+{!<span class="tooltip-text" title="The strength of our party-machine is our most important metric – it acts as a multiplier for many actions we take. \n\nFirst and foremost it is a product of the size and activity of our membership. However, a strong proffesional bureaucracy and an effective media apparatus can partially compensate for a weaker membership.">Party-machine</span>!}: [+ efc : efc +]
 
-Savings: [+ resources +]
+{!<span id="resources_hover" class="resources-hover" tabindex="0">!}Resources: [+ resources +]{!</span>!}
 
 [? if valg != 1 and has_event = 0: [+ month : month +] [+ year +] ?][? if valg = 1 and has_event = 0: [+ week : week +] week of the campaign ?][? if valg != 1 and has_event = 1: Between [+ month - 1 : month +] and [+ month : month +] ?][? if valg = 1 and has_event = 1 : End of [+ week - 1 : week +] week of the campaign ?]

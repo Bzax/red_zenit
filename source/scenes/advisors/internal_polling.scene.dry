@@ -1,0 +1,109 @@
+title: Internal Polling
+is-pinned-card: true
+tags: advisor
+card-image: img/survey.jpg
+view-if: time >= 4
+new-page: true
+on-arrival: {!
+// latest noisy estimate for each group, rounded for display
+for (var c of Q.classes) {
+    var recs = Q[c + '_support_records'];
+    var last = (recs && recs.length) ? recs[recs.length - 1] : null;
+    for (var party of Q.parties) {
+        var v = last ? ((last[party + '_disp'] != null) ? Number(last[party + '_disp']) : Number(last[party])) : 0;
+        if (!Number.isFinite(v)) v = 0;
+        Q[c + '_' + party + '_poll'] = Math.round(v);
+    }
+}
+!}
+
+= **Internal Polling**
+
+Every month, {!<span class="tooltip-text" title=" 'Arbejderbevægelsens Erhvervsråd' (lit. 'The Worker-Movements Economic Council') is a council of academics in service to the workers movement. It was established in 1936 as a joint venture of the DKF and LO.">The Council</span>!} surveys voters across the country and breaks the results down by social group. The samples are small, so each figure carries a few percent of uncertainty.
+
+Our support in each group:
+
+- @poll_prole: **Private-sector tenants**: [+ prole_a_poll +]%
+- @poll_homeowner: **Private-sector homeowners**: [+ homeowner_a_poll +]%
+- @poll_public_prole: **Public-sector tenants**: [+ public_prole_a_poll +]%
+- @poll_public_homeowner: **Public-sector homeowners**: [+ public_homeowner_a_poll +]%
+- @poll_pettyb: **Small business owners**: [+ pettyb_a_poll +]%
+- @poll_rural: **Farmers**: [+ rural_a_poll +]%
+- @poll_unemployed: **The unemployed**: [+ unemployed_a_poll +]%
+- @poll_capitalist: **Capitalists**: [+ capitalist_a_poll +]%
+- @easy_discard
+
+@poll_prole
+on-arrival: {! Q.poll_class = 'prole'; Q.poll_class_name = 'Private-sector tenants'; !}
+go-to: poll_chart
+
+@poll_homeowner
+on-arrival: {! Q.poll_class = 'homeowner'; Q.poll_class_name = 'Private-sector homeowners'; !}
+go-to: poll_chart
+
+@poll_public_prole
+on-arrival: {! Q.poll_class = 'public_prole'; Q.poll_class_name = 'Public-sector tenants'; !}
+go-to: poll_chart
+
+@poll_public_homeowner
+on-arrival: {! Q.poll_class = 'public_homeowner'; Q.poll_class_name = 'Public-sector homeowners'; !}
+go-to: poll_chart
+
+@poll_pettyb
+on-arrival: {! Q.poll_class = 'pettyb'; Q.poll_class_name = 'Small business owners'; !}
+go-to: poll_chart
+
+@poll_rural
+on-arrival: {! Q.poll_class = 'rural'; Q.poll_class_name = 'Farmers'; !}
+go-to: poll_chart
+
+@poll_unemployed
+on-arrival: {! Q.poll_class = 'unemployed'; Q.poll_class_name = 'The unemployed'; !}
+go-to: poll_chart
+
+@poll_capitalist
+on-arrival: {! Q.poll_class = 'capitalist'; Q.poll_class_name = 'Capitalists'; !}
+go-to: poll_chart
+
+@poll_chart
+new-page: true
+on-display: {!
+Q.linegraph_start_year = 1970;
+if (d3 && window) {
+    var width = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50;
+    }
+
+    var records = Q[Q.poll_class + '_support_records'];
+    if (records && records.length > 0) {
+        // show the noisy polling estimate (*_disp), falling back to the underlying value
+        var data = records.map(function (r) {
+            var o = { date: r.date };
+            for (var party of Q.parties) {
+                var v = (r[party + '_disp'] != null) ? Number(r[party + '_disp']) : Number(r[party]);
+                if (!Number.isFinite(v)) v = 0;
+                o[party] = v;
+            }
+            return o;
+        });
+
+        var lines = d3.linegraph(true, true,
+            Q.parties,
+            {'a': '#E3000F', 'sf': '#ee80fa', 'dkp': '#8B0000', 'vs': '#e26969', 'os': '#e86969', 'rfb': '#4e4e94', 'b': '#865fac', 'v': '#73b0f6', 'c': '#0d9340', 'kf': '#1f3f96', 'cd': '#a0a0a0', 'z': '#DCCA4A', 'northatlantic': '#818589', 'others': '#a0a0a0', 'other': '#a0a0a0'},
+            {'a': 'Socialdemokratiet', 'sf': 'SF', 'dkp': 'DKP', 'vs': 'VS', 'rfb': 'RFb', 'b': 'Radikale Venstre', 'v': 'Venstre', 'c': 'Conservatives', 'kf': 'KF', 'cd': 'CD', 'os': 'OS', 'z': 'Z', 'northatlantic': 'NAM', 'others': 'Others', 'other': 'Others'});
+        lines.width(width).height(400);
+        d3.select("#class_support_history").datum(data).call(lines);
+    } else {
+        try { document.getElementById('class_support_history').innerHTML = ''; } catch (e) {}
+    }
+}
+!}
+
+= **[+ poll_class_name +]**
+
+{!<svg id="class_support_history" style="width: 500px; height: 400px;"> </svg>!}
+
+- @internal_polling: Look at another group.
+- @easy_discard

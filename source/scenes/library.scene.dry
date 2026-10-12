@@ -15,6 +15,7 @@ Herein contains relevant information about the government and politics of the Ge
 - @demographics: Demographics
 - @parties: Parties
 - @public_opinion: Public opinion (and projected election results)
+- @trust_folketing: Trust in the Folketing
 - @paramilitaries: Paramilitary groups
 - @factions: Internal factions
 - @figures: Figures and charts
@@ -266,6 +267,18 @@ Current relations: [+ kpd_relation : relationships +]
 Current relations: [+ nsdap_relation : relationships +]
 
 **Other parties** - there is a multitude of small, mostly conservative parties, such as the Economic Party of the German Middle Class, the Farmer's Party, the Agricultural League, and others. Their political position usually lies between the DVP and DNVP. 
+
+@trust_folketing
+
+= Trust in the Folketing
+
+How much voters trust the established parties in the Folketing to represent them.
+
+Trust falls when voters on the left or the right feel that the old parties all govern alike: moderate and technocratic choices, and compromises with the bourgeois parties, wear it down. When trust is low, voters turn to the fringe and to new parties.
+
+In a major crisis, voters tend to rally behind the established parties again.
+
+- @menu: Back.
 
 @paramilitaries
 on-arrival: {!

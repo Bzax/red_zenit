@@ -1,7 +1,17 @@
 title: War erupts in the Middle East
 subtitle: An oil crisis takes shape...
 new-page: true
-on-arrival: oil_crisis_seen = 1; rigidity -=25; unemployed += 2; budget -= 1 if budget > 0; dues -= 1 if dues > 2; inflation -= 1; economic_growth -= 1;
+on-arrival: {!
+Q.oil_crisis_seen = 1;
+Q.rigidity -= 25;
+Q.unemployed += 2;
+if (Q.budget > 0) Q.budget -= 1;
+if (Q.dues > 2) Q.dues -= 1;
+Q.inflation -= 1;
+Q.economic_growth -= 1;
+// a major crisis: voters rally behind the established parties
+if (Q.rallyRoundFlag) Q.rallyRoundFlag(0.3);
+!}
 tags: event
 view-if: year = 1973 and month == 6
 max-visits: 1

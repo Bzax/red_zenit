@@ -1,0 +1,12 @@
+
+(..9.091)        <span style="color:#8C2F1E;"><span class="tooltip-text pip-tip" title="○○○○○">contempt</span> <span class="pips">☠&#xFE0E;</span></span>
+(9.091..18.182)  <span style="color:#97331F;"><span class="tooltip-text pip-tip" title="◐○○○○">contempt</span></span>
+(18.182..27.273) <span style="color:#AA5A2A;"><span class="tooltip-text pip-tip" title="●○○○○">deep distrust</span></span>
+(27.273..36.364) <span style="color:#AA5A2A;"><span class="tooltip-text pip-tip" title="●◐○○○">deep distrust</span></span>
+(36.364..45.455) <span style="color:#8A6A2F;"><span class="tooltip-text pip-tip" title="●●○○○">disillusioned</span></span>
+(45.455..54.545) <span style="color:#8A6A2F;"><span class="tooltip-text pip-tip" title="●●◐○○">disillusioned</span></span>
+(54.545..63.636) <span style="color:#6B7355;"><span class="tooltip-text pip-tip" title="●●●○○">wary</span></span>
+(63.636..72.727) <span style="color:#6B7355;"><span class="tooltip-text pip-tip" title="●●●◐○">wary</span></span>
+(72.727..81.818) <span style="color:#4A6B4A;"><span class="tooltip-text pip-tip" title="●●●●○">trusting</span></span>
+(81.818..90.909) <span style="color:#4A6B4A;"><span class="tooltip-text pip-tip" title="●●●●◐">trusting</span></span>
+(90.909..)       <span style="color:#2F5D4A;"><span class="tooltip-text pip-tip" title="●●●●●">high trust</span></span>

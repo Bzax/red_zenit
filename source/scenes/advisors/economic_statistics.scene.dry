@@ -1,0 +1,66 @@
+title: Economic Statistics
+is-pinned-card: true
+tags: advisor
+card-image: img/arbejde.jpg
+view-if: time >= 4
+new-page: true
+on-display: {!
+Q.linegraph_start_year = 1970;
+if (d3 && window) {
+    var width = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50;
+    }
+
+    // inflation and unemployment
+    if (Q.economic_records && Q.economic_records.length > 0) {
+        var lines_econ = d3.linegraph(true, true, ['inflation', 'unemployment'],
+                {'inflation': '#0000FF', 'unemployment': '#FF0000'},
+                {'inflation': 'Inflation', 'unemployment': 'Unemployment'});
+        lines_econ.width(width).height(300);
+        d3.select("#economic_history").datum(Q.economic_records).call(lines_econ);
+    }
+
+    // GDP index
+    var gdp_records = (Q.economic_records || []).filter(function (r) { return r.gdp != null; });
+    if (gdp_records.length > 0) {
+        // zoom the y-axis in on the index instead of starting at 0
+        var gdp_max = d3.max(gdp_records, function (r) { return r.gdp; });
+        var gdp_min = d3.min(gdp_records, function (r) { return r.gdp; });
+        var lines_gdp = d3.linegraph(true, true, ['gdp'],
+                {'gdp': '#0d9340'},
+                {'gdp': 'GDP (1969 = 100)'},
+                Math.ceil(gdp_max + 5), Math.floor(gdp_min - 5));
+        lines_gdp.width(width).height(300);
+        d3.select("#gdp_history").datum(gdp_records).call(lines_gdp);
+    }
+
+    // urbanization, public sector and homeownership
+    if (Q.society_records && Q.society_records.length > 0) {
+        var lines_soc = d3.linegraph(true, true, ['urbanization', 'public_sector', 'homeownership'],
+                {'urbanization': '#7a5c3e', 'public_sector': '#0d9340', 'homeownership': '#E3000F'},
+                {'urbanization': 'Urbanization', 'public_sector': 'Public sector', 'homeownership': 'Homeownership'});
+        lines_soc.width(width).height(300);
+        d3.select("#society_history").datum(Q.society_records).call(lines_soc);
+    }
+}
+!}
+
+= **Economic Statistics**
+
+{!<span class="tooltip-text" title=" 'Arbejderbevægelsens Erhvervsråd' (lit. 'The Worker-Movements Economic Council') is a council of academics in service to the workers movement. It was established in 1936 as a joint venture of the DKF and LO.">The Council</span>!} keeps track of the economy and of how Danish society is changing.
+
+**Gross domestic product** (1969 = 100)
+
+{!<svg id="gdp_history" style="width: 500px; height: 300px;"> </svg>!}
+
+**Inflation and unemployment** (%)
+
+{!<svg id="economic_history" style="width: 500px; height: 300px;"> </svg>!}
+
+**Urbanization, size of the public sector and homeownership** (%)
+
+{!<svg id="society_history" style="width: 500px; height: 300px;"> </svg>!}
+
+- @easy_discard

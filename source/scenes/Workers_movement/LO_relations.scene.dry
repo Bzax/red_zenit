@@ -1,4 +1,4 @@
-title: LO Relations
+title: LO
 new-page: true
 is-card: true
 view-if: lo_relations_timer <= 0
@@ -7,44 +7,37 @@ frequency: 300
 on-arrival: month_actions += 1; lo_relations_timer += 7;
 card-image: img/overenskomst.jpg
 tags: workers_movement
-go-to: unionrelations; unionrelations2 if lo_relations < 50
 
-@unionrelations
-
-
-= **LO Relations**
+= **LO**
 
 We are institutionally {!<span class="tooltip-text" title="Our party and the trade union confederation was born as twins, originally united in a single organisation. For practical reasons this unity was dissolved, nonetheless we still appoint two members to their central comittee, and they still appoint two to ours.">welded with LO</span>!}, giving us many opportunities to coordinate our strategy.
 
-LO has provided us with [+ lo_income +] resources this year.
+LO currently gives us [+ income_lo +] resources a month, and our relations with its leadership are [+ lo_relations : lo_relations +].
 
-- @transfer_funds: Tell them we wont be needing their entire donation this year.
-- @promise_reform: Promise reform.
-- @discuss_next_election: Plan for the next election.
+- @transfer_funds: Tell them we won't be needing their entire contribution.
+- @promise_reform: Promise reforms to the labour market.
+- @discuss_next_election: Plan the next campaign together.
 - @easy_discard
 
-
 @transfer_funds
+subtitle: -1 LO income a month, but LO will remember the gesture.
+choose-if: income_lo >= 1
+unavailable-subtitle: LO is not giving us anything to hand back.
 on-arrival: income_lo -= 1; lo_relations += 7
-subtitle: -1 resource
-unavailable-subtitle: -1 resources
 
 The LO leadership appreciates this gesture, and promises to make it up to us.
 
 @promise_reform
-on-arrival: LO_reform_promised = 1; lo_relations += 7
+subtitle: LO will be pleased, but Radikale and our technocrats will not.
+view-if: LO_reform_promised = 0
+on-arrival: LO_reform_promised = 1; lo_relations += 7; b_relation -= 3; technocrat_dissent += 2
 
-We promised some reforms to the labor market[? if a_in_government = 0 : once in power?]. The LO leadership is pleased.
+We promise LO reforms to the labour market[? if a_in_government = 0 : once we are back in power?]. The LO leadership is pleased. Radikale Venstre is not, and some of our own economists warn that we have tied our hands.
 
 @discuss_next_election
+subtitle: The unions will mobilise their members for us, but LO expects something in return.
+choose-if: lo_relations >= 50
+unavailable-subtitle: Our relations with LO are not good enough for them to campaign with us.
+on-arrival: prole_a += 2*efc; public_prole_a += 2*efc; a_activity += 3; lo_relations -= 3
 
-As our relations are currently [+ lo_relations : lo_relations +], they are quite willing to help us out. We draw up plans for campaigns and rallies.
-
-
-@unionrelations2
-
-At the moment our relations with the LO leadership are not good enough for them to want to costrategize with us.
-
-- @transfer_funds: Transfer funds.
-- @promise_reform: Promise reform.
-- @easy_discard
+We draw up plans with LO for joint meetings and workplace campaigns. Shop stewards across the country will hand out our leaflets at the next election.

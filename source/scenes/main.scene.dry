@@ -37,6 +37,7 @@ max-cards: 3
 
 
 - @party
+- @centenary_prep
 - @workers_movement
 - @govt
 - @elec
@@ -67,6 +68,7 @@ max-cards: 4
 [? if year == 1972 and month == 5 and norway_eu != 1 : After a slim victory for the "no" side, the Norwegians have turned down the offer to join the EEC. The norwegian labor prime minister has resigned, and the christian democrat Lars Korvald will instead take the reigns. ?]
 
 - @party
+- @centenary_prep
 - @govt
 - #advisor
 - @shuffle_leadership_pinned
@@ -78,6 +80,14 @@ card-image: img/partymeeting.jpg
 is-deck: true
 
 - #party_affairs
+
+@centenary_prep
+title: The Centenary
+view-if: centenary = 0 and (year == 1970 or (year == 1971 and month <= 3)) and (programme_centenary = 0 or ideas_centenary = 0 or financing_centenary = 0 or march_centenary = 0)
+card-image: img/100.jpg
+is-deck: true
+
+- #centenary
 
 @govt
 title: Government Affairs

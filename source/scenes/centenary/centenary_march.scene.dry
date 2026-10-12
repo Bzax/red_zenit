@@ -1,0 +1,36 @@
+title: The March
+new-page: true
+is-card: true
+tags: centenary
+view-if: march_centenary = 0 and (year == 1970 or (year == 1971 and month <= 3))
+on-arrival: month_actions += 1
+card-image: img/demonstration.jpg
+
+= The March
+
+No centenary is complete without a march through Copenhagen. Who should we make chiefly responsible for it?
+
+- @youth_responsible: We should call up our youth party DSU. They seem the most excited.
+- @local_responsible: Perhaps the local Copenhagen chapters?
+- @apparatus_responisble: The staffers at our headquarters can execute this at little expense.
+
+@youth_responsible
+subtitle: -10 resources
+choose-if: resources >= 10
+unavailable-subtitle: We don't have the 10 resources required.
+on-arrival: march_centenary += 1; youth_centenary += 1; dsu_health += 7; left_worker_dissent -= 6; resources -= 10
+
+The youth party is thankful for the opportunity, they assure us that we won't be disappointed.
+
+@local_responsible
+subtitle: -5 resources
+choose-if: resources >= 5
+unavailable-subtitle: We don't have the 5 resources required.
+on-arrival: march_centenary += 1; local_centenary += 1; memberrise += 3; a_activity += 10; left_worker_dissent -= 5; right_worker_dissent -= 2; resources -= 5
+
+The Copenhagen chapters are glad to take it on. Old banners come up from the basements in Nørrebro and Vesterbro, and the branches start competing over who can bring the most people.
+
+@apparatus_responisble
+on-arrival: march_centenary += 1; apparatus_centenary += 1; a_activity -= 2; left_worker_dissent += 2; right_worker_dissent += 1; left_dissent += 5; technocrat_dissent -= 5
+
+Mindmaps are drawn up, a local poll is ordered: the headquarters are buzzing with excitement. This is gonna be good!

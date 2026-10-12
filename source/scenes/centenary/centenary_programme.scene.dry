@@ -1,0 +1,77 @@
+title: The Programme
+new-page: true
+is-card: true
+tags: centenary
+view-if: programme_centenary = 0 and (year == 1970 or (year == 1971 and month <= 3))
+on-arrival: month_actions += 1; programme_centenary = 1
+card-image: img/flags.jpg
+
+= The Programme
+
+The planning committee wants the celebrations on national television and a foreign guest on the podium. First, the broadcast.
+
+- @tv_centenary: Arrange for the celebrations to be televised.
+- @no_tv_centenary: Keep the cameras out of it.
+
+@tv_centenary
+subtitle: The whole country will see us, but Venstre and the Conservatives will resent the manoeuvre.
+on-arrival: v_relation -= 3; c_relation -= 3; tv_centenary += 1; socialism -= 2
+
+Through our representatives on {!<span class="tooltip-text" title="The state monopoly on Radio and Television broadcasting is administered through 'The Radio Council', itself being made up of representatives appointed by the political parties.">The Radio Council</span>!}, we can ensure that the festivities will be broadcast to everyone in the country.
+
+Venstre and The Conservative Peoples Party aren't too pleased by these manoeuvres, but nonetheless we get it passed by rescheduling. Who should film it?
+
+- @proffesional_film_crew: Hire professional film crews for the job.
+- @activist_film_crew: Ask around the office, someone must know how to handle a camera.
+
+@no_tv_centenary
+subtitle: Only those who attend will see it.
+go-to: guest_centenary
+
+@proffesional_film_crew
+subtitle: -5 resources. Polished and dependable.
+choose-if: resources >= 5
+unavailable-subtitle: We don't have the 5 resources required.
+on-arrival: professional_film_centenary += 1; resources -= 5
+
+We book seasoned cameramen from {!<span class="tooltip-text" title="Founded in 1906, Nordisk Film is the oldest film company in Denmark.">Nordisk Film</span>!}. They come with lights, sound engineers and a running order timed to the second.
+
+- @guest_centenary: Now, the guest of honour.
+
+@activist_film_crew
+subtitle: Free, but they are amateurs.
+on-arrival: activist_film_centenary += 1
+
+A young comrade from the press office turns out to own a 16mm camera, and a few DSU members offer to carry the cables. None of them have filmed anything this big before.
+
+- @guest_centenary: Now, the guest of honour.
+
+
+@guest_centenary
+
+Our sister parties across Europe have sent their congratulations. The committee would like one foreign leader to speak alongside our chairman, and two names keep coming up.
+
+- @palme_centenary: Invite Olof Palme, the Swedish prime minister.
+- @brandt_centenary: Invite Willy Brandt, the West German chancellor.
+- @no_guest_centenary: We'll manage without a guest of honour.
+
+@palme_centenary
+subtitle: A Scandinavian hero.
+on-arrival: foreign_centenary += 1; palme_centenary += 1
+
+{!<span class="tooltip-text" title="Olof Palme (SAP) became Prime Minister of Sweden in 1969. An outspoken critic of the Vietnam War, he is among the most prominent social democrats of his generation.">Olof Palme</span>!} accepts our invitation without hesitation.
+
+Since the collapse of the NORDEK negotiations, Nordic cooperation has seemed adrift. Palme on the podium makes people forget all of those squabbles.
+
+@brandt_centenary
+subtitle: A champion of European integration.
+on-arrival: foreign_centenary += 1; brandt_centenary += 1
+
+{!<span class="tooltip-text" title="Willy Brandt (SPD) became Chancellor of West Germany in 1969. His Ostpolitik seeks reconciliation with Eastern Europe, and at the Hague summit that same year he pressed for opening the Common Market to new members.">Willy Brandt</span>!} accepts our invitation, and sends his warm regards to the Danish labour movement.
+
+Brandt spent the war in exile in Norway and Sweden, and speaks to Scandinavian audiences as something of an old friend. A few older comrades who remember the occupation grumble at the sight of a German chancellor at our celebrations.
+
+@no_guest_centenary
+subtitle: Without a famous face, the press will pay us less attention.
+
+We thank our sister parties for their telegrams. They will be read aloud on the day.

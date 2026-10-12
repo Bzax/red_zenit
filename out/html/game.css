@@ -140,6 +140,12 @@ header {
   font-size: 0.95em;
   text-align: center;
 }
+#tools_wrapper[hidden] {
+  display: none;
+}
+#header_bar[hidden] {
+  display: none;
+}
 #header_bar p {
   margin: 0;
   flex: 1 1 auto;
@@ -270,14 +276,14 @@ blockquote + blockquote.attribution {
   float: right;
   right: 0.4em;
 }
-#qualities {
+#qualities, #qualities_right {
   text-indent: 0;
   line-height: 1.3em;
 }
-#qualities p {
+#qualities p, #qualities_right p {
   text-indent: 0;
 }
-#qualities h1 {
+#qualities h1, #qualities_right h1 {
   font-size: 1.1em;
   font-weight: normal;
   text-align: center;
@@ -286,7 +292,7 @@ blockquote + blockquote.attribution {
   text-shadow: rgba(255, 255, 255, 0.75) 2px 2px 2px,
                rgba(0, 0, 0, 0.1) -1px -1px 2px;
 }
-#qualities h1 + p:first-line {
+#qualities h1 + p:first-line, #qualities_right h1 + p:first-line {
   font-weight: normal;
 }
 
@@ -521,8 +527,18 @@ img {
     top: 50%;
 }
 
+/* wide screens: two sidebars; narrow screens: one sidebar with every tab */
+@media screen and (min-width: 1201px) {
+  .narrow_only {
+      display: none;
+  }
+}
+
 /* smaller screens: hide left margin */
 @media screen and (max-width: 1200px) {
+  .wide_only {
+      display: none;
+  }
   .tools {
       margin-right: 0.4em;
       margin-left: 0.4em;
@@ -543,7 +559,7 @@ img {
       line-height: 160%;
       padding: 1em 1em 1.5em 1em;
   }
-  #qualities {
+  #qualities, #qualities_right {
       font-size: 1em;
   }
   #tools_wrapper {
@@ -604,6 +620,37 @@ img {
 table {
     border-spacing: 0.5em;
     margin: 0.5em auto;
+}
+
+/* budget tables: label / amount pairs, income on the left and expenses on the right */
+.budget-table {
+    border-collapse: collapse;
+    margin: 0.8em auto;
+}
+.budget-table th,
+.budget-table td {
+    padding: 0.15em 0.5em;
+}
+.budget-table th {
+    border-bottom: 1px solid var(--border-color);
+}
+.budget-table td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+.budget-table th + th,
+.budget-table td:nth-child(3) {
+    padding-left: 1.5em;
+}
+.budget-table tr.total td {
+    padding-top: 0.4em;
+}
+.budget-table tr.balance td {
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.3em;
+}
+.budget-table tr.balance td:first-child {
+    text-align: right;
 }
 
 /* Styles for parties */
@@ -697,6 +744,92 @@ table {
 .tooltip-text:hover {
   color: #255794;
   text-decoration: underline;
+}
+
+/* Poll bar chart in the Polls tab */
+.sidebar-poll {
+  display: block;
+  margin: 0.4em auto 0.6em auto;
+}
+.sidebar-poll .poll-value {
+  font-size: 11px;
+  fill: var(--text-color);
+}
+.sidebar-poll .poll-label {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--text-color);
+}
+.sidebar-poll .poll-axis {
+  stroke: var(--border-color);
+  stroke-width: 1;
+}
+
+/* Folketing chart in the Politics tab */
+.sidebar-parliament {
+  display: block;
+  margin: 0.3em auto 0.2em auto;
+}
+.sidebar-parliament .seat {
+  transition: opacity 0.2s;
+}
+.party-detail {
+  font-size: 0.9em;
+  min-height: 1.3em;
+  margin-bottom: 0.6em;
+}
+.party-detail-info {
+  margin-top: 0.3em;
+  font-size: 0.95em;
+  opacity: 0.85;
+}
+/* the party rows only feed the chart's detail box; the chart replaces the old list */
+.party-row {
+  display: none;
+}
+#qualities p:has(> .party-row),
+#qualities_right p:has(> .party-row) {
+  display: none;
+}
+
+/* "Resources" in the status bar opens the budget */
+.resources-hover {
+  cursor: help;
+  text-decoration: dotted underline;
+}
+.budget-popup {
+  position: fixed;
+  z-index: 9999;
+  max-width: calc(100vw - 16px);
+  padding: 0.6em 0.9em;
+  color: var(--text-color);
+  background-color: var(--content-bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.25);
+  font-size: 0.9em;
+  pointer-events: none;
+}
+.budget-popup[hidden] {
+  display: none;
+}
+.budget-popup h1 {
+  font-size: 1em;
+  margin: 0 0 0.4em 0;
+}
+.budget-popup p {
+  margin: 0.2em 0;
+}
+
+/* sentiment labels (relations, dissent, efficiency...): keep the label's own colour,
+   and show the pips in the hover box with the symbol font */
+.tooltip-text.pip-tip,
+.tooltip-text.pip-tip:hover {
+  color: inherit;
+}
+.tooltip-text.pip-tip[data-tooltip]::after {
+  font-family: "DejaVu Sans", "Segoe UI Symbol", "Apple Symbols",
+               "Noto Sans Symbols 2", sans-serif;
+  white-space: nowrap;
 }
 
 /* Ensure bold markup renders bold with the bundled Futura Bold face */

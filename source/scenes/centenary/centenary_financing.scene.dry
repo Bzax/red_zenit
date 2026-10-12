@@ -1,0 +1,65 @@
+title: Financing the Celebrations
+new-page: true
+is-card: true
+tags: centenary
+view-if: financing_centenary = 0 and (year == 1970 or (year == 1971 and month <= 3))
+on-arrival: month_actions += 1; financing_centenary = 1
+card-image: img/loteri.jpg
+
+= Financing the Celebrations
+
+A celebration this size costs money. The treasurer suggests a jubilee lottery among our members. We also have to decide how big a role LO should have.
+
+- @lottery_centenary: Hold a jubilee lottery.
+- @no_lottery_centenary: No lottery.
+
+@lottery_centenary
+subtitle: -10 resources up front. The stronger our party machine, the more tickets we sell.
+choose-if: resources >= 10
+unavailable-subtitle: We don't have the 10 resources needed to print the tickets.
+on-arrival: {!
+Q.lottery_centenary = 1;
+Q.resources -= 10;
+var chance = Math.min(0.85, 0.35 + 0.25 * Q.efc);
+Q.lottery_centenary_won = (Math.random() < chance) ? 1 : 0;
+if (Q.lottery_centenary_won) {
+  Q.resources += 40;
+}
+!}
+
+Jubilee lottery tickets are printed by the tens of thousand, the grand prize being a new Volvo and a week at one of {!<span class="tooltip-text" title="Dansk Folke-Ferie was founded in 1938 by the labour movement to give working families access to affordable holidays.">Dansk Folke-Ferie's</span>!} holiday centres. Each chapter gets a stack of tickets to sell.
+
+[? if lottery_centenary_won : The tickets sell out weeks before the draw. After paying for the prizes, we have money left over for the celebrations. ?][? if lottery_centenary_won = 0 : Sales are slow, and many chapters send their tickets back unsold. After paying for the prizes, we have lost money. ?]
+
+- @lo_step_centenary: Continue.
+
+@no_lottery_centenary
+subtitle: We keep our money.
+go-to: lo_step_centenary
+
+
+@lo_step_centenary
+
+LO's chairman {!<span class="tooltip-text" title="Thomas Nielsen has led LO, the Danish trade union confederation, since 1967.">Thomas Nielsen</span>!} has told us that LO would like to take part in the celebrations. How involved should they be?
+
+- @lo_joint_centenary: Make it a celebration of the whole labour movement.
+- @lo_funded_centenary: Ask LO for a contribution, but keep the celebration ours.
+- @lo_alone_centenary: Keep LO out of it. It is the party's anniversary.
+
+@lo_joint_centenary
+subtitle: +20 resources and better relations with LO, but we will share the spotlight.
+on-arrival: lo_centenary += 1; lo_joint_centenary += 1; resources += 20; lo_relations += 5
+
+LO agrees to share the costs, and union contingents will march alongside our chapters. Thomas Nielsen will speak after our chairman. Some party members feel the unions are taking over our anniversary.
+
+@lo_funded_centenary
+subtitle: +10 resources, but LO resents paying without a say.
+on-arrival: lo_centenary += 1; lo_funded_centenary += 1; resources += 10; lo_relations -= 4
+
+LO pays. Thomas Nielsen tells us that next time he expects to be asked for more than money.
+
+@lo_alone_centenary
+subtitle: The party keeps the stage to itself, but LO will be offended.
+on-arrival: lo_centenary += 1; lo_alone_centenary += 1; lo_relations -= 2
+
+We thank LO for the offer and explain that the centenary is a party event. They are welcome to send a delegation.

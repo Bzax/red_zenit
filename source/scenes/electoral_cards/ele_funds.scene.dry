@@ -1,12 +1,13 @@
 title: Campaign Funds
 new-page: true
-view-if: resources < 20
-on-arrival: month_actions += 1;
+# once per election campaign: ele_funds_campaign records the campaign it was last played in
+view-if: ele_funds_campaign <= n_elections and (resources < 20)
+on-arrival: month_actions += 1; ele_funds_campaign = n_elections + 1
 max-visits: 36
 is-card: true
 card-image: img/statistics.jpg
 frequency: 9999
-tags: - #election_campaign
+tags: election_campaign
 
 = Campaign Funds
 

@@ -26,7 +26,7 @@ for the coming negotiations LO hope to win:
 - @encourage_more: Encourage them to up their demands and prepare for conflict.
 
 @discourage
-on-arrival: discourage_lo = 1; lo_relations -= 10; b_relation += 9; v_relation += 8; c_relation += 7 if a_in_government != 1; worker_income += worker_income * 0.035; economic_growth -= 0.2;
+on-arrival: discourage_lo = 1; lo_relations -= 10; b_relation += 9; v_relation += 8; c_relation += 7 if a_in_government != 1; worker_income += worker_income * 0.035; economic_growth -= 0.2; left_frustration += 5
 subtitle: This will upset LO, but it may ease pressure on the economy [? if a_in_government != 1 : and improve our relationship with the governing parties?].
 go-to: @unionrelations2 if lo_relations <= 50
 

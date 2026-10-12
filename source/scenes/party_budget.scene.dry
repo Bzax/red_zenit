@@ -1,65 +1,67 @@
-title: Budget Scene
+title: The Annual Budget
 subtitle: A new year
 face-image: img/budget.jpg
 on-arrival: {!
+// last year's figures, before anything changes
+Q.last_total_income = Q.total_income;
+Q.last_total_expenses = Q.total_expenses;
 Q.budget_net = Q.total_income - Q.total_expenses;
 
+// the state subsidy follows the last election result
+var old_state = Q.income_state;
 var last_result = Number(Q.a_vote);
 if (!Number.isFinite(last_result)) last_result = Number(Q.a_r) || 0;
 Q.income_state = Math.floor(last_result / 10);
+Q.state_change = Q.income_state - old_state;
+
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
 
 Q.economic_growth += 1;
 !}
 
-= **[+ year +] Budget**
+= The [+ year +] Budget
 
 The treasurer spreads last year's ledgers across the table, and the central committee settles in to reckon with the books.
 
-Last year, we averaged a monthly income of [+ total_income +] against monthly expenses of [+ total_expenses +][? if income_other > 0 : (partly from extraordinary income)?].
-
-{!<table>!}
-{!<tr><th colspan="2">!}Last Year's Monthly Expenses{!</th></tr>!}
-{!<tr><td>!}Apparatus{!</td><td>!}-[+ expense_apparatus +]{!</td></tr>!}
-{!<tr><td>!}Local chapters{!</td><td>!}-[+ expense_local_chapters +]{!</td></tr>!}
-{!<tr><td>!}Newspapers{!</td><td>!}-[+ expense_newspaper +]{!</td></tr>!}
-{!<tr><td>!}Youth party{!</td><td>!}-[+ expense_dsu +]{!</td></tr>!}
-{!<tr><td><span class="double-underline">!}Total{!</span></td><td><span class="double-underline">!}[+ total_expenses +]{!</span></td></tr>!}
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Last year, per month{!</th></tr>!}
+{!<tr><td>!}Income{!</td><td class="num">!}+[+ last_total_income +]{!</td></tr>!}
+{!<tr><td>!}Expenses{!</td><td class="num">!}−[+ last_total_expenses +]{!</td></tr>!}
+{!<tr class="balance"><td>!}[? if budget_net >= 0 : Surplus ?][? if budget_net < 0 : Deficit ?]{!</td><td class="num">!}[? if budget_net >= 0 : +[+ budget_net +] ?][? if budget_net < 0 : −[+ 0 - budget_net +] ?]{!</td></tr>!}
 {!</table>!}
 
-[? if budget_net >= 0 : We are currently running a monthly surplus of [+ budget_net +] resources. ?][? if budget_net < 0 : We are currently running a monthly deficit of [+ 0 - budget_net +] resources. ?]
+[? if state_change > 0 : Thanks to our gains at the last election, the state subsidy rises to [+ income_state +] a month. ?][? if state_change < 0 : After our losses at the last election, the state subsidy falls to [+ income_state +] a month. ?]
 
-[? if dissent <= 0.15 : With spirits high across the party, we may be able to press our members - or our allies at LO - for greater contributions this year. ?][? if dissent > 0.6 : With dissent running this high, now is not the moment to ask more of our members. ?][? if dissent > 0.15 and dissent <= 0.6 and lo_relations >= 75 : Our strong standing with LO suggests they might be open to greater support this year. ?][? if dissent > 0.15 and dissent <= 0.6 and lo_relations <= 30 : Our poor standing with LO makes further requests for funding unlikely to succeed. ?]
+[? if dissent <= 0.15 : Spirits are high across the party - our members, and perhaps our allies in LO, may be willing to give a little more this year. ?][? if dissent > 0.6 : With dissent running this high, now is not the moment to ask more of our members. ?][? if dissent > 0.15 and dissent <= 0.6 and lo_relations >= 75 : Our strong standing with LO suggests they might be open to greater support this year. ?][? if dissent > 0.15 and dissent <= 0.6 and lo_relations <= 30 : Our poor standing with LO makes further requests for money unlikely to succeed. ?] [? if mediahealth >= 80 : Our press has rarely been in better health, reaching more readers than ever. ?][? if mediahealth <= 20 : Our newspapers are struggling badly, and readers are drifting away. ?] [? if efc >= 1.2 : The party machine is running better than we could have hoped. ?][? if efc <= 0.6 : The party machine feels sluggish and understaffed. ?] [? if expense_dsu >= 3 : DSU has never been better funded, and it shows in their energy. ?][? if expense_dsu <= 0 : Our youth wing feels badly neglected. ?]
 
-[? if mediahealth >= 80 : Our press has rarely been in ruder health, reaching more readers than ever. ?][? if mediahealth <= 20 : Our newspapers are struggling badly, and readers are drifting away. ?]
-
-[? if efc >= 1.2 : The party machine is running better than we could have hoped. ?][? if efc <= 0.6 : The party machine feels sluggish and understaffed. ?]
-
-[? if expense_dsu >= 3 : DSU has never been better funded, and it shows in their energy. ?][? if expense_dsu <= 0 : Our youth wing feels badly neglected. ?]
-
-Whatever we decide today will shape the coming year.
-
-- @what_expenses: Lets get to work.
+- @what_expenses: Turn to the new budget.
 
 
 @what_expenses
+on-arrival: {!
+Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_newspaper + Q.expense_dsu;
+Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
+!}
 
-**[+ year +] Budget Proposal**
+= The [+ year +] Budget
 
-The floor is open.
+The floor is open. Every line can be changed before the committee approves the budget.
 
-{!<table>!}
-{!<tr><th>!}Monthly Income{!</th><th>!}Monthly Expenses{!</th></tr>!}
-{!<tr><td>!}Dues: +[+ dues +]{!</td><td>!}Apparatus: -[+ expense_apparatus +]{!</td></tr>!}
-{!<tr><td>!}LO: +[+ income_lo +]{!</td><td>!}Local chapters: -[+ expense_local_chapters +]{!</td></tr>!}
-{!<tr><td>!}State: +[+ income_state +]{!</td><td>!}Newspapers: -[+ expense_newspaper +]{!</td></tr>!}
-{!<tr><td>!}[? if income_other > 0 : Other: +[+ income_other +] ?]{!</td><td>!}Youth party: -[+ expense_dsu +]{!</td></tr>!}
-{!<tr><td><span class="double-underline">!}Total monthly income: [+ total_income +]{!</span></td><td><span class="double-underline">!}Total monthly expenses: [+ total_expenses +]{!</span></td></tr>!}
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Income, per month{!</th><th colspan="2">!}Expenses, per month{!</th></tr>!}
+{!<tr><td><span class="tooltip-text" title="Paid by every member. Higher dues bring in more money, but weigh heavily on poorer and unemployed members.">!}Dues{!</span></td><td class="num">!}+[+ dues +]{!</td><td><span class="tooltip-text" title="Our professional staff. A larger apparatus compensates for a weaker membership, but discourages grassroots activity.">!}Apparatus{!</span></td><td class="num">!}−[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="The trade union confederation's contribution. It only grows if we negotiate for it, and every request tries LO's patience.">!}LO{!</span></td><td class="num">!}+[+ income_lo +]{!</td><td><span class="tooltip-text" title="Funding for our branches. Well-funded chapters keep members active and reduce dissent - more so the larger our membership.">!}Local chapters{!</span></td><td class="num">!}−[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td><span class="tooltip-text" title="Follows our result at the last election.">!}State{!</span></td><td class="num">!}+[+ income_state +]{!</td><td><span class="tooltip-text" title="Subsidies for our press. A well-funded press reduces dissent and keeps our media healthy.">!}Newspapers{!</span></td><td class="num">!}−[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other ?]{!</td><td class="num">!}[? if income_other > 0 : +[+ income_other +] ?]{!</td><td><span class="tooltip-text" title="Funding for DSU, our youth party. A well-funded youth wing eases dissent on the left and draws in new members.">!}Youth party{!</span></td><td class="num">!}−[+ expense_dsu +]{!</td></tr>!}
+{!<tr class="total"><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}+[+ total_income +]{!</span></td><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}−[+ total_expenses +]{!</span></td></tr>!}
+{!<tr class="balance"><td colspan="3">!}Monthly balance{!</td><td class="num">!}[? if total_income >= total_expenses : +[+ total_income - total_expenses +] ?][? if total_income < total_expenses : −[+ total_expenses - total_income +] ?]{!</td></tr>!}
 {!</table>!}
 
-- @fund_options: Invest more in our organizations.
-- @austerity_options: Look for savings.
-- @income_options: Look at boosting income.
-- @change_b: Keep this budget.
+- @fund_options: Increase funding for one of our organisations.
+- @austerity_options: Cut spending.
+- @income_options: Raise more income.
+- @change_b: Approve the budget as it stands.
 
 
 @fund_options
@@ -68,58 +70,58 @@ Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_ne
 Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
 !}
 
-= **[+ year +] Budget**
+= Increasing Funding
 
-Delegates from each wing of the party press their case for a larger share of next year's funding.
+Delegates from every wing of the party press their case for a larger share of the money.
 
-{!<table>!}
-{!<tr><th colspan="2">!}Monthly Expenses{!</th></tr>!}
-{!<tr><td><span class="tooltip-text" title="A larger apparatus professionalizes our bureaucracy, helping compensate for a weaker membership - but the more bureaucratic we become, the more it discourages grassroots activity.">!}Apparatus{!</span></td><td>!}-[+ expense_apparatus +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="Well-funded local chapters organize our members and reduce dissent, and become more effective as our movement grows - though funding them matters little while our membership remains small.">!}Local chapters{!</span></td><td>!}-[+ expense_local_chapters +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="A well-funded press reduces dissent and keeps our media's influence from fading.">!}Newspapers{!</span></td><td>!}-[+ expense_newspaper +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="A well-funded youth wing eases dissent on the left and helps draw in new members.">!}Youth party{!</span></td><td>!}-[+ expense_dsu +]{!</td></tr>!}
-{!<tr><td><span class="double-underline">!}Total monthly expenses{!</span></td><td><span class="double-underline">!}[+ total_expenses +]{!</span></td></tr>!}
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Income, per month{!</th><th colspan="2">!}Expenses, per month{!</th></tr>!}
+{!<tr><td>!}Dues{!</td><td class="num">!}+[+ dues +]{!</td><td>!}Apparatus{!</td><td class="num">!}−[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO{!</td><td class="num">!}+[+ income_lo +]{!</td><td>!}Local chapters{!</td><td class="num">!}−[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State{!</td><td class="num">!}+[+ income_state +]{!</td><td>!}Newspapers{!</td><td class="num">!}−[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other ?]{!</td><td class="num">!}[? if income_other > 0 : +[+ income_other +] ?]{!</td><td>!}Youth party{!</td><td class="num">!}−[+ expense_dsu +]{!</td></tr>!}
+{!<tr class="total"><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}+[+ total_income +]{!</span></td><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}−[+ total_expenses +]{!</span></td></tr>!}
+{!<tr class="balance"><td colspan="3">!}Monthly balance{!</td><td class="num">!}[? if total_income >= total_expenses : +[+ total_income - total_expenses +] ?][? if total_income < total_expenses : −[+ total_expenses - total_income +] ?]{!</td></tr>!}
 {!</table>!}
 
-<span class="double-underline">Total monthly income: [+ total_income +]</span>
+Which organisation should receive more?
 
-Where should we invest more?
-
-- @more_newspaper: Fund the press further.
-- @more_administration: Fund the apparatus further.
-- @more_youth_party: Fund the youth party further.
-- @more_local_chapters: Fund the local chapters further.
-- @austerity_options: Look for savings instead.
-- @income_options: Look at income instead.
-- @change_b: Confirm the new budget.
+- @more_newspaper: The newspapers.
+- @more_administration: The apparatus.
+- @more_local_chapters: The local chapters.
+- @more_youth_party: The youth party.
+- @austerity_options: Cut spending instead.
+- @income_options: Raise more income instead.
+- @what_expenses: Back to the overview.
+- @change_b: Approve the budget.
 
 
 @more_newspaper
-subtitle: A well-funded press reduces dissent and keeps our media's influence from fading.
+subtitle: +1 a month. Reduces dissent and keeps our press healthy.
 choose-if: total_expenses + 1 <= total_income
-unavailable-subtitle: This would put us into deficit.
+unavailable-subtitle: We can't afford this without running a deficit.
 on-arrival: expense_newspaper += 1; resources -= 1;
 go-to: fund_options
 
 @more_administration
-subtitle: A larger apparatus professionalizes our bureaucracy, helping compensate for a weaker membership - but discourages grassroots activity.
+subtitle: +1 a month. Compensates for a weaker membership, but discourages grassroots activity.
 choose-if: total_expenses + 1 <= total_income
-unavailable-subtitle: This would put us into deficit.
+unavailable-subtitle: We can't afford this without running a deficit.
 on-arrival: expense_apparatus += 1; resources -= 1;
 go-to: fund_options
 
-@more_youth_party
-subtitle: A well-funded youth wing eases dissent on the left and helps draw in new members.
+@more_local_chapters
+subtitle: +1 a month. Keeps members active and reduces dissent - more so the larger our membership.
 choose-if: total_expenses + 1 <= total_income
-unavailable-subtitle: This would put us into deficit.
-on-arrival: expense_dsu += 1; resources -= 1;
+unavailable-subtitle: We can't afford this without running a deficit.
+on-arrival: expense_local_chapters += 1; resources -= 1;
 go-to: fund_options
 
-@more_local_chapters
-subtitle: Well-funded local chapters organize our members and reduce dissent, and become more effective as our movement grows - though this matters little while our membership remains small.
+@more_youth_party
+subtitle: +1 a month. Eases dissent on the left and draws in new members.
 choose-if: total_expenses + 1 <= total_income
-unavailable-subtitle: This would put us into deficit.
-on-arrival: expense_local_chapters += 1; resources -= 1;
+unavailable-subtitle: We can't afford this without running a deficit.
+on-arrival: expense_dsu += 1; resources -= 1;
 go-to: fund_options
 
 
@@ -129,50 +131,58 @@ Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_ne
 Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
 !}
 
-= **[+ year +] Budget**
+= Cutting Spending
 
 A grim mood settles over the room as the treasurer suggests where the knife might fall.
 
-{!<table>!}
-{!<tr><th colspan="2">!}Monthly Expenses{!</th></tr>!}
-{!<tr><td><span class="tooltip-text" title="Cutting the apparatus reduces bureaucratic efficiency, though it frees up members for more grassroots activity.">!}Apparatus{!</span></td><td>!}[+ expense_apparatus +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="Cutting local chapters raises dissent and leaves our branches less active - though this matters little while our movement remains small.">!}Local chapters{!</span></td><td>!}[+ expense_local_chapters +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="Cutting the press raises dissent and lets our media's influence fade.">!}Newspapers{!</span></td><td>!}[+ expense_newspaper +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="Cutting the youth wing raises dissent on the left and slows the growth of our membership.">!}Youth party{!</span></td><td>!}[+ expense_dsu +]{!</td></tr>!}
-{!<tr><td><span class="double-underline">!}Total monthly expenses{!</span></td><td><span class="double-underline">!}[+ total_expenses +]{!</span></td></tr>!}
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Income, per month{!</th><th colspan="2">!}Expenses, per month{!</th></tr>!}
+{!<tr><td>!}Dues{!</td><td class="num">!}+[+ dues +]{!</td><td>!}Apparatus{!</td><td class="num">!}−[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO{!</td><td class="num">!}+[+ income_lo +]{!</td><td>!}Local chapters{!</td><td class="num">!}−[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State{!</td><td class="num">!}+[+ income_state +]{!</td><td>!}Newspapers{!</td><td class="num">!}−[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other ?]{!</td><td class="num">!}[? if income_other > 0 : +[+ income_other +] ?]{!</td><td>!}Youth party{!</td><td class="num">!}−[+ expense_dsu +]{!</td></tr>!}
+{!<tr class="total"><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}+[+ total_income +]{!</span></td><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}−[+ total_expenses +]{!</span></td></tr>!}
+{!<tr class="balance"><td colspan="3">!}Monthly balance{!</td><td class="num">!}[? if total_income >= total_expenses : +[+ total_income - total_expenses +] ?][? if total_income < total_expenses : −[+ total_expenses - total_income +] ?]{!</td></tr>!}
 {!</table>!}
-
-<span class="double-underline">Total monthly income: [+ total_income +]</span>
 
 Where should we cut?
 
-- @less_newspaper: Cut the press.
-- @less_administration: Cut the apparatus.
-- @less_youth_party: Cut the youth party.
-- @less_local_chapters: Cut the local chapters.
-- @fund_options: Invest more instead.
-- @income_options: Look at income instead.
-- @change_b: Confirm the new budget.
+- @less_newspaper: The newspapers.
+- @less_administration: The apparatus.
+- @less_local_chapters: The local chapters.
+- @less_youth_party: The youth party.
+- @fund_options: Increase funding instead.
+- @income_options: Raise more income instead.
+- @what_expenses: Back to the overview.
+- @change_b: Approve the budget.
 
 
 @less_newspaper
-subtitle: Cutting the press raises dissent and lets our media's influence fade.
+subtitle: -1 a month. Raises dissent and lets our press decline.
+choose-if: expense_newspaper > 0
+unavailable-subtitle: The newspapers receive nothing already.
 on-arrival: expense_newspaper -= 1; resources += 1;
 go-to: austerity_options
 
 @less_administration
-subtitle: Cutting the apparatus reduces bureaucratic efficiency, though it frees up members for more grassroots activity.
+subtitle: -1 a month. Weakens the party machine, but frees members for grassroots activity.
+choose-if: expense_apparatus > 0
+unavailable-subtitle: The apparatus receives nothing already.
 on-arrival: expense_apparatus -= 1; resources += 1;
 go-to: austerity_options
 
-@less_youth_party
-subtitle: Cutting the youth wing raises dissent on the left and slows the growth of our membership.
-on-arrival: expense_dsu -= 1; resources += 1;
+@less_local_chapters
+subtitle: -1 a month. Raises dissent and leaves our branches less active.
+choose-if: expense_local_chapters > 0
+unavailable-subtitle: The local chapters receive nothing already.
+on-arrival: expense_local_chapters -= 1; resources += 1;
 go-to: austerity_options
 
-@less_local_chapters
-subtitle: Cutting local chapters raises dissent and leaves our branches less active - though this matters little while our movement remains small.
-on-arrival: expense_local_chapters -= 1; resources += 1;
+@less_youth_party
+subtitle: -1 a month. Raises dissent on the left and slows our membership growth.
+choose-if: expense_dsu > 0
+unavailable-subtitle: The youth party receives nothing already.
+on-arrival: expense_dsu -= 1; resources += 1;
 go-to: austerity_options
 
 
@@ -182,32 +192,36 @@ Q.total_expenses = Q.expense_apparatus + Q.expense_local_chapters + Q.expense_ne
 Q.total_income = Q.dues + Q.income_lo + Q.income_state + Q.income_other;
 !}
 
-= **[+ year +] Budget**
+= Raising Income
 
-Talk turns to where next year's money might come from.
+Talk turns to where the money might come from.
 
-{!<table>!}
-{!<tr><th colspan="2">!}Monthly Income{!</th></tr>!}
-{!<tr><td><span class="tooltip-text" title="Raising dues brings in more money each year, but alienates poorer and unemployed members - worse when unemployment is already high.">!}Dues{!</span></td><td>!}+[+ dues +]{!</td></tr>!}
-{!<tr><td><span class="tooltip-text" title="LO only increases their support if we negotiate for it directly, and asking costs us some goodwill regardless of the outcome.">!}LO{!</span></td><td>!}+[+ income_lo +]{!</td></tr>!}
-{!<tr><td>!}State{!</td><td>!}+[+ income_state +]{!</td></tr>!}
-[? if income_other > 0 : {!<tr><td>!}Other{!</td><td>!}+[+ income_other +]{!</td></tr>!} ?]
-{!<tr><td><span class="double-underline">!}Total monthly income{!</span></td><td><span class="double-underline">!}[+ total_income +]{!</span></td></tr>!}
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Income, per month{!</th><th colspan="2">!}Expenses, per month{!</th></tr>!}
+{!<tr><td>!}Dues{!</td><td class="num">!}+[+ dues +]{!</td><td>!}Apparatus{!</td><td class="num">!}−[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO{!</td><td class="num">!}+[+ income_lo +]{!</td><td>!}Local chapters{!</td><td class="num">!}−[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State{!</td><td class="num">!}+[+ income_state +]{!</td><td>!}Newspapers{!</td><td class="num">!}−[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other ?]{!</td><td class="num">!}[? if income_other > 0 : +[+ income_other +] ?]{!</td><td>!}Youth party{!</td><td class="num">!}−[+ expense_dsu +]{!</td></tr>!}
+{!<tr class="total"><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}+[+ total_income +]{!</span></td><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}−[+ total_expenses +]{!</span></td></tr>!}
+{!<tr class="balance"><td colspan="3">!}Monthly balance{!</td><td class="num">!}[? if total_income >= total_expenses : +[+ total_income - total_expenses +] ?][? if total_income < total_expenses : −[+ total_expenses - total_income +] ?]{!</td></tr>!}
 {!</table>!}
 
-How should we raise more income?
+How should we raise more?
 
 - @raise_dues: Raise membership dues.
 - @lower_dues: Lower membership dues.
-- @negotiate_lo: Negotiate with LO for more funding.
-- @state_funding_explainer: Why does the state fund us?
-- @fund_options: Look at spending instead.
-- @change_b: Confirm the new budget.
+- @negotiate_lo: Ask LO for more support.
+- @state_funding_explainer: Why does the state pay us at all?
+- @fund_options: Increase funding instead.
+- @austerity_options: Cut spending instead.
+- @what_expenses: Back to the overview.
+- @change_b: Approve the budget.
 
 
 @raise_dues
-subtitle: +1 resource now, +1 dues going forward - costs support among poorer and unemployed members.
-view-if: dues <= 4
+subtitle: +1 a month, and +1 at once. Costs support among poorer and unemployed workers - more so when unemployment is high.
+choose-if: dues <= 4
+unavailable-subtitle: Our members won't bear any higher dues.
 on-arrival: {!
 Q.dues += 1;
 Q.resources += 1;
@@ -228,29 +242,31 @@ if (Q.dues >= 5) {
 go-to: income_options
 
 @lower_dues
-subtitle: -1 dues going forward - eases dissent among our members.
+subtitle: -1 a month. Eases dissent across every faction.
 choose-if: dues > 1
 unavailable-subtitle: Dues are already as low as they can go.
 on-arrival: dues -= 1; left_dissent -= 8; left_worker_dissent -= 8; right_worker_dissent -= 8; technocrat_dissent -= 8;
 go-to: income_options
 
 @negotiate_lo
-subtitle: Ask LO for greater support - takes effect at once.
+subtitle: +1 a month, but every request tries LO's patience.
 choose-if: lo_relations >= 50
-unavailable-subtitle: LO's low opinion of us makes further funding requests pointless right now.
+unavailable-subtitle: Relations with LO are too strained to ask for more right now.
 on-arrival: income_lo += 1; lo_relations -= 6;
 
-LO agrees to increase their support for the coming year - though they grow visibly annoyed at how often we come asking. Relations with LO: [+ lo_relations : lo_relations +] ([+ lo_relations +]).
+= Talks with LO
 
-<span class="double-underline">LO funding: +[+ income_lo +]</span>
+LO agrees to raise its contribution to [+ income_lo +] a month - though its leadership is visibly tiring of our requests. Our relations with LO are now [+ lo_relations : lo_relations +].
 
-- @income_options: Continue.
+- @income_options: Back to income.
 
 @state_funding_explainer
 
-Officially, this isn't public campaign financing - no such thing exists yet. On paper, the state subsidy is earmarked for hiring policy experts to advise our parliamentary group. In practice, nobody checks what the money is actually spent on.
+= The State Subsidy
 
-- @income_options: Continue.
+Officially, this isn't public party financing - no such thing exists yet. On paper, the subsidy is earmarked for hiring policy experts to advise our parliamentary group, and its size follows our result at the last election. In practice, nobody checks what the money is actually spent on.
+
+- @income_options: Back to income.
 
 
 @change_b
@@ -268,15 +284,18 @@ Q.yearly_budget_income_state = Q.income_state;
 Q.yearly_budget_income_other = Q.income_other;
 !}
 
-A light applause fills our central committee. Someone wipes their forehead. We have a new budget.
+= The [+ year +] Budget is Approved
 
-**[+ year +] Budget**
+A light applause fills the central committee. Someone wipes their forehead - we have a new budget.
 
-{!<table>!}
-{!<tr><th>!}Monthly Income{!</th><th>!}Monthly Expenses{!</th></tr>!}
-{!<tr><td>!}Dues: +[+ dues +]{!</td><td>!}Apparatus: -[+ expense_apparatus +]{!</td></tr>!}
-{!<tr><td>!}LO: +[+ income_lo +]{!</td><td>!}Local chapters: -[+ expense_local_chapters +]{!</td></tr>!}
-{!<tr><td>!}State: +[+ income_state +]{!</td><td>!}Newspapers: -[+ expense_newspaper +]{!</td></tr>!}
-{!<tr><td>!}[? if income_other > 0 : Other: +[+ income_other +] ?]{!</td><td>!}Youth party: -[+ expense_dsu +]{!</td></tr>!}
-{!<tr><td><span class="double-underline">!}Total monthly income: [+ total_income +]{!</span></td><td><span class="double-underline">!}Total monthly expenses: [+ total_expenses +]{!</span></td></tr>!}
+{!<table class="budget-table">!}
+{!<tr><th colspan="2">!}Income, per month{!</th><th colspan="2">!}Expenses, per month{!</th></tr>!}
+{!<tr><td>!}Dues{!</td><td class="num">!}+[+ dues +]{!</td><td>!}Apparatus{!</td><td class="num">!}−[+ expense_apparatus +]{!</td></tr>!}
+{!<tr><td>!}LO{!</td><td class="num">!}+[+ income_lo +]{!</td><td>!}Local chapters{!</td><td class="num">!}−[+ expense_local_chapters +]{!</td></tr>!}
+{!<tr><td>!}State{!</td><td class="num">!}+[+ income_state +]{!</td><td>!}Newspapers{!</td><td class="num">!}−[+ expense_newspaper +]{!</td></tr>!}
+{!<tr><td>!}[? if income_other > 0 : Other ?]{!</td><td class="num">!}[? if income_other > 0 : +[+ income_other +] ?]{!</td><td>!}Youth party{!</td><td class="num">!}−[+ expense_dsu +]{!</td></tr>!}
+{!<tr class="total"><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}+[+ total_income +]{!</span></td><td><span class="double-underline">!}Total{!</span></td><td class="num"><span class="double-underline">!}−[+ total_expenses +]{!</span></td></tr>!}
+{!<tr class="balance"><td colspan="3">!}Monthly balance{!</td><td class="num">!}[? if total_income >= total_expenses : +[+ total_income - total_expenses +] ?][? if total_income < total_expenses : −[+ total_expenses - total_income +] ?]{!</td></tr>!}
 {!</table>!}
+
+The monthly balance will be added to our resources each month.

@@ -1,11 +1,13 @@
 title: Government Negotiations
 new-page: true
-on-arrival: month_actions += 1
+on-arrival: month_actions += 1; negotiations_campaign = n_elections + 1
+# once per election campaign: negotiations_campaign records the campaign it was last played in
+view-if: negotiations_campaign <= n_elections
 max-visits: 36
 is-card: true
 card-image: img/aof.jpg
 frequency: 100
-tags: - #election_campaign
+tags: election_campaign
 
 = Government Negotiations
 
@@ -103,14 +105,14 @@ subtitle: This could improve our relationship ahead of the actual negotiations.
 choose-if: v_relation >= 50
 view-if: poll_sv >= 45
 unavailable-subtitle: V are disinterested in talks.
-on-arrival: v_relation += 10
+on-arrival: v_relation += 10; left_frustration += 3; right_frustration += 2
 
 @sc_negotiation
 subtitle: This could improve our relationship ahead of the actual negotiations.
 choose-if: c_relation >= 50
 view-if: poll_sc >= 45
 unavailable-subtitle: C are disinterested in talks.
-on-arrival: c_relation += 10
+on-arrival: c_relation += 10; left_frustration += 3; right_frustration += 2
 
 @broad_left_approach
 subtitle: This could improve our relationship ahead of the actual negotiations.
@@ -174,7 +176,7 @@ view-if: chancellor_party != 'B'
 
 @b_potential
 view-if: chancellor_party = 'B'
-on-arrival: b_relation += 15; b_coop_promise = 1
+on-arrival: b_relation += 15; b_coop_promise = 1; left_frustration += 3; right_frustration += 2
 
 The B leaders are pleased to hear this. If the die are cast in our favour, they express their willingness to negotiate further.
 
